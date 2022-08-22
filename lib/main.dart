@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:watchlist/mainPage.dart';
 import 'package:watchlist/pages/homepage.dart';
 
 void main() {
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.red,
       ),
-      home: HomePage(),
+      home: MainPage(),
     );
   }
 }

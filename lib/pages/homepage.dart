@@ -18,51 +18,52 @@ class _HomepageState extends State<HomePage> {
     List pages = [
       SearchPage(),
       ProfilPage(),
-
     ];
-    return Scaffold(
-      backgroundColor: Colors.white,
-      bottomNavigationBar: BottomNavigationBar(
-       selectedItemColor: Colors.black87.withOpacity(0.8),
-       unselectedItemColor: Colors.grey.withOpacity(0.5),
-       showSelectedLabels: true,
-       showUnselectedLabels: false,
-       //elevation: 0,
-        items: [
-          BottomNavigationBarItem(icon: Icon(Icons.movie_creation_outlined), label: "Lists"),
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profil"),
-        ],
-      ),
-
-      body: SafeArea(
+    return Container(
+      child: SafeArea(
         child: Padding(
-            padding: EdgeInsets.only(top: 5, bottom: 5),
-                child: Column(children: [
-                  //logo + matchyourwatchlist
-                  Container(
-                    alignment: Alignment.center,
+          padding: EdgeInsets.only(top: 5, bottom: 5),
+          child: Column(children: [
+            //logo + matchyourwatchlist
+            //      Container(
+            //      alignment: Alignment.center,
+            //       child: Image.asset(
+            //      "lib/assets/logo.png",
+            //       height: screenheight * 0.05,
+            //     ),
+            //      ),
+
+            Container(
+              alignment: Alignment.centerRight,
+              margin: EdgeInsets.only(right: 10, top: 10),
+              child: Column(children: [
+                Container(
+                alignment: Alignment.centerRight,
+                child: CircleAvatar(
+                  radius: 20,
+                  backgroundColor: Colors.grey,
+                  child: IconButton(
+                  onPressed: () {},
+                    color: Colors.black,
+                  icon: Icon(Icons.filter_alt_outlined),
+                ),),),
+                Container(
+                   // margin: EdgeInsets.only(top: 10),
+                  alignment: Alignment.center,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(50),
+                        topRight: Radius.circular(50)),
                     child: Image.asset(
-                    "lib/assets/logo.png",
-                    height: screenheight * 0.05,
-                  ),
-                  ),
-
-                  Container(
-                    margin: EdgeInsets.only(top: 10),
-                    alignment: Alignment.center,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.only(topLeft: Radius.circular(60), topRight: Radius.circular(60)),
-                      child: Image.asset(
                       "lib/assets/test.jpg",
-                      height: screenwidth * 1.335,
+                      height: screenwidth * 1.3,
                     ),
-                    )
                   ),
-
-                ]),
-
+                )
+              ]),
             ),
+          ]),
+        ),
       ),
     );
   }

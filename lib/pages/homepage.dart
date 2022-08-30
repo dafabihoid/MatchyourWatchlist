@@ -20,50 +20,108 @@ class _HomepageState extends State<HomePage> {
       ProfilPage(),
     ];
     return Container(
-      child: SafeArea(
-        child: Padding(
-          padding: EdgeInsets.only(top: 5, bottom: 5),
-          child: Column(children: [
-            //logo + matchyourwatchlist
-            //      Container(
-            //      alignment: Alignment.center,
-            //       child: Image.asset(
-            //      "lib/assets/logo.png",
-            //       height: screenheight * 0.05,
-            //     ),
-            //      ),
-
-            Container(
-              alignment: Alignment.centerRight,
-              margin: EdgeInsets.only(right: 10, top: 10),
-              child: Column(children: [
-                Container(
-                alignment: Alignment.centerRight,
-                child: CircleAvatar(
-                  radius: 20,
-                  backgroundColor: Colors.grey,
-                  child: IconButton(
-                  onPressed: () {},
-                    color: Colors.black,
-                  icon: Icon(Icons.filter_alt_outlined),
-                ),),),
-                Container(
-                   // margin: EdgeInsets.only(top: 10),
-                  alignment: Alignment.center,
-                  child: ClipRRect(
+      width: double.maxFinite,
+      height: double.maxFinite,
+      child: Stack(
+        children: [
+          Positioned(
+              left: 0,
+              right: 0,
+              top: 24,
+              child: Container(
+                width: double.maxFinite,
+                height: 590,
+                decoration: BoxDecoration(
+                    image: DecorationImage(
+                        image: AssetImage("lib/assets/test.jpg"),
+                        fit: BoxFit.cover)),
+              )),
+          Positioned(
+              top: 400,
+              child: Container(
+                padding: EdgeInsets.only(left: 30, right: 30, top: 25),
+                width: screenwidth,
+                height: 500,
+                decoration: BoxDecoration(
+                    color: Colors.white,
                     borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(50),
-                        topRight: Radius.circular(50)),
-                    child: Image.asset(
-                      "lib/assets/test.jpg",
-                      height: screenwidth * 1.3,
+                    topLeft: Radius.circular(50),
+                    topRight: Radius.circular(50),
+                  )
+                ),
+
+                child: Column(
+                  children: [
+                    Container(
+                      alignment: Alignment.centerLeft,
+                    child: Text("Doktor Strange: Madness of Multiverse",
+                      style: TextStyle(
+                        fontSize: 25,
+
+                      ),)),
+
+                    Container(
+                      alignment: Alignment.centerLeft,
+                    child: Text("Fantasie, Sci Fi",
+                      style: TextStyle(
+                        fontSize: 18,
+                        color: Colors.black45
+                      ),)),
+                    Container(
+                    margin: EdgeInsets.only(top: 30),
+                    child: Row(
+                      children: [
+                      CircleAvatar(
+                      radius: 30,
+                      backgroundColor: Colors.grey,
+                      child: IconButton(
+                        onPressed: () {},
+                        color: Colors.black,
+                        icon: Icon(Icons.cancel),
+                      ),),
+
+                        Container(
+                          margin: EdgeInsets.only(left: screenwidth-180),
+                        child: CircleAvatar(
+                          radius: 30,
+                          backgroundColor: Colors.grey,
+                          child: IconButton(
+                            onPressed: () {},
+                            color: Colors.black,
+                            icon: Icon(Icons.favorite_outlined),
+                          ),))
+
+
+
+                      ],
+                    )
+                    )
+                  ],
+                ),
+
+
+                ),
+              ),
+          Positioned(
+              left: 20,
+              top: 40,
+              child: Row(
+                children: [
+                  CircleAvatar(
+                    radius: 25,
+                    backgroundColor: Colors.white54,
+                    child: IconButton(
+                      onPressed: () {},
+                      icon: Icon(Icons.filter_alt_outlined),
+                      color: Colors.white,
                     ),
-                  ),
-                )
-              ]),
-            ),
-          ]),
-        ),
+                  )
+
+
+                ],
+              )),
+
+        ],
       ),
     );
   }

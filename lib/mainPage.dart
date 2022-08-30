@@ -40,7 +40,7 @@ class _MainPageState extends State<MainPage> {
         //elevation: 0,
         items: [
           BottomNavigationBarItem(icon: Icon(Icons.movie_creation_outlined), label: "Lists"),
-          BottomNavigationBarItem(icon: Container(width: screenwidth*0.1, child:Image.asset("lib/assets/logo.png")), label: "Home"),
+          BottomNavigationBarItem(icon: Container(width: screenwidth*0.1, child:Image.asset("lib/assets/Logo.jpg")), label: "Home"),
           BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profil"),
         ],
         //Icon(Icons.home)

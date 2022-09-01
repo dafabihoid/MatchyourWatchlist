@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:watchlist/pages/profilpage.dart';
-import 'package:watchlist/pages/searchpage.dart';
+import 'package:watchlist/pages/ListPage.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -14,9 +14,10 @@ class _HomepageState extends State<HomePage> {
   Widget build(BuildContext context) {
     final screenwidth = MediaQuery.of(context).size.width;
     final screenheight = MediaQuery.of(context).size.height;
+    double x = 400;
 
     List pages = [
-      SearchPage(),
+      ListPage(),
       ProfilPage(),
     ];
     return Container(
@@ -37,71 +38,78 @@ class _HomepageState extends State<HomePage> {
                         fit: BoxFit.cover)),
               )),
           Positioned(
-              top: 400,
-              child: Container(
-                padding: EdgeInsets.only(left: 30, right: 30, top: 25),
-                width: screenwidth,
-                height: 500,
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.only(
+            top: x,
+            child: GestureDetector(
+              onVerticalDragEnd: (DragEndDetails details){
+                int sensitivity = 8;
+                if (details.primaryVelocity! > 0) {
+                  // User swiped Down
+                  print("down");
+                  x = 300;
+                } else if (details.primaryVelocity! < 0) {
+                  // User swiped Up
+                }
+              },
+            child: Container(
+              padding: EdgeInsets.only(left: 30, right: 30, top: 25),
+              width: screenwidth,
+              height: 500,
+              decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(50),
                     topRight: Radius.circular(50),
-                  )
-                ),
-
-                child: Column(
-                  children: [
-                    Container(
+                  )),
+              child: Column(
+                children: [
+                  Container(
                       alignment: Alignment.centerLeft,
-                    child: Text("Doktor Strange: Madness of Multiverse",
-                      style: TextStyle(
-                        fontSize: 25,
-
-                      ),)),
-
-                    Container(
+                      child: Text(
+                        "Doktor Strange: Madness of Multiverse",
+                        style: TextStyle(
+                          fontSize: 25,
+                        ),
+                      )),
+                  Container(
                       alignment: Alignment.centerLeft,
-                    child: Text("Fantasie, Sci Fi",
-                      style: TextStyle(
-                        fontSize: 18,
-                        color: Colors.black45
-                      ),)),
-                    Container(
-                    margin: EdgeInsets.only(top: 30),
-                    child: Row(
-                      children: [
-                      CircleAvatar(
-                      radius: 30,
-                      backgroundColor: Colors.grey,
-                      child: IconButton(
-                        onPressed: () {},
-                        color: Colors.black,
-                        icon: Icon(Icons.cancel),
-                      ),),
+                      child: Text(
+                        "Fantasie, Sci Fi",
+                        style: TextStyle(fontSize: 18, color: Colors.black45),
+                      )),
+                  Container(
+                      margin: EdgeInsets.only(top: 30),
+                      child: Row(
+                        children: [
+                          CircleAvatar(
+                            radius: 30,
+                            backgroundColor: Colors.grey,
+                            child: IconButton(
+                              onPressed: () {},
+                              color: Colors.black,
+                              icon: Icon(Icons.cancel),
+                            ),
+                          ),
 
-                        Container(
-                          margin: EdgeInsets.only(left: screenwidth-180),
-                        child: CircleAvatar(
-                          radius: 30,
-                          backgroundColor: Colors.grey,
-                          child: IconButton(
-                            onPressed: () {},
-                            color: Colors.black,
-                            icon: Icon(Icons.favorite_outlined),
-                          ),))
-
-
-
-                      ],
-                    )
-                    )
-                  ],
-                ),
-
-
-                ),
+                          Container(
+                              margin: EdgeInsets.only(left: screenwidth - 180),
+                              //   child: GestureDetector(                                 //!!!!!!!!!!!!!!!!!!
+                              //  onTapUp: ,
+                              child: CircleAvatar(
+                                radius: 30,
+                                backgroundColor: Colors.grey,
+                                child: IconButton(
+                                  onPressed: () {},
+                                  color: Colors.black,
+                                  icon: Icon(Icons.favorite_outlined),
+                                ),
+                              )) //)
+                        ],
+                      ))
+                ],
               ),
+            ),
+          ),
+          ),
           Positioned(
               left: 20,
               top: 40,
@@ -116,11 +124,8 @@ class _HomepageState extends State<HomePage> {
                       color: Colors.white,
                     ),
                   )
-
-
                 ],
               )),
-
         ],
       ),
     );

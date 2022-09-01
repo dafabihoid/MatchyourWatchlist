@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:watchlist/pages/homepage.dart';
 import 'package:watchlist/pages/profilpage.dart';
-import 'package:watchlist/pages/searchpage.dart';
+import 'package:watchlist/pages/ListPage.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
@@ -12,17 +12,18 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   List pages = [
-    SearchPage(),
+    ListPage(),
     HomePage(),
     ProfilPage(),
   ];
   int currentIndex = 1;
 
-  void onTap(int index){
-      setState(() {
-        currentIndex = index;
-      });
+  void onTap(int index) {
+    setState(() {
+      currentIndex = index;
+    });
   }
+
   @override
   Widget build(BuildContext context) {
     final screenwidth = MediaQuery.of(context).size.width;
@@ -39,8 +40,13 @@ class _MainPageState extends State<MainPage> {
         showUnselectedLabels: false,
         //elevation: 0,
         items: [
-          BottomNavigationBarItem(icon: Icon(Icons.movie_creation_outlined), label: "Lists"),
-          BottomNavigationBarItem(icon: Container(width: screenwidth*0.1, child:Image.asset("lib/assets/Logo.jpg")), label: "Home"),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.movie_creation_outlined), label: "Lists"),
+          BottomNavigationBarItem(
+              icon: Container(
+                  width: screenwidth * 0.1,
+                  child: Image.asset("lib/assets/Logo.jpg")),
+              label: "Home"),
           BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profil"),
         ],
         //Icon(Icons.home)

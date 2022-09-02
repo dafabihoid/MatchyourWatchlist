@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:watchlist/pages/homepage.dart';
-import 'package:watchlist/pages/profilpage.dart';
+import 'package:watchlist/pages/Homepage.dart';
+import 'package:watchlist/pages/Profilpage.dart';
 import 'package:watchlist/pages/ListPage.dart';
 
 class MainPage extends StatefulWidget {

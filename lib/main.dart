@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:watchlist/mainPage.dart';
-import 'package:watchlist/pages/homepage.dart';
+import 'package:watchlist/pages/Homepage.dart';
 
 void main() {
   runApp(const MyApp());

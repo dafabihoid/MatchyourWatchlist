@@ -9,16 +9,22 @@ class FilterPage extends StatefulWidget {
 }
 
 class _FilterPageState extends State<FilterPage> {
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Filtern"),
+        centerTitle: true,
+        title: const Text("Filter Settings"),
+        backgroundColor: Colors.black12,
       ),
       backgroundColor: Colors.white,
       body: Container(
-        child: Text("FilterPage"),
-      ),
-    );
+
+        ));
+
+
   }
+
 }

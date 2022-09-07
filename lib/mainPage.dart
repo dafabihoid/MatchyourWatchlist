@@ -45,7 +45,7 @@ class _MainPageState extends State<MainPage> {
           BottomNavigationBarItem(
               icon: Container(
                   width: screenwidth * 0.1,
-                  child: Image.asset("lib/assets/Logo.jpg")),
+                  child: Image.asset("lib/assets/Logo.png")),
               label: "Home"),
           BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profil"),
         ],

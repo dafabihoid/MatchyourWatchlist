@@ -5,7 +5,7 @@ import 'package:watchlist/pages/Homepage.dart';
 import 'package:watchlist/pages/WelcomePage.dart';
 import 'package:watchlist/pages/splash.dart';
 
-import 'CardProvider.dart';
+import '../utils/CardProvider.dart';
 
 void main() {
   runApp(const MyApp());

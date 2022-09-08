@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:watchlist/CardProvider.dart';
+import 'package:watchlist/utils/CardProvider.dart';
 import 'package:watchlist/pages/Profilpage.dart';
 import 'package:watchlist/pages/ListPage.dart';
 
 import '../class/Movie.dart';
-import '../tinder_Card.dart';
+import '../utils/tinder_Card.dart';
 import 'FilterPage.dart';
 import 'SearchPage.dart';
 

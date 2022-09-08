@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:watchlist/pages/Homepage.dart';
-import 'package:watchlist/main.dart';
-import '../class/Movie.dart';
+import 'package:watchlist/pages/main.dart';
+import '../../class/Movie.dart';
 
 enum CardStatus {like, dislike}
 

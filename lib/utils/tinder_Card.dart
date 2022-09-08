@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:watchlist/pages/Homepage.dart';
-import '../class/Movie.dart';
+import '../../class/Movie.dart';
 import 'CardProvider.dart';
 
 class TinderCard extends StatefulWidget {

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:watchlist/pages/Homepage.dart';
 import 'package:watchlist/main.dart';
+import '../class/Movie.dart';
 
 enum CardStatus {like, dislike}
 
@@ -59,7 +60,6 @@ class CardProvider extends ChangeNotifier {
     position = Offset.zero;
     notifyListeners();
     if(_movies.length < 3){
-      print("hello");
       _movies.insert(0,Movie(title: "Test Test",genre: "Fantasy", description: "Test", cover: "https://de.web.img3.acsta.net/pictures/22/04/07/09/24/5141471.jpg"));
       _movies.insert(1,Movie(title: "König der Löwen",genre: "Tiere", description: "Test", cover: "https://static.wikia.nocookie.net/koenigderloewen/images/a/a5/DerKoenigDerLoewen_poster_02.jpg/revision/latest?cb=20140626201338&path-prefix=de"));
     }

@@ -4,6 +4,7 @@ import 'package:watchlist/CardProvider.dart';
 import 'package:watchlist/pages/Profilpage.dart';
 import 'package:watchlist/pages/ListPage.dart';
 
+import '../class/Movie.dart';
 import '../tinder_Card.dart';
 import 'FilterPage.dart';
 import 'SearchPage.dart';
@@ -37,7 +38,20 @@ class _HomepageState extends State<HomePage> {
     return Scaffold(
       body: SafeArea(
         child: Stack(children: [
-          Container(
+           Container(
+            /*    decoration: BoxDecoration(
+             gradient: LinearGradient(
+                colors: [
+                  Color(0xFF701ebd),
+                  Color(0xFF873bcc),
+                  Color(0xFFfe4a97),
+                  Color(0xFFe17763),
+                  Color(0xFF68998c),
+                ],
+                begin: Alignment.topRight,
+                end: Alignment.bottomLeft
+              )
+            ),*/
               padding: EdgeInsets.all(25),
               child: Column(
                 children: [
@@ -48,6 +62,39 @@ class _HomepageState extends State<HomePage> {
                //     height: 10,
               //    ),
              //     buildButtons(),
+                ],
+              )
+           ),
+          Positioned(
+              left: 30,
+              top: 35,
+              child: Row(
+                children: [
+                  CircleAvatar(
+                    radius: 25,
+                    backgroundColor: Colors.white60,
+                    child: IconButton(
+                      onPressed: () {
+                        SearchButtonPressed();
+                      },
+                      icon: const Icon(Icons.search),
+                      color: Colors.black,
+                    ),
+                  ),
+                  Container(
+                      margin: EdgeInsets.only(left: screenwidth-160),
+                      alignment: Alignment.centerRight,
+                      child: CircleAvatar(
+                        radius: 25,
+                        backgroundColor: Colors.white60,
+                        child: IconButton(
+                          onPressed: () {
+                            FilterButtonPressed();
+                          },
+                          icon: const Icon(Icons.filter_alt_outlined),
+                          color: Colors.black,
+                        ),
+                      ))
                 ],
               )),
         ]),
@@ -107,16 +154,3 @@ class _HomepageState extends State<HomePage> {
   }
 }
 
-class Movie {
-  final String title;
-  final String genre;
-  final String description;
-  final String cover;
-
-  const Movie({
-    required this.title,
-    required this.genre,
-    required this.description,
-    required this.cover,
-  });
-}

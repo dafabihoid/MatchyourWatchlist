@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:watchlist/mainPage.dart';
 import 'package:watchlist/pages/Homepage.dart';
-import 'package:watchlist/splash.dart';
+import 'package:watchlist/pages/WelcomePage.dart';
+import 'package:watchlist/pages/splash.dart';
 
 import 'CardProvider.dart';
 
@@ -44,7 +45,7 @@ class testen extends State<MyApp>{
             ),
           ),
 
-          home: Splash(), //MainPage(),
+          home: Splash(),
         ));
   }
 }

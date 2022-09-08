@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'mainPage.dart';
+import '../mainPage.dart';
+import 'WelcomePage.dart';
 
 class Splash extends StatefulWidget {
   const Splash({Key? key}) : super(key: key);
@@ -36,6 +37,6 @@ class _SplashState extends State<Splash> {
 
    Navigatetohome()async {
     await Future.delayed(Duration(milliseconds: 1500),(){});
-    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>MainPage()));
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>WelcomePage()));
    }
 }

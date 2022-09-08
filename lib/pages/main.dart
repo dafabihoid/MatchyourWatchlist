@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:watchlist/mainPage.dart';
+import 'package:watchlist/pages/mainPage.dart';
 import 'package:watchlist/pages/Homepage.dart';
 import 'package:watchlist/pages/WelcomePage.dart';
 import 'package:watchlist/pages/splash.dart';
-
 import '../utils/CardProvider.dart';
 
-void main() {
+import 'package:firebase_core/firebase_core.dart';
+
+Future main () async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+
   runApp(const MyApp());
 }
 

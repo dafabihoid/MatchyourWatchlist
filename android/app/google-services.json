@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "871362494859",
+    "project_id": "matchyourwatchlist-sz-ybbs",
+    "storage_bucket": "matchyourwatchlist-sz-ybbs.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:871362494859:android:8176fe2bbb37dfb6e6af8e",
+        "android_client_info": {
+          "package_name": "com.example.watchlist"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "871362494859-d119c8eafd5aj86hd5g30jruoorq7fbe.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDLWAWszoAPQoHVMNkpY523f-jM_5ab4M8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "871362494859-d119c8eafd5aj86hd5g30jruoorq7fbe.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

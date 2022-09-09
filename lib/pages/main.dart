@@ -6,12 +6,8 @@ import 'package:watchlist/pages/WelcomePage.dart';
 import 'package:watchlist/pages/splash.dart';
 import '../utils/CardProvider.dart';
 
-import 'package:firebase_core/firebase_core.dart';
 
-Future main () async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
-
+void main() {
   runApp(const MyApp());
 }
 

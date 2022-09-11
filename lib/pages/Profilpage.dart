@@ -1,5 +1,7 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
-import 'package:mysql1/mysql1.dart';
+import 'package:watchlist/backend/Controller.dart';
 
 class ProfilPage extends StatefulWidget {
   const ProfilPage({Key? key}) : super(key: key);
@@ -9,13 +11,11 @@ class ProfilPage extends StatefulWidget {
 }
 
 class _ProfilPageState extends State<ProfilPage> {
-  var mysql;
   final controller = TextEditingController();
+  late Future<MovieDTO> futureMovieDTO;
 
   @override
   Widget build(BuildContext context) {
-    start();
-
     return Container(
       color: Colors.white,
       child: Column (
@@ -26,30 +26,14 @@ class _ProfilPageState extends State<ProfilPage> {
           IconButton (
             icon: const Icon(Icons.add),
             onPressed: () {
-              mysqlTest(text: controller.text);
+              futureMovieDTO = fetchMovieDTO();
+              futureMovieDTO.then((result) {
+                print(result.output());
+              });
             },
           )
         ],
       )
     );
-  }
-
-  void mysqlTest ({required String text}) async {
-    var results = await mysql.query('describe user');
-    for (var row in results) {
-      print(row[0]);
-    }
-  }
-
-  void start () async{
-    final settings = ConnectionSettings(
-        host: 'localhost',
-        port: 3306,
-        user: 'bob',
-        password: 'wibble',
-        db: 'mydb'
-    );
-
-    mysql = await MySqlConnection.connect(settings);
   }
 }

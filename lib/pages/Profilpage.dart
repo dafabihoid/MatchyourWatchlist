@@ -21,17 +21,8 @@ class _ProfilPageState extends State<ProfilPage> {
       child: Column (
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          TextField(controller: controller,),
-          IconButton (
-            icon: const Icon(Icons.add),
-            onPressed: () {
-              futureMovieDTO = fetchMovieDTO();
-              futureMovieDTO.then((result) {
-                print(result.output());
-              });
-            },
-          )
+        children: const [
+          Text("ProfilPage")
         ],
       )
     );

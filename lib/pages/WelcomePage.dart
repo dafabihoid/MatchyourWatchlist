@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:watchlist/mainPage.dart';
+import 'package:watchlist/pages/mainPage.dart';
 import 'package:watchlist/pages/Homepage.dart';
 
 class WelcomePage extends StatefulWidget {

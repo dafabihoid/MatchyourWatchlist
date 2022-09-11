@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:watchlist/mainPage.dart';
+import 'package:watchlist/pages/mainPage.dart';
 import 'package:watchlist/pages/Homepage.dart';
 import 'package:watchlist/pages/WelcomePage.dart';
 import 'package:watchlist/pages/splash.dart';
-
 import '../utils/CardProvider.dart';
 import 'ListPage.dart';
+
 
 void main() {
   runApp(const MyApp());

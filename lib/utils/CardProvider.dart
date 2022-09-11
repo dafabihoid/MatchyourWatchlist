@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:watchlist/pages/Homepage.dart';
-import 'package:watchlist/pages/main.dart';
+import 'package:watchlist/backend/Controller.dart';
 import '../../class/Movie.dart';
 
 enum CardStatus { like, dislike }
+
 
 class CardProvider extends ChangeNotifier {
   List<Movie> movies = [];
@@ -11,6 +11,7 @@ class CardProvider extends ChangeNotifier {
   Offset position = Offset.zero;
   Size screenSize = Size.zero;
   double angle = 0;
+  int counttemp = 0;
 
   List<Movie> get Getmovies => movies;
 
@@ -62,24 +63,22 @@ class CardProvider extends ChangeNotifier {
     angle = 0;
     position = Offset.zero;
     notifyListeners();
-    if (movies.length < 3) {
-      movies.insert(
-          0,
-          const Movie(
-              title: "Test Test",
-              genre: "Fantasy",
-              description: "Test",
-              cover:
-                  "https://de.web.img3.acsta.net/pictures/22/04/07/09/24/5141471.jpg"));
-      movies.insert(
-          1,
-          const Movie(
-              title: "König der Löwen",
-              genre: "Tiere",
-              description: "Test",
-              cover:
-                  "https://static.wikia.nocookie.net/koenigderloewen/images/a/a5/DerKoenigDerLoewen_poster_02.jpg/revision/latest?cb=20140626201338&path-prefix=de"));
-    }
+    counttemp++;
+    if(movies.length < 3){
+      a();
+      a();
+      //_movies.insert(1,Movie(title: "König der Löwen",genre: "Tiere", description: "Test", cover: "https://static.wikia.nocookie.net/koenigderloewen/images/a/a5/DerKoenigDerLoewen_poster_02.jpg/revision/latest?cb=20140626201338&path-prefix=de"));
+      //_movies.insert(0,Movie(title: "Test Test",genre: "Fantasy", description: "Test", cover: "https://de.web.img3.acsta.net/pictures/22/04/07/09/24/5141471.jpg"));
+      }
+
+
+  }
+
+  void a () {
+    Future<MovieDTO> futureMovieDTO = fetchMovieDTO();
+    futureMovieDTO.then((result) {
+      movies.insert(0,Movie(title: result.title,genre: "Fantasy", description: result.description, cover: result.posterPath));
+    });
   }
 
   void resetUser() {

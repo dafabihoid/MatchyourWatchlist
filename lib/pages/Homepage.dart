@@ -140,7 +140,7 @@ class _HomepageState extends State<HomePage> {
 
   buildCards() {
     final provider = Provider.of<CardProvider>(context);
-    final movies = provider.movies;
+    final movies = provider.Getmovies;
 
     return Stack(
       children: movies

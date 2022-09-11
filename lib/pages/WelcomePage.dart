@@ -28,10 +28,10 @@ class _WelcomePageState extends State<WelcomePage> {
               Center(
                   child: Column(children: [
                 Image.asset("lib/assets/Logo.png", width: screenwidth * 0.3),
-                SizedBox(
+                const SizedBox(
                   height: 30,
                 ),
-                Text("MatchYourWatchlist",
+                const Text("MatchYourWatchlist",
                     style: TextStyle(
                         color: Colors.black,
                         fontSize: 28,
@@ -40,7 +40,7 @@ class _WelcomePageState extends State<WelcomePage> {
                   height: 50,
                 ),
               ])),
-              TextField(
+              const TextField(
                 keyboardType: TextInputType.emailAddress,
                 decoration: InputDecoration(
                   hintText: "Email",
@@ -50,14 +50,14 @@ class _WelcomePageState extends State<WelcomePage> {
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 26,
               ),
               TextField(
                 onChanged: (value) => setState(() => tmp_password = value),
                 decoration: InputDecoration(
                   hintText: "Passwort",
-                  prefixIcon: Icon(
+                  prefixIcon: const Icon(
                     Icons.vpn_key,
                     color: Colors.black,
                   ),
@@ -77,27 +77,27 @@ class _WelcomePageState extends State<WelcomePage> {
                 ),
                 obscureText: isPasswordVisible,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 12,
               ),
-              Text(
+              const Text(
                 "Passwort vergessen?",
                 style: TextStyle(color: Colors.blue),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 30,
               ),
               Container(
                   width: double.infinity,
                   child: RawMaterialButton(
-                    fillColor: Color(0xFF0069FE),
+                    fillColor: const Color(0xFF0069FE),
                     elevation: 0,
-                    padding: EdgeInsets.symmetric(vertical: 20),
+                    padding: const EdgeInsets.symmetric(vertical: 20),
                     onPressed: () {
                       Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => MainPage()));
+                          MaterialPageRoute(builder: (context) => const MainPage()));
                     },
-                    child: Text(
+                    child: const Text(
                       "Login",
                       style: TextStyle(
                         color: Colors.white,

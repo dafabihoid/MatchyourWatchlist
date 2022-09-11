@@ -5,6 +5,7 @@ import 'package:watchlist/pages/Homepage.dart';
 import 'package:watchlist/pages/WelcomePage.dart';
 import 'package:watchlist/pages/splash.dart';
 import '../utils/CardProvider.dart';
+import 'ListPage.dart';
 
 
 void main() {
@@ -35,7 +36,7 @@ class testen extends State<MyApp>{
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
             primarySwatch: Colors.red,
-            elevatedButtonTheme: ElevatedButtonThemeData(
+              elevatedButtonTheme: ElevatedButtonThemeData(
                 style: ElevatedButton.styleFrom(
                   elevation: 8,
                   primary: Colors.white,
@@ -45,7 +46,7 @@ class testen extends State<MyApp>{
             ),
           ),
 
-          home: Splash(),
+          home:Splash(), //ListPage(),
         ));
   }
 }

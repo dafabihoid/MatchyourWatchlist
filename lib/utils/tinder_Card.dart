@@ -51,7 +51,7 @@ class _TinderCardState extends State<TinderCard> {
 
 
 
-          int milliseconds = provider.Getwirdbewegt ? 0 : 400;
+          int milliseconds = provider.Getismoved ? 0 : 400;
 
           return AnimatedContainer(
             curve: Curves.easeInOut,

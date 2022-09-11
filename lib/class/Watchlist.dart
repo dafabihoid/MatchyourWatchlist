@@ -1,6 +1,6 @@
 import '../class/Movie.dart';
 
 class Watchlist {
-  List<Movie> Watchlist1e = <Movie>{}.toList(growable: true);
+  List<Movie> Watchliste1 = <Movie>{}.toList(growable: true);
 }
 

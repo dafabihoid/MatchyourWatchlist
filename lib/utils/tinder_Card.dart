@@ -9,7 +9,9 @@ class TinderCard extends StatefulWidget {
   final Movie movie;
   final bool isFront;
 
-  const TinderCard({
+
+
+  TinderCard({
     Key? key,
     required this.movie,
     required this.isFront,
@@ -20,10 +22,13 @@ class TinderCard extends StatefulWidget {
 }
 
 class _TinderCardState extends State<TinderCard> {
-
+  Color tempColor = Colors.white;
+  var center;
+  var position;
+  var angle;
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -35,35 +40,36 @@ class _TinderCardState extends State<TinderCard> {
 
   @override
   Widget build(BuildContext) {
-      return SizedBox.expand(
-        child: widget.isFront ? buildFrontCard() : buildCard(),
-    );
+    return Scaffold(
+        backgroundColor: tempColor,
+        body: SizedBox.expand(
+          child: widget.isFront ? buildFrontCard() : buildCard(),
+        ));
   }
 
-
-
   Widget buildFrontCard() => GestureDetector(
-        child: LayoutBuilder(
-            builder: (context, constraints) {
-          final center = constraints.smallest.center(Offset.zero);
+        child: LayoutBuilder(builder: (context, constraints) {
+          center = constraints.smallest.center(Offset.zero);
           final provider = Provider.of<CardProvider>(context);
-          final position = provider.getPosition;
-          final angle = provider.angle * pi /180;
+          position = provider.getPosition;
+          angle = provider.angle * pi / 180;
           final rotatedMatrix = Matrix4.identity()
-          ..translate(center.dx,center.dy)
-          ..rotateZ(angle)
-          ..translate(-center.dx,-center.dy);
+            ..translate(center.dx, center.dy)
+            ..rotateZ(angle)
+            ..translate(-center.dx, -center.dy);
 
           int milliseconds = provider.getIsMoving ? 0 : 400;
 
           return AnimatedContainer(
-            curve: Curves.easeInOut,
-            duration: Duration(milliseconds: milliseconds),
-            transform: rotatedMatrix..translate(position.dx, position.dy),
-            child: buildCard(),
-          );
-        }
-        ),
+              curve: Curves.easeInOut,
+              duration: Duration(milliseconds: milliseconds),
+              transform: rotatedMatrix..translate(position.dx, position.dy),
+              child: Stack(children: [
+                buildCard(),
+                test(),
+                //buildStemps(),
+              ]));
+        }),
         onPanStart: (details) {
           final provider = Provider.of<CardProvider>(context, listen: false);
           provider.startPosition(details);
@@ -77,11 +83,10 @@ class _TinderCardState extends State<TinderCard> {
           setState(() {
             provider.endPosition();
           });
-
         },
-    onLongPress:() {
+        onLongPress: () {
           print("TEsT");
-    },
+        },
       );
 
   Widget buildCard() => ClipRRect(
@@ -128,4 +133,103 @@ class _TinderCardState extends State<TinderCard> {
           ),
         )
       ]);
+
+  Widget test() {
+    final provider = Provider.of<CardProvider>(context);
+    final status = provider.getStatus();
+
+    switch (status) {
+      case CardStatus.like:
+        final child = buildFrontCard1(0x00FF00);
+        //tempColor = Colors.lightGreen;
+        //break;
+        return child;
+      case CardStatus.dislike:
+        final child = buildFrontCard1(0xFF0000);
+        //tempColor = Colors.red;
+        //break;
+        return child;
+      return Container();
+
+
+      default:
+        return Container();
+    }
+  }
+
+  //STEMPS
+/*
+  buildStemps() {
+    final provider = Provider.of<CardProvider>(context);
+    final status = provider.getStatus();
+
+    switch (status) {
+      case CardStatus.like:
+        final child = buildStamp(angle: -0.5, color: Colors.green, text: "Like");
+        //tempColor = Colors.lightGreen;
+        //break;
+        return Positioned(top:64, left:40, child: child);
+      case CardStatus.dislike:
+        final child = buildStamp(angle: 0.5, color: Colors.red, text: "Dislike");
+        //tempColor = Colors.lightGreen;
+        //break;
+        return Positioned(top:64, right:40, child: child);
+
+
+      default:
+        return Container();
+    }
+  }
+
+  Widget buildStamp({
+    double angle = 0,
+    required Color color,
+    required String text,
+  }) {
+    return Transform.rotate(
+      angle: angle,
+      child: Container(
+
+          padding: EdgeInsets.symmetric(horizontal: 8),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(color: color, width: 4),
+          ),
+          child: Text(
+            text,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: color,
+              fontSize: 50,
+              fontWeight: FontWeight.bold,
+            ),
+          )), 
+    );
+    
+
+  }*/
+
+  Widget buildFrontCard1(int color) =>LayoutBuilder(builder: (context, constraints) {
+    final provider = Provider.of<CardProvider>(context);
+    int milliseconds = provider.getIsMoving ? 0 : 400;
+
+    return AnimatedContainer(
+        curve: Curves.easeInOut,
+        duration: Duration(milliseconds: milliseconds),
+    //    transform: rotatedMatrix..translate(position.dx-100, position.dy),
+        child: Stack(children: [
+        ClipRRect(
+        borderRadius: BorderRadius.circular(20),
+        child: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(colors: [Color(color).withOpacity(0.1),Color(color).withOpacity(0.5)])
+          ),
+         // color: Color(color).withOpacity(0.3),
+
+        )
+    )
+        ]));
+  });
+
 }

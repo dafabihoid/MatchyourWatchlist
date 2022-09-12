@@ -84,21 +84,18 @@ class CardProvider extends ChangeNotifier {
     fetchMovie();
   }
 
-  void resetUser() {
+  void resetUser() async {
     movies = <Movie>{
-      const Movie(
-          title: "Doktor Strange",
-          genre: "Fantasy",
-          description: "Test",
-          cover:
-              "https://de.web.img3.acsta.net/pictures/22/04/07/09/24/5141471.jpg"),
-      const Movie(
-          title: "Findet Nemo",
-          genre: "Test",
-          description: "Test",
-          cover:
-              "https://static.wikia.nocookie.net/disney/images/6/6b/Findet_Nemo.jpg/revision/latest/top-crop/width/360/height/450?cb=20141231155627&path-prefix=de"),
+
     }.toList(growable: true);
+    while (tempMovies.length < 2){
+      await Future.delayed(const Duration(milliseconds: 1000));
+      fetchMovie();
+    }
+    movies.add(Movie(title: tempMovies.last.title, genre: "Test", description: tempMovies.last.description, cover: tempMovies.last.cover));
+    tempMovies.removeLast();
+    movies.add(Movie(title: tempMovies.last.title, genre: "Test", description: tempMovies.last.description, cover: tempMovies.last.cover));
+    tempMovies.removeLast();
 
     notifyListeners();
   }
@@ -119,7 +116,7 @@ class CardProvider extends ChangeNotifier {
     angle = 20;
     position += Offset(screenSize.width * 2, 0);
     deleteCard();
-
+    print("like");
     notifyListeners();
   }
 

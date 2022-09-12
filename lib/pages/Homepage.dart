@@ -140,13 +140,12 @@ class _HomepageState extends State<HomePage> {
 
   buildCards() {
     final provider = Provider.of<CardProvider>(context);
-    final movies = provider.getMovies;
 
     return Stack(
-      children: movies
+      children: provider.getMovies
           .map((movie) => TinderCard(
           movie: movie,
-          isFront: movies.last == movie,
+          isFront: provider.getMovies.last == movie,
       ))
       .toList(growable: true),
 

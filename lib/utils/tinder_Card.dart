@@ -20,6 +20,8 @@ class TinderCard extends StatefulWidget {
 }
 
 class _TinderCardState extends State<TinderCard> {
+
+
   @override
   void initState(){
     super.initState();
@@ -32,9 +34,13 @@ class _TinderCardState extends State<TinderCard> {
   }
 
   @override
-  Widget build(BuildContext) => SizedBox.expand(
-      child: widget.isFront ? buildFrontCard() : buildCard(),
-  );
+  Widget build(BuildContext) {
+      return SizedBox.expand(
+        child: widget.isFront ? buildFrontCard() : buildCard(),
+    );
+  }
+
+
 
   Widget buildFrontCard() => GestureDetector(
         child: LayoutBuilder(
@@ -47,8 +53,6 @@ class _TinderCardState extends State<TinderCard> {
           ..translate(center.dx,center.dy)
           ..rotateZ(angle)
           ..translate(-center.dx,-center.dy);
-
-
 
           int milliseconds = provider.getIsMoving ? 0 : 400;
 

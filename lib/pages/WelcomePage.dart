@@ -1,7 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:watchlist/pages/mainPage.dart';
 import 'package:watchlist/pages/Homepage.dart';
+
+import '../utils/CardProvider.dart';
 
 class WelcomePage extends StatefulWidget {
   const WelcomePage({Key? key}) : super(key: key);
@@ -17,6 +20,14 @@ class _WelcomePageState extends State<WelcomePage> {
   @override
   Widget build(BuildContext context) {
     final screenwidth = MediaQuery.of(context).size.width;
+    final provider = Provider.of<CardProvider>(context);
+
+    provider.getMovies.forEach((element) {
+      Future.wait([
+        precacheImage(NetworkImage(element.cover), context),
+      ]);
+    });
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: Container(

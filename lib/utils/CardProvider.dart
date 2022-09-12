@@ -11,7 +11,6 @@ class CardProvider extends ChangeNotifier {
   Offset position = Offset.zero;
   Size screenSize = Size.zero;
   double angle = 0;
-  int counttemp = 0;
   List<Movie> tempMovies = [];
 
   List<Movie> get getMovies => movies;
@@ -23,22 +22,16 @@ class CardProvider extends ChangeNotifier {
   double get getAngle => angle;
 
   CardProvider() {
-    fetchMovie();
-    fetchMovie();
-    fetchMovie();
-    fetchMovie();
+    bufferMovies();
     resetUser();
   }
 
   void setScreenSize(Size getscreenSize) => screenSize = getscreenSize;
 
   void startPosition(DragStartDetails details) {
-    if (tempMovies.length<10)
+    if (tempMovies.length<15)
     {
-      fetchMovie();
-      fetchMovie();
-      fetchMovie();
-      fetchMovie();
+      bufferMovies();
     }
     isMoving = true;
   }
@@ -84,6 +77,13 @@ class CardProvider extends ChangeNotifier {
     });
   }
 
+  void bufferMovies () {
+    fetchMovie();
+    fetchMovie();
+    fetchMovie();
+    fetchMovie();
+  }
+
   void resetUser() {
     movies = <Movie>{
       const Movie(
@@ -105,12 +105,12 @@ class CardProvider extends ChangeNotifier {
 
   CardStatus? getStatus() {
     final xCoordinate = position.dx;
-    const distanzLike = 100;
-    const distanzDislike = -100;
+    const distanceLike = 100;
+    const distanceDislike = -100;
 
-    if (xCoordinate >= distanzLike) {
+    if (xCoordinate >= distanceLike) {
       return CardStatus.like;
-    } else if (xCoordinate <= distanzDislike) {
+    } else if (xCoordinate <= distanceDislike) {
       return CardStatus.dislike;
     }
   }
@@ -132,18 +132,25 @@ class CardProvider extends ChangeNotifier {
   }
 
   void deleteCard() async {
-    await Future.delayed(Duration(milliseconds: 200));
-
-    movies.insert(0, Movie(title: tempMovies.last.title, genre: "Test", description: tempMovies.last.description, cover: tempMovies.last.cover));
-    tempMovies.removeLast();
-    movies.insert(0, Movie(title: tempMovies.last.title, genre: "Test", description: tempMovies.last.description, cover: tempMovies.last.cover));
-    tempMovies.removeLast();
+    await Future.delayed(const Duration(milliseconds: 200));
 
     resetPosition();
     print(movies.length.toString());
 
-    if (getMovies.isNotEmpty){
-      getMovies.removeLast();
+    if (movies.isNotEmpty){
+      movies.removeLast();
+    }
+
+    while (tempMovies.length < 2){
+      await Future.delayed(const Duration(milliseconds: 400));
+      fetchMovie();
+    }
+
+    if (movies.length < 15) {
+      movies.insert(0, Movie(title: tempMovies.last.title, genre: "Test", description: tempMovies.last.description, cover: tempMovies.last.cover));
+      tempMovies.removeLast();
+      movies.insert(0, Movie(title: tempMovies.last.title, genre: "Test", description: tempMovies.last.description, cover: tempMovies.last.cover));
+      tempMovies.removeLast();
     }
   }
 }

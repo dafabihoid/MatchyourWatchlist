@@ -2,7 +2,6 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:watchlist/pages/Homepage.dart';
 import '../../class/Movie.dart';
 import 'CardProvider.dart';
 
@@ -42,7 +41,7 @@ class _TinderCardState extends State<TinderCard> {
             builder: (context, constraints) {
           final center = constraints.smallest.center(Offset.zero);
           final provider = Provider.of<CardProvider>(context);
-          final position = provider.Getposition;
+          final position = provider.getPosition;
           final angle = provider.angle * pi /180;
           final rotatedMatrix = Matrix4.identity()
           ..translate(center.dx,center.dy)
@@ -51,7 +50,7 @@ class _TinderCardState extends State<TinderCard> {
 
 
 
-          int milliseconds = provider.Getismoved ? 0 : 400;
+          int milliseconds = provider.getIsMoving ? 0 : 400;
 
           return AnimatedContainer(
             curve: Curves.easeInOut,

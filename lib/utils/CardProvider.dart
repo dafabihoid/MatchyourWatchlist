@@ -12,22 +12,34 @@ class CardProvider extends ChangeNotifier {
   Size screenSize = Size.zero;
   double angle = 0;
   int counttemp = 0;
+  List<Movie> tempMovies = [];
 
-  List<Movie> get Getmovies => movies;
+  List<Movie> get getMovies => movies;
 
-  bool get Getismoved => isMoving;
+  bool get getIsMoving => isMoving;
 
-  Offset get Getposition => position;
+  Offset get getPosition => position;
 
-  double get GetAngle => angle;
+  double get getAngle => angle;
 
   CardProvider() {
+    fetchMovie();
+    fetchMovie();
+    fetchMovie();
+    fetchMovie();
     resetUser();
   }
 
   void setScreenSize(Size getscreenSize) => screenSize = getscreenSize;
 
   void startPosition(DragStartDetails details) {
+    if (tempMovies.length<10)
+    {
+      fetchMovie();
+      fetchMovie();
+      fetchMovie();
+      fetchMovie();
+    }
     isMoving = true;
   }
 
@@ -63,21 +75,12 @@ class CardProvider extends ChangeNotifier {
     angle = 0;
     position = Offset.zero;
     notifyListeners();
-    counttemp++;
-    if(movies.length < 3){
-      a();
-      a();
-      //_movies.insert(1,Movie(title: "König der Löwen",genre: "Tiere", description: "Test", cover: "https://static.wikia.nocookie.net/koenigderloewen/images/a/a5/DerKoenigDerLoewen_poster_02.jpg/revision/latest?cb=20140626201338&path-prefix=de"));
-      //_movies.insert(0,Movie(title: "Test Test",genre: "Fantasy", description: "Test", cover: "https://de.web.img3.acsta.net/pictures/22/04/07/09/24/5141471.jpg"));
-      }
-
-
   }
 
-  void a () {
+  void fetchMovie () {
     Future<MovieDTO> futureMovieDTO = fetchMovieDTO();
     futureMovieDTO.then((result) {
-      movies.insert(0,Movie(title: result.title,genre: "Fantasy", description: result.description, cover: result.posterPath));
+      tempMovies.insert(0,Movie(title: result.title,genre: "Fantasy", description: result.description, cover: result.posterPath));
     });
   }
 
@@ -95,12 +98,6 @@ class CardProvider extends ChangeNotifier {
           description: "Test",
           cover:
               "https://static.wikia.nocookie.net/disney/images/6/6b/Findet_Nemo.jpg/revision/latest/top-crop/width/360/height/450?cb=20141231155627&path-prefix=de"),
-      const Movie(
-          title: "König der Löwen",
-          genre: "Tiere",
-          description: "Test",
-          cover:
-              "https://static.wikia.nocookie.net/koenigderloewen/images/a/a5/DerKoenigDerLoewen_poster_02.jpg/revision/latest?cb=20140626201338&path-prefix=de"),
     }.toList(growable: true);
 
     notifyListeners();
@@ -135,12 +132,18 @@ class CardProvider extends ChangeNotifier {
   }
 
   void deleteCard() async {
-    if (Getmovies.isEmpty) return;
-
     await Future.delayed(Duration(milliseconds: 200));
-    // HIER KANN MAN NEUE FILME EINFÜGEN!!!!
-    Getmovies.removeLast();
+
+    movies.insert(0, Movie(title: tempMovies.last.title, genre: "Test", description: tempMovies.last.description, cover: tempMovies.last.cover));
+    tempMovies.removeLast();
+    movies.insert(0, Movie(title: tempMovies.last.title, genre: "Test", description: tempMovies.last.description, cover: tempMovies.last.cover));
+    tempMovies.removeLast();
 
     resetPosition();
+    print(movies.length.toString());
+
+    if (getMovies.isNotEmpty){
+      getMovies.removeLast();
+    }
   }
 }

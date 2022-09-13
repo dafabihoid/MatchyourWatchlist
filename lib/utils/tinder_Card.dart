@@ -213,7 +213,16 @@ class _TinderCardState extends State<TinderCard> {
   Widget buildColorCard(int color) =>LayoutBuilder(builder: (context, constraints) {
     final provider = Provider.of<CardProvider>(context);
     int milliseconds = provider.getIsMoving ? 0 : 400;
+    double xTest = provider.position.dx;
+    xTest = xTest<0? xTest *-1 : xTest;
+    double test2 = 0;
 
+    if(xTest > 50){
+      test2 = (xTest-50)/500;
+      if(test2 >= 0.4){
+        test2 = 0.4;
+      }
+    }
     return AnimatedContainer(
         curve: Curves.easeInOut,
         duration: Duration(milliseconds: milliseconds),
@@ -225,7 +234,7 @@ class _TinderCardState extends State<TinderCard> {
          // decoration: BoxDecoration(
          //   gradient: LinearGradient(colors: [Color(color).withOpacity(0.1),Color(color).withOpacity(0.5)])
         //  ),
-          color: Color(color).withOpacity(0.3),
+          color: Color(color).withOpacity(test2),
 
         )
     )

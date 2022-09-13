@@ -9,9 +9,7 @@ class TinderCard extends StatefulWidget {
   final Movie movie;
   final bool isFront;
 
-
-
-  TinderCard({
+  const TinderCard({
     Key? key,
     required this.movie,
     required this.isFront,
@@ -22,10 +20,13 @@ class TinderCard extends StatefulWidget {
 }
 
 class _TinderCardState extends State<TinderCard> {
-  Color tempColor = Colors.white;
   var center;
   var position;
   var angle;
+
+  double currentOpacity = 0;
+
+  double get getCurrentOpacity => currentOpacity;
 
   @override
   void initState() {
@@ -35,16 +36,15 @@ class _TinderCardState extends State<TinderCard> {
       final size = MediaQuery.of(context).size;
       final provider = Provider.of<CardProvider>(context, listen: false);
       provider.setScreenSize(size);
+
     });
   }
 
   @override
   Widget build(BuildContext) {
-    return Scaffold(
-        backgroundColor: tempColor,
-        body: SizedBox.expand(
+    return SizedBox.expand(
           child: widget.isFront ? buildFrontCard() : buildCard(),
-        ));
+        );
   }
 
   Widget buildFrontCard() => GestureDetector(
@@ -140,12 +140,12 @@ class _TinderCardState extends State<TinderCard> {
 
     switch (status) {
       case CardStatus.like:
-        final child = buildFrontCard1(0x00FF00);
+        final child = buildColorCard(0x00FF00);
         //tempColor = Colors.lightGreen;
         //break;
         return child;
       case CardStatus.dislike:
-        final child = buildFrontCard1(0xFF0000);
+        final child = buildColorCard(0xFF0000);
         //tempColor = Colors.red;
         //break;
         return child;
@@ -204,13 +204,13 @@ class _TinderCardState extends State<TinderCard> {
               fontSize: 50,
               fontWeight: FontWeight.bold,
             ),
-          )), 
+          )),
     );
-    
+
 
   }*/
 
-  Widget buildFrontCard1(int color) =>LayoutBuilder(builder: (context, constraints) {
+  Widget buildColorCard(int color) =>LayoutBuilder(builder: (context, constraints) {
     final provider = Provider.of<CardProvider>(context);
     int milliseconds = provider.getIsMoving ? 0 : 400;
 
@@ -222,10 +222,10 @@ class _TinderCardState extends State<TinderCard> {
         ClipRRect(
         borderRadius: BorderRadius.circular(20),
         child: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(colors: [Color(color).withOpacity(0.1),Color(color).withOpacity(0.5)])
-          ),
-         // color: Color(color).withOpacity(0.3),
+         // decoration: BoxDecoration(
+         //   gradient: LinearGradient(colors: [Color(color).withOpacity(0.1),Color(color).withOpacity(0.5)])
+        //  ),
+          color: Color(color).withOpacity(0.3),
 
         )
     )

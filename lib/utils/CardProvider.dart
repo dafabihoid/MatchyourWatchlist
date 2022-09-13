@@ -39,6 +39,7 @@ class CardProvider extends ChangeNotifier {
   void updatePosition(DragUpdateDetails details) {
     position += details.delta;
 
+
     final xCoordinate = position.dx;
     angle = 45 * xCoordinate / screenSize.width;
 
@@ -114,6 +115,7 @@ class CardProvider extends ChangeNotifier {
 
   void liked() {
     angle = 20;
+
     position += Offset(screenSize.width * 2, 0);
     deleteCard();
     print("like");

@@ -66,8 +66,8 @@ class _TinderCardState extends State<TinderCard> {
               transform: rotatedMatrix..translate(position.dx, position.dy),
               child: Stack(children: [
                 buildCard(),
-                test(),
-                //buildStemps(),
+                decisionStatus(),
+                buildStemps(),
               ]));
         }),
         onPanStart: (details) {
@@ -98,7 +98,7 @@ class _TinderCardState extends State<TinderCard> {
           fit: BoxFit.cover,
         )),
         child: Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
                 gradient: LinearGradient(
               colors: [Colors.transparent, Colors.black],
               begin: Alignment.topCenter,
@@ -106,7 +106,7 @@ class _TinderCardState extends State<TinderCard> {
               stops: [0.7, 1],
             )),
             child: Container(
-                padding: EdgeInsets.all(20),
+                padding: const EdgeInsets.all(20),
                 child: Column(children: [
                   Spacer(),
                   buildTitle(),
@@ -118,7 +118,7 @@ class _TinderCardState extends State<TinderCard> {
         children: [
           Text(
             widget.movie.title,
-            style: TextStyle(
+            style: const TextStyle(
                 fontSize: 28, color: Colors.white, fontWeight: FontWeight.bold),
           )
         ],
@@ -127,25 +127,25 @@ class _TinderCardState extends State<TinderCard> {
   Widget buildGenre() => Row(children: [
         Text(
           widget.movie.genre,
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 18,
             color: Colors.white,
           ),
         )
       ]);
 
-  Widget test() {
+  Widget decisionStatus() {
     final provider = Provider.of<CardProvider>(context);
     final status = provider.getStatus();
 
     switch (status) {
       case CardStatus.like:
-        final child = buildColorCard(0x00FF00);
+        final child = buildColorCard(Colors.green);
         //tempColor = Colors.lightGreen;
         //break;
         return child;
       case CardStatus.dislike:
-        final child = buildColorCard(0xFF0000);
+        final child = buildColorCard(Colors.red);
         //tempColor = Colors.red;
         //break;
         return child;
@@ -158,19 +158,19 @@ class _TinderCardState extends State<TinderCard> {
   }
 
   //STEMPS
-/*
+
   buildStemps() {
     final provider = Provider.of<CardProvider>(context);
     final status = provider.getStatus();
 
     switch (status) {
       case CardStatus.like:
-        final child = buildStamp(angle: -0.5, color: Colors.green, text: "Like");
+        final child = buildStamp(angle: -0.5, color: Colors.green, iconSymbol: Icons.favorite);
         //tempColor = Colors.lightGreen;
         //break;
         return Positioned(top:64, left:40, child: child);
       case CardStatus.dislike:
-        final child = buildStamp(angle: 0.5, color: Colors.red, text: "Dislike");
+        final child = buildStamp(angle: 0.5, color: Colors.red, iconSymbol: Icons.heart_broken);
         //tempColor = Colors.lightGreen;
         //break;
         return Positioned(top:64, right:40, child: child);
@@ -184,45 +184,31 @@ class _TinderCardState extends State<TinderCard> {
   Widget buildStamp({
     double angle = 0,
     required Color color,
-    required String text,
+    required IconData iconSymbol,
   }) {
     return Transform.rotate(
       angle: angle,
       child: Container(
-
-          padding: EdgeInsets.symmetric(horizontal: 8),
+          margin: const EdgeInsets.all(10),
+          padding: const EdgeInsets.all(10),
           decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: color, width: 4),
+            color: color,
+            borderRadius: BorderRadius.circular(100),
+            border: Border.all(color: Colors.transparent, width: 0),
           ),
-          child: Text(
-            text,
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              color: color,
-              fontSize: 50,
-              fontWeight: FontWeight.bold,
-            ),
-          )),
+          child: Icon (
+            iconSymbol,
+            color: Colors.white,
+            size: 50,
+          ),
+      ),
     );
+  }
 
-
-  }*/
-
-  Widget buildColorCard(int color) =>LayoutBuilder(builder: (context, constraints) {
+  Widget buildColorCard(Color color) =>LayoutBuilder(builder: (context, constraints) {
     final provider = Provider.of<CardProvider>(context);
     int milliseconds = provider.getIsMoving ? 0 : 400;
-    double xTest = provider.position.dx;
-    xTest = xTest<0? xTest *-1 : xTest;
-    double test2 = 0;
 
-    if(xTest > 50){
-      test2 = (xTest-50)/500;
-      if(test2 >= 0.4){
-        test2 = 0.4;
-      }
-    }
     return AnimatedContainer(
         curve: Curves.easeInOut,
         duration: Duration(milliseconds: milliseconds),
@@ -234,8 +220,11 @@ class _TinderCardState extends State<TinderCard> {
          // decoration: BoxDecoration(
          //   gradient: LinearGradient(colors: [Color(color).withOpacity(0.1),Color(color).withOpacity(0.5)])
         //  ),
-          color: Color(color).withOpacity(test2),
-
+          decoration: BoxDecoration(
+            color: Colors.transparent,
+            borderRadius: BorderRadius.circular(20),
+            border: Border.all(color: color, width: 8),
+          ),
         )
     )
         ]));

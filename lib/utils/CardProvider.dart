@@ -74,7 +74,15 @@ class CardProvider extends ChangeNotifier {
   void fetchMovie () {
     Future<MovieDTO> futureMovieDTO = fetchMovieDTO();
     futureMovieDTO.then((result) {
-      tempMovies.insert(0,Movie(title: result.title,genre: "Fantasy", description: result.description, cover: result.posterPath));
+      String tempGenres = "";
+      for (Genre element in result.genres) {
+        if (element == result.genres[0]){
+          tempGenres = element.genreName;
+          continue;
+        }
+        tempGenres = "$tempGenres, " + element.genreName;
+      }
+      tempMovies.insert(0,Movie(title: result.title,genre: tempGenres, description: result.description, cover: result.posterPath));
     });
   }
 
@@ -89,14 +97,14 @@ class CardProvider extends ChangeNotifier {
     movies = <Movie>{
 
     }.toList(growable: true);
+
     while (tempMovies.length < 2){
       await Future.delayed(const Duration(milliseconds: 1000));
       fetchMovie();
     }
-    movies.add(Movie(title: tempMovies.last.title, genre: "Test", description: tempMovies.last.description, cover: tempMovies.last.cover));
-    tempMovies.removeLast();
-    movies.add(Movie(title: tempMovies.last.title, genre: "Test", description: tempMovies.last.description, cover: tempMovies.last.cover));
-    tempMovies.removeLast();
+
+    movieListUpdate();
+    movieListUpdate();
 
     notifyListeners();
   }
@@ -146,10 +154,13 @@ class CardProvider extends ChangeNotifier {
     }
 
     if (movies.length < 15) {
-      movies.insert(0, Movie(title: tempMovies.last.title, genre: "Test", description: tempMovies.last.description, cover: tempMovies.last.cover));
-      tempMovies.removeLast();
-      movies.insert(0, Movie(title: tempMovies.last.title, genre: "Test", description: tempMovies.last.description, cover: tempMovies.last.cover));
-      tempMovies.removeLast();
+      movieListUpdate();
+      movieListUpdate();
     }
+  }
+
+  void movieListUpdate(){
+    movies.insert(0, Movie(title: tempMovies.last.title, genre: tempMovies.last.genre, description: tempMovies.last.description, cover: tempMovies.last.cover));
+    tempMovies.removeLast();
   }
 }

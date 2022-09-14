@@ -7,7 +7,6 @@ import 'package:http/http.dart' as http;
 Future<MovieDTO> fetchMovieDTO() async{
   var rng = Random();
   //var time = DateTime.now().millisecondsSinceEpoch;
-  //print(0);
   var response = await http.get(Uri.parse("https://api.themoviedb.org/3/movie/"+ rng.nextInt(2000).toString() +"?api_key=baabd94df20419bfe4e7fe9bc72dc923"));
   //print(DateTime.now().millisecondsSinceEpoch-time);
 

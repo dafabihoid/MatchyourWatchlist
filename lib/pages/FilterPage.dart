@@ -10,6 +10,11 @@ class FilterPage extends StatefulWidget {
 
 class _FilterPageState extends State<FilterPage> {
   final List<Item> _data = generateItems(3);
+  final List<String> items = [
+    "Fantasy",
+    "Drama",
+    "Komödie",
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -21,19 +26,21 @@ class _FilterPageState extends State<FilterPage> {
       ),
       backgroundColor: Colors.white,
       body: Container(
-        padding: EdgeInsets.all(10),
-        child: Column (
-          children: [
-            _buildPanel(),
-          ],
-        ),
+        padding: const EdgeInsets.all(15),
+        child: SingleChildScrollView (
+          child: Column (
+            children: [
+              _buildPanel(),
+            ],
+          ),
+        )
       ),
     );
   }
 
   Widget _buildPanel() {
     return ExpansionPanelList(
-      expandedHeaderPadding: EdgeInsets.all(0),
+      expandedHeaderPadding: EdgeInsets.zero,
       expansionCallback: (int index, bool isExpanded) {
         setState(() {
           _data[index].isExpanded = !isExpanded;
@@ -50,16 +57,35 @@ class _FilterPageState extends State<FilterPage> {
               ]
             );
           },
-          body: ListTile(
-              title: Text(item.expandedValue),
-              subtitle:
-              const Text('To delete this panel, tap the trash can icon'),
-              trailing: const Icon(Icons.delete),
-              onTap: () {
-                setState(() {
-                  _data.removeWhere((Item currentItem) => item == currentItem);
-                });
-              }),
+          body: Column (
+            children: [
+              const Divider(thickness: 2, indent: 15, endIndent: 20,),
+              const ListTile(
+                title: Text("Alles auswählen"),
+                trailing: Icon(
+                  Icons.sticky_note_2_outlined,
+                  color: Colors.black,
+                ),
+              ),
+              ListView.builder(
+                  physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemCount: items.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return ListTile(
+                      tileColor: index % 2 == 0 ? Color(0xFFEEEEEE) : Colors.white,
+                      title: Text(
+                        items[index],
+                      ),
+                      trailing: const Icon(
+                        Icons.sticky_note_2_outlined,
+                        color: Colors.black,
+                      ),
+                    );
+                  }
+              ),
+            ],
+          ),
           isExpanded: item.isExpanded,
         );
       }).toList(),

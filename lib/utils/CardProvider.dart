@@ -29,7 +29,7 @@ class CardProvider extends ChangeNotifier {
   void setScreenSize(Size getscreenSize) => screenSize = getscreenSize;
 
   void startPosition(DragStartDetails details) {
-    if (tempMovies.length<15)
+    if (tempMovies.length<10)
     {
       bufferMovies();
     }
@@ -153,7 +153,7 @@ class CardProvider extends ChangeNotifier {
       fetchMovie();
     }
 
-    if (movies.length < 15) {
+    if (movies.length < 5) {
       movieListUpdate();
       movieListUpdate();
     }

@@ -46,7 +46,7 @@ class _MyApp extends State<MyApp>{
             ),
           ),
 
-          home:Splash(), //ListPage(),
+          home: Splash(), //ListPage(),
         ));
   }
 }

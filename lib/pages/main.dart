@@ -6,6 +6,7 @@ import 'package:watchlist/pages/Homepage.dart';
 import 'package:watchlist/pages/WelcomePage.dart';
 import 'package:watchlist/pages/splash.dart';
 import '../utils/CardProvider.dart';
+import '../utils/SnackBar.dart';
 import 'ListPage.dart';
 
 
@@ -36,10 +37,11 @@ class _MyApp extends State<MyApp>{
     return ChangeNotifierProvider(
         create: (context) => CardProvider(),
         child:MaterialApp(
+          scaffoldMessengerKey: Utils.SnackBarKey,
           title: 'MatchyourWatchlist',
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
-            primarySwatch: Colors.red,
+            primarySwatch: Colors.blue,
               elevatedButtonTheme: ElevatedButtonThemeData(
                 style: ElevatedButton.styleFrom(
                   elevation: 8,

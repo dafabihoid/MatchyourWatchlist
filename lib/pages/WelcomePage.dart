@@ -16,11 +16,7 @@ class WelcomePage extends StatefulWidget {
 }
 
 class _WelcomePageState extends State<WelcomePage> {
-  Future<FirebaseApp> _initializeFirebase() async {
-    FirebaseApp firebaseApp = await Firebase.initializeApp();
-    print("test");
-    return firebaseApp;
-  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -35,16 +31,13 @@ class _WelcomePageState extends State<WelcomePage> {
 
     return Scaffold(
         backgroundColor: Colors.white,
-        body: FutureBuilder(
-          future: _initializeFirebase(),
+        body: StreamBuilder<User?>(
+          stream: FirebaseAuth.instance.authStateChanges(),
           builder: (context, snapshot) {
-          //  if (snapshot.connectionState == ConnectionState.done) {
-              return LoginPage();
-         //   }
-        //    return const Center(
-        //      child: CircularProgressIndicator(),
-        //    );
-
+            if (snapshot.hasData) {
+              return MainPage();
+         }
+        return LoginPage();
           },
         )
     );
@@ -159,18 +152,8 @@ class _LoginPageState extends State<LoginPage> {
                   elevation: 0,
                   padding: const EdgeInsets.symmetric(vertical: 20),
                   onPressed: () async {
-                    User? user = await loginUsingEmailandPassword(email: _emailController.text, password: _passwordController.text, context: context);
-                    print("test");
-                    print(_emailController.text);
-                    if(user != null){
-                      Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const MainPage()));
-                    }
-
-
-
+                    //signIn();
+                    signInAnonym();
                   },
                   child: const Text(
                     "Login",
@@ -179,8 +162,48 @@ class _LoginPageState extends State<LoginPage> {
                       fontSize: 18,
                     ),
                   ),
+                )),
+            SizedBox(height: 10,),
+            Container(
+                width: double.infinity,
+                child: RawMaterialButton(
+                  fillColor: const Color(0xFF0069FE),
+                  elevation: 0,
+                  padding: const EdgeInsets.symmetric(vertical: 20),
+                  onPressed: () async {
+
+                    FirebaseAuth.instance.createUserWithEmailAndPassword(email: _emailController.text, password: _passwordController.text);
+                    print("test");
+                    print(_emailController.text);
+                  },
+                  child: const Text(
+                    "Register",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 18,
+                    ),
+                  ),
                 ))
           ],
         ));
+  }
+
+  void signIn() async{
+    User? user = (await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: _emailController.text,
+        password: _passwordController.text
+    )) as User?;
+    //print(_emailController.text);
+
+  }
+  //fürn Erik
+  void signInAnonym() async{
+    User? user = FirebaseAuth.instance.signInAnonymously() as User?;
+    if(user != null){
+      Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+              builder: (context) => const MainPage()));
+    }
   }
 }

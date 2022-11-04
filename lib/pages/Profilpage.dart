@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:watchlist/backend/Controller.dart';
 
@@ -21,8 +22,10 @@ class _ProfilPageState extends State<ProfilPage> {
       child: Column (
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
-        children: const [
-          Text("ProfilPage")
+        children:  [
+          Text("ProfilPage"),
+          ElevatedButton.icon(onPressed: () => FirebaseAuth.instance.signOut(), icon: Icon(Icons.add), label: Text("Sign UP"))
+
         ],
       )
     );

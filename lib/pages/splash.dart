@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import '../utils/CardProvider.dart';
 import 'mainPage.dart';
 import 'WelcomePage.dart';
 
@@ -22,6 +24,13 @@ class _SplashState extends State<Splash> {
 
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<CardProvider>(context);
+    provider.getMovies.forEach((element) {
+      Future.wait([
+        precacheImage(NetworkImage(element.cover), context),
+      ]);
+    });
+
     return Scaffold(
         body: Center(
             child: Container(

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:watchlist/backend/Controller.dart';
 import '../../class/Movie.dart';
+import '../DTOs/MediaDTO.dart';
+import '../class/Genre.dart';
 
 enum CardStatus { like, dislike }
 
@@ -72,7 +74,7 @@ class CardProvider extends ChangeNotifier {
   }
 
   void fetchMovie () {
-    Future<MovieDTO> futureMovieDTO = fetchMovieDTO();
+    Future<MediaDTO> futureMovieDTO = fetchNewMovieDTO();
     futureMovieDTO.then((result) {
       String tempGenres = "";
       for (Genre element in result.genres) {

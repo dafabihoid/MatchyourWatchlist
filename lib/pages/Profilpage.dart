@@ -4,6 +4,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:watchlist/backend/Controller.dart';
 
+import '../DTOs/MediaDTO.dart';
+
 class ProfilPage extends StatefulWidget {
   const ProfilPage({Key? key}) : super(key: key);
 
@@ -13,7 +15,7 @@ class ProfilPage extends StatefulWidget {
 
 class _ProfilPageState extends State<ProfilPage> {
   final controller = TextEditingController();
-  late Future<MovieDTO> futureMovieDTO;
+  late Future<MediaDTO> futureMovieDTO;
 
   @override
   Widget build(BuildContext context) {

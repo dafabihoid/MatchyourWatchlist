@@ -2,7 +2,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:watchlist/pages/ForgotPasswordPage.dart';
 
+import '../utils/SnackBar.dart';
 import 'mainPage.dart';
 
 class LoginPage extends StatefulWidget {
@@ -31,12 +33,14 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Container(
         padding: EdgeInsets.all(16),
-        child: Column(
+        child: SingleChildScrollView(
+        child:Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Center(
                 child: Column(children: [
+                  SizedBox(height:65,),
                   Image.asset("lib/assets/Logo.png",
                       width: MediaQuery
                           .of(context)
@@ -97,9 +101,13 @@ class _LoginPageState extends State<LoginPage> {
             const SizedBox(
               height: 12,
             ),
-            const Text(
-              "Passwort vergessen?",
-              style: TextStyle(color: Colors.blue, fontSize: 15),
+            GestureDetector(
+              child: const Text(
+                "Passwort vergessen?",
+                style: TextStyle(color: Colors.blue, fontSize: 15),
+              ),
+              onTap: ()=> Navigator.push(context, MaterialPageRoute(builder: (context) => ForgotPasswordPage()))
+
             ),
             const SizedBox(
               height: 30,
@@ -145,15 +153,20 @@ class _LoginPageState extends State<LoginPage> {
                 ]
             ))
           ],
-        ));
+        )));
   }
 
   void signIn() async {
-    User? user = (await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: _emailController.text,
-        password: _passwordController.text
-    )) as User?;
-    //print(_emailController.text);
+    try{
+      User? user = (await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: _emailController.text,
+          password: _passwordController.text
+      )) as User?;
+      //print(_emailController.text);
+    } on FirebaseAuthException catch(e) {
+      Utils.showSnackBar(e.message);
+    }
+
 
   }
 

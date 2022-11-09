@@ -116,23 +116,24 @@ class _TinderCardState extends State<TinderCard> {
 
   Widget buildTitle() => Row(
         children: [
-          Text(
+          Expanded(child: Text(
             widget.movie.title,
             style: const TextStyle(
                 fontSize: 28, color: Colors.white, fontWeight: FontWeight.bold),
-          )
+          ))
+
         ],
       );
 
   Widget buildGenre() => Row(children: [
-        Text(
+    Expanded(child: Text(
           widget.movie.genre,
           style: const TextStyle(
             fontSize: 18,
             color: Colors.white,
           ),
         )
-      ]);
+    )]);
 
   Widget decisionStatus() {
     final provider = Provider.of<CardProvider>(context);

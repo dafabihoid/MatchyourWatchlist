@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:watchlist/backend/Controller.dart';
-import '../../class/Movie.dart';
+import '../../class/Media.dart';
 import '../DTOs/MediaDTO.dart';
 import '../class/Genre.dart';
 
@@ -8,14 +8,14 @@ enum CardStatus { like, dislike }
 
 
 class CardProvider extends ChangeNotifier {
-  List<Movie> movies = [];
+  List<Media> movies = [];
   bool isMoving = false;
   Offset position = Offset.zero;
   Size screenSize = Size.zero;
   double angle = 0;
-  List<Movie> tempMovies = [];
+  List<Media> tempMovies = [];
 
-  List<Movie> get getMovies => movies;
+  List<Media> get getMovies => movies;
 
   bool get getIsMoving => isMoving;
 
@@ -84,7 +84,7 @@ class CardProvider extends ChangeNotifier {
         }
         tempGenres = "$tempGenres, " + element.genreName;
       }
-      tempMovies.insert(0,Movie(title: result.title,genre: tempGenres, description: result.description, cover: result.posterPath));
+      tempMovies.insert(0,Media(title: result.title,genre: tempGenres, description: result.description, cover: result.posterPath));
     });
   }
 
@@ -96,7 +96,7 @@ class CardProvider extends ChangeNotifier {
   }
 
   void resetUser() async {
-    movies = <Movie>{
+    movies = <Media>{
 
     }.toList(growable: true);
 
@@ -162,7 +162,7 @@ class CardProvider extends ChangeNotifier {
   }
 
   void movieListUpdate(){
-    movies.insert(0, Movie(title: tempMovies.last.title, genre: tempMovies.last.genre, description: tempMovies.last.description, cover: tempMovies.last.cover));
+    movies.insert(0, Media(title: tempMovies.last.title, genre: tempMovies.last.genre, description: tempMovies.last.description, cover: tempMovies.last.cover));
     tempMovies.removeLast();
   }
 }

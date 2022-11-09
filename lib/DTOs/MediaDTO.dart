@@ -36,7 +36,7 @@ class MediaDTO {
       title: json['title'],
       posterPath: getPosterPath(json['posterPath']),
       genres: genreList,
-      rating: json['rating'],
+      rating: json['rating']+0.0,
       mediaType: json['mediaType']
     );
   }

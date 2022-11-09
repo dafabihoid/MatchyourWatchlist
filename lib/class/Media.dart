@@ -1,10 +1,10 @@
-class Movie {
+class Media {
   final String title;
   final String genre;
   final String description;
   final String cover;
 
-  const Movie({
+  const Media({
     required this.title,
     required this.genre,
     required this.description,

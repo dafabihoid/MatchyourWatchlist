@@ -1,6 +1,6 @@
-import '../class/Movie.dart';
+import '../class/Media.dart';
 
 class Watchlist {
-  List<Movie> Watchliste1 = <Movie>{}.toList(growable: true);
+  List<Media> Watchliste1 = <Media>{}.toList(growable: true);
 }
 

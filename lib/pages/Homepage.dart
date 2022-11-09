@@ -4,7 +4,7 @@ import 'package:watchlist/utils/CardProvider.dart';
 import 'package:watchlist/pages/Profilpage.dart';
 import 'package:watchlist/pages/ListPage.dart';
 
-import '../class/Movie.dart';
+import '../class/Media.dart';
 import '../utils/tinder_Card.dart';
 import 'FilterPage.dart';
 import 'SearchPage.dart';
@@ -18,7 +18,7 @@ class HomePage extends StatefulWidget {
 
 class _HomepageState extends State<HomePage> {
 
-  final movie = Movie(
+  final movie = Media(
     title: "Doktor Strange",
     description: "Test",
     genre: "Sci FI",

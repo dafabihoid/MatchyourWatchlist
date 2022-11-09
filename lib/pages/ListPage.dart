@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../class/Movie.dart';
+import '../class/Media.dart';
 
 class ListPage extends StatefulWidget {
   const ListPage({Key? key}) : super(key: key);

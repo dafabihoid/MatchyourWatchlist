@@ -2,11 +2,11 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../class/Movie.dart';
+import '../../class/Media.dart';
 import 'CardProvider.dart';
 
 class TinderCard extends StatefulWidget {
-  final Movie movie;
+  final Media movie;
   final bool isFront;
 
   const TinderCard({

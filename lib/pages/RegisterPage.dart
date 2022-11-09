@@ -26,12 +26,14 @@ class _RegisterPageState extends State<RegisterPage> {
           padding: EdgeInsets.all(16),
           child: Form(
           key: formKey,
-          child: Column(
+          child: SingleChildScrollView(
+            child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Center(
                   child: Column(children: [
+                    SizedBox(height:65,),
                     Image.asset("lib/assets/Logo.png",
                         width: MediaQuery.of(context).size.width * 0.3),
                     const SizedBox(
@@ -131,7 +133,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   ]
               ))
             ],
-          )));
+          ))));
     }
 
   Future signUp() async{

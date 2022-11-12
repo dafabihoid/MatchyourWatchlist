@@ -2,8 +2,9 @@ import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:watchlist/utils/Theme.dart';
 
-import '../utils/SnackBar.dart';
+import '../../utils/SnackBar.dart';
 
 class ForgotPasswordPage extends StatefulWidget {
   const ForgotPasswordPage({Key? key}) : super(key: key);
@@ -21,10 +22,10 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
     return Scaffold(
         appBar: AppBar(
         iconTheme: IconThemeData(
-        color: Colors.black),
+        color: kLightPrimaryColor),
           backgroundColor: Colors.transparent,
           elevation: 0,
-          title: Text("Reset Password", style: TextStyle(color: Colors.black),),
+          title: Text("Reset Password", style: TextStyle(color: kLightPrimaryColor),),
         ),
         body: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -45,13 +46,13 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                         const Text(
                             "Geben Sie eine Email ein, um ihr Passwort zurückzusetzen.",
                             style: TextStyle(
-                                color: Colors.black,
+                                color: kLightPrimaryColor,
                                 fontSize: 28,
                                 fontWeight: FontWeight.bold)),
                         const Text(
                             "Hinweis: Mail könnte im Spam-Ordner landen!",
                             style: TextStyle(
-                                color: Colors.black,
+                                color: kLightPrimaryColor,
                                 fontSize: 15,
 
                             )),
@@ -89,7 +90,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                               child: const Text(
                                 "Passwort zurücksetzen",
                                 style: TextStyle(
-                                  color: Colors.white,
+                                  color: kLightPrimaryColor,
                                   fontSize: 18,
                                 ),
                               ),

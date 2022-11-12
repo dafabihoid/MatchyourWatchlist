@@ -14,12 +14,14 @@ class _SearchPageState extends State<SearchPage> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        backgroundColor: Colors.black12,
+      //  backgroundColor: Colors.black12,
         title: const Text("Suchen"),
       ),
-      backgroundColor: Colors.white,
+
       body: Container(
-        child: Text("SearchPage"),
+        child: Center(
+            child: Text("SearchPage")
+        ),
       ),
     );
   }

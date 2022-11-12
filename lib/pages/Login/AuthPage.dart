@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:watchlist/pages/WelcomePage.dart';
+
 
 import 'LoginPage.dart';
 import 'RegisterPage.dart';

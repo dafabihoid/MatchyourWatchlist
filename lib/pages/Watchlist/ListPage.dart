@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:watchlist/utils/Theme.dart';
 
-import '../class/Movie.dart';
+import '../../class/Movie.dart';
+import '../../utils/myThemes.dart';
 
 class ListPage extends StatefulWidget {
   const ListPage({Key? key}) : super(key: key);
@@ -20,9 +23,9 @@ class _ListPageState extends State<ListPage> {
 
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
     return Scaffold(
         body: Container(
-            color: Colors.white,
             padding: EdgeInsets.all(25),
             child: SingleChildScrollView(
                 child: Column(children: [
@@ -42,11 +45,11 @@ class _ListPageState extends State<ListPage> {
                 onTap: () {
                   print("hey");
                 },
-                child: Container(
+                  child: Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.all(Radius.circular(8)),
-                    border: Border.all(color: Colors.black, width: 1),
-                    color: Colors.white,
+                    border: Border.all(width: 1),
+                    color: themeProvider.isDarkMode ? kDarkSecondaryColor : Colors.white
                   ),
                   width: double.infinity,
                   child: Row(
@@ -86,8 +89,9 @@ class _ListPageState extends State<ListPage> {
                 child: Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.all(Radius.circular(8)),
-                    border: Border.all(color: Colors.black, width: 1),
-                    color: Colors.white,
+                    border: Border.all(//color: kDarkPrimaryColor,
+                       width: 1),
+                      color: themeProvider.isDarkMode ? kDarkSecondaryColor : Colors.white
                   ),
                   width: double.infinity,
                   child: Row(
@@ -146,7 +150,7 @@ class _ListPageState extends State<ListPage> {
                                         BorderRadius.all(Radius.circular(8)),
                                     border: Border.all(
                                         color: Colors.black, width: 1),
-                                    color: Colors.white,
+                                      color:  themeProvider.isDarkMode ? kDarkSecondaryColor : Colors.white
                                   ),
                                   width: double.infinity,
                                   child: Row(

@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:watchlist/utils/CardProvider.dart';
-import 'package:watchlist/pages/Profilpage.dart';
-import 'package:watchlist/pages/ListPage.dart';
+import 'package:watchlist/pages/Profile/Profilpage.dart';
+import 'package:watchlist/pages/Watchlist/ListPage.dart';
+import 'package:watchlist/utils/Theme.dart';
 
-import '../class/Movie.dart';
-import '../utils/tinder_Card.dart';
+import '../../class/Movie.dart';
+import '../../utils/tinder_Card.dart';
 import 'FilterPage.dart';
 import 'SearchPage.dart';
 
@@ -39,6 +40,7 @@ class _HomepageState extends State<HomePage> {
       body: SafeArea(
         child: Stack(children: [
            Container(
+
             /*    decoration: BoxDecoration(
              gradient: LinearGradient(
                 colors: [

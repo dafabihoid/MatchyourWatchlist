@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../utils/CardProvider.dart';
-import 'mainPage.dart';
+import '../../utils/CardProvider.dart';
+import '../mainPage.dart';
 import 'WelcomePage.dart';
 
 class Splash extends StatefulWidget {

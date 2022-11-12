@@ -5,9 +5,9 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:watchlist/pages/mainPage.dart';
-import 'package:watchlist/pages/Homepage.dart';
+import 'package:watchlist/pages/Homepage/Homepage.dart';
 
-import '../utils/CardProvider.dart';
+import '../../utils/CardProvider.dart';
 import 'AuthPage.dart';
 
 class WelcomePage extends StatefulWidget {
@@ -31,7 +31,7 @@ class _WelcomePageState extends State<WelcomePage> {
     });
 
     return Scaffold(
-        backgroundColor: Colors.white,
+
         body: StreamBuilder<User?>(
           stream: FirebaseAuth.instance.authStateChanges(),
           builder: (context, snapshot) {

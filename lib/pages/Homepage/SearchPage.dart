@@ -19,9 +19,18 @@ class _SearchPageState extends State<SearchPage> {
       ),
 
       body: Container(
-        child: Center(
-            child: Text("SearchPage")
-        ),
+        padding: EdgeInsets.all(15),
+        child: TextField(
+          //controller: SearchController,
+          decoration: InputDecoration(
+            prefixIcon: const Icon(Icons.search),
+            hintText: "Film Title",
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(20),
+              borderSide: const BorderSide(color: Colors.black)
+            )
+          ),
+        )
       ),
     );
   }

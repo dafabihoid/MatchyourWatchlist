@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:watchlist/utils/myThemes.dart';
 import '../../class/Movie.dart';
 import 'CardProvider.dart';
 
@@ -252,6 +253,7 @@ class _TinderCardState extends State<TinderCard> {
   });
 
   Widget ExpandedInformation() {
+    final themeProvider = Provider.of<ThemeProvider>(context);
     return Stack(
         clipBehavior: Clip.none,
         alignment: Alignment.topCenter,
@@ -263,7 +265,7 @@ class _TinderCardState extends State<TinderCard> {
                 height: 7,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(5),
-                    color: Colors.white),
+                    color: themeProvider.isDarkMode ? Colors.white : Colors.black),
               )
           ),
           Column(

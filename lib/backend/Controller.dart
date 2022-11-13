@@ -1,16 +1,21 @@
 import 'dart:convert';
-import 'dart:io';
 import 'dart:math';
 import 'package:http/http.dart' as http;
+import 'package:watchlist/class/Language.dart';
 
 import '../DTOs/MediaDTO.dart';
+import '../class/Genre.dart';
+
+String getBaseUrl(){
+  return "http://10.0.2.2/diplo/public/tmdb";
+}
 
 Future<MediaDTO> fetchNewMovieDTO() async{
   var rng = Random();
   //für lokale api
   var response = await http.get(
     Uri.parse(
-      "http://10.0.2.2/diplo/public/tmdb/getRandomMedia"
+      "${getBaseUrl()}/getRandomMedia"
     )
   );
   //für externe api
@@ -20,5 +25,38 @@ Future<MediaDTO> fetchNewMovieDTO() async{
     return MediaDTO.fromJson(jsonDecode(response.body));
   } else {
     return fetchNewMovieDTO();
+  }
+}
+
+Future<List<Genre>> fetchAllGenres(String mediaType) async{
+  var response = await http.get(
+      Uri.parse(
+          "${getBaseUrl()}/getAllGenres/$mediaType"
+      )
+  );
+
+  if (response.statusCode == 200) {
+    return List<Genre>.generate(jsonDecode(response.body).length, (int index) {
+      return Genre.fromJson(jsonDecode(response.body)[index]);
+    });
+  } else {
+    return List.empty();
+  }
+}
+
+
+Future<List<Language>> fetchAllLanguages() async{
+  var response = await http.get(
+      Uri.parse(
+          "${getBaseUrl()}/getAllLanguages"
+      )
+  );
+
+  if (response.statusCode == 200) {
+    return List<Language>.generate(jsonDecode(response.body).length, (int index) {
+      return Language.fromJson(jsonDecode(response.body)[index]);
+    });
+  } else {
+    return List.empty();
   }
 }

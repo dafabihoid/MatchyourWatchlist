@@ -1,5 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:watchlist/backend/Controller.dart';
+import 'package:watchlist/class/Language.dart';
+import 'package:watchlist/class/Language.dart';
+
+import '../class/Genre.dart';
 
 class FilterPage extends StatefulWidget {
   const FilterPage({Key? key}) : super(key: key);
@@ -9,19 +14,15 @@ class FilterPage extends StatefulWidget {
 }
 
 class _FilterPageState extends State<FilterPage> {
-  final List<Item> _data = generateItems(3);
-  final List<String> items = [
-    "Fantasy",
-    "Drama",
-    "Komödie",
-  ];
+  final List<FilterData> data = generateFilterDataList();
+  int filterIndex = 0;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: const Text("Filter Settings"),
+        title: const Text("FilterData Settings"),
         backgroundColor: Colors.black12,
       ),
       backgroundColor: Colors.white,
@@ -42,11 +43,12 @@ class _FilterPageState extends State<FilterPage> {
     return ExpansionPanelList(
       expandedHeaderPadding: EdgeInsets.zero,
       expansionCallback: (int index, bool isExpanded) {
+        filterIndex = index;
         setState(() {
-          _data[index].isExpanded = !isExpanded;
+          data[filterIndex].isExpanded = !isExpanded;
         });
       },
-      children: _data.map<ExpansionPanel>((Item item) {
+      children: data.map<ExpansionPanel>((FilterData item) {
         return ExpansionPanel(
           headerBuilder: (BuildContext context, bool isExpanded) {
             return Column(
@@ -70,12 +72,12 @@ class _FilterPageState extends State<FilterPage> {
               ListView.builder(
                   physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
-                  itemCount: items.length,
+                  itemCount: data[filterIndex].filterItems.length,
                   itemBuilder: (BuildContext context, int index) {
                     return ListTile(
-                      tileColor: index % 2 == 0 ? Color(0xFFEEEEEE) : Colors.white,
+                      tileColor: index % 2 == 0 ? const Color(0xFFEEEEEE) : Colors.white,
                       title: Text(
-                        items[index],
+                        data[filterIndex].filterItems[index].filterItemValue,
                       ),
                       trailing: const Icon(
                         Icons.sticky_note_2_outlined,
@@ -93,25 +95,98 @@ class _FilterPageState extends State<FilterPage> {
   }
 }
 
-class Item {
-  Item({
-    required this.expandedValue,
+List<FilterData> generateFilterDataList() {
+  List<String> headers = ["MediaType", "GenreMovie", "GenreSeries", "Provider", "Languages"];
+
+  List<FilterData> filterData = [];
+
+  filterData.add(
+    FilterData(
+      headerValue: headers[0],
+      filterItems: [
+        FilterDataItem(filterItemId: "a", filterItemValue: "a")
+      ]
+    )
+  );
+
+  filterData.add(
+    FilterData(
+        headerValue: headers[1],
+        filterItems: getFilterDataItemsFromGenres("movie")
+    )
+  );
+
+  filterData.add(
+      FilterData(
+          headerValue: headers[2],
+          filterItems: getFilterDataItemsFromGenres("tv")
+      )
+  );
+
+  filterData.add(
+      FilterData(
+          headerValue: headers[3],
+          filterItems: [
+            FilterDataItem(filterItemId: "a", filterItemValue: "a")
+          ]
+      )
+  );
+
+  filterData.add(
+      FilterData(
+          headerValue: headers[4],
+          filterItems: getFilterDataItemsFromLanguages()
+      )
+  );
+
+  return filterData;
+}
+
+List<FilterDataItem> getFilterDataItemsFromGenres(String mediaType){
+  List<FilterDataItem> filterDataItems = [];
+
+  Future<List<Genre>> genres = fetchAllGenres(mediaType);
+  genres.then((result) {
+    for (Genre element in result){
+      filterDataItems.add(FilterDataItem(filterItemId: '${element.genreId}', filterItemValue: element.genreName));
+    }
+  });
+
+  return filterDataItems;
+}
+
+List<FilterDataItem> getFilterDataItemsFromLanguages(){
+  List<FilterDataItem> filterDataItems = [];
+
+  Future<List<Language>> genres = fetchAllLanguages();
+  genres.then((result) {
+    for (Language element in result){
+      filterDataItems.add(FilterDataItem(filterItemId: element.languageId, filterItemValue: element.language));
+    }
+  });
+
+  return filterDataItems;
+}
+
+class FilterData {
+  String headerValue;
+  List<FilterDataItem> filterItems;
+  bool isExpanded;
+
+  FilterData({
     required this.headerValue,
+    required this.filterItems,
     this.isExpanded = false,
   });
-
-  String expandedValue;
-  String headerValue;
-  bool isExpanded;
 }
 
-List<Item> generateItems(int numberOfItems) {
-  List<String> headers = ["Genre", "Anbieter", "Sprachen"];
+class FilterDataItem {
+  String filterItemId;
+  String filterItemValue;
 
-  return List<Item>.generate(numberOfItems, (int index) {
-    return Item(
-      headerValue: headers[index],
-      expandedValue: 'This is item number $index',
-    );
+  FilterDataItem ({
+    required this.filterItemId,
+    required this.filterItemValue,
   });
 }
+

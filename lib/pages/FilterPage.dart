@@ -54,12 +54,14 @@ class _FilterPageState extends State<FilterPage> {
             return Column(
               children: [
                 ListTile(
+                  key: Key(item.headerValue),
                   title: Text(item.headerValue),
                 ),
               ]
             );
           },
           body: Column (
+            key: Key('a'),
             children: [
               const Divider(thickness: 2, indent: 15, endIndent: 20,),
               const ListTile(
@@ -75,6 +77,7 @@ class _FilterPageState extends State<FilterPage> {
                   itemCount: data[filterIndex].filterItems.length,
                   itemBuilder: (BuildContext context, int index) {
                     return ListTile(
+                      key: Key(data[filterIndex].filterItems[index].filterItemId),
                       tileColor: index % 2 == 0 ? const Color(0xFFEEEEEE) : Colors.white,
                       title: Text(
                         data[filterIndex].filterItems[index].filterItemValue,
@@ -96,7 +99,7 @@ class _FilterPageState extends State<FilterPage> {
 }
 
 List<FilterData> generateFilterDataList() {
-  List<String> headers = ["MediaType", "GenreMovie", "GenreSeries", "Provider", "Languages"];
+  List<String> headers = ["Medien-Typ", "Genre der Filme", "Genre der Serien", "Provider", "Sprachen"];
 
   List<FilterData> filterData = [];
 
@@ -104,7 +107,8 @@ List<FilterData> generateFilterDataList() {
     FilterData(
       headerValue: headers[0],
       filterItems: [
-        FilterDataItem(filterItemId: "a", filterItemValue: "a")
+        FilterDataItem(filterItemId: "movie", filterItemValue: "Film"),
+        FilterDataItem(filterItemId: "tv", filterItemValue: "Serie"),
       ]
     )
   );

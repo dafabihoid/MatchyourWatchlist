@@ -23,10 +23,10 @@ class _FilterPageState extends State<FilterPage> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: const Text("FilterData Settings"),
-        backgroundColor: Colors.black12,
+        title: const Text("Filter Settings"),
+    //    backgroundColor: Colors.black12,
       ),
-      backgroundColor: Colors.white,
+
       body: Container(
         padding: const EdgeInsets.all(15),
         child: SingleChildScrollView (
@@ -69,7 +69,7 @@ class _FilterPageState extends State<FilterPage> {
                 title: Text("Alles auswählen"),
                 trailing: Icon(
                   Icons.sticky_note_2_outlined,
-                  color: Colors.black,
+                 // color: Colors.black,
                 ),
               ),
               ListView.builder(
@@ -79,13 +79,13 @@ class _FilterPageState extends State<FilterPage> {
                   itemBuilder: (BuildContext context, int index) {
                     return ListTile(
                       key: Key(data[filterIndex].filterItems[index].filterItemId),
-                      tileColor: index % 2 == 0 ? const Color(0xFFEEEEEE) : Colors.white,
+                      //tileColor: index % 2 == 0 ? const Color(0xFFEEEEEE) : Colors.white,
                       title: Text(
                         data[filterIndex].filterItems[index].filterItemValue,
                       ),
                       trailing: const Icon(
                         Icons.sticky_note_2_outlined,
-                        color: Colors.black,
+                     //   color: Colors.black,
                       ),
                     );
                   }

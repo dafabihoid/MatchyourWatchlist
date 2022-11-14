@@ -14,12 +14,23 @@ class _SearchPageState extends State<SearchPage> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        backgroundColor: Colors.black12,
+      //  backgroundColor: Colors.black12,
         title: const Text("Suchen"),
       ),
-      backgroundColor: Colors.white,
+
       body: Container(
-        child: Text("SearchPage"),
+        padding: EdgeInsets.all(15),
+        child: TextField(
+          //controller: SearchController,
+          decoration: InputDecoration(
+            prefixIcon: const Icon(Icons.search),
+            hintText: "Film Title",
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(20),
+              borderSide: const BorderSide(color: Colors.black)
+            )
+          ),
+        )
       ),
     );
   }

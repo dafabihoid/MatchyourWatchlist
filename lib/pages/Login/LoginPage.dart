@@ -2,10 +2,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:watchlist/pages/ForgotPasswordPage.dart';
+import 'package:watchlist/pages/Login/ForgotPasswordPage.dart';
+import 'package:watchlist/utils/Theme.dart';
 
-import '../utils/SnackBar.dart';
-import 'mainPage.dart';
+import '../../utils/SnackBar.dart';
+import '../mainPage.dart';
 
 class LoginPage extends StatefulWidget {
   final VoidCallback onClickedSignUp;
@@ -32,6 +33,8 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Container(
+        height: double.infinity,
+     //   color: kDarkPrimaryColor,
         padding: EdgeInsets.all(16),
         child: SingleChildScrollView(
         child:Column(
@@ -51,7 +54,7 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   const Text("MatchYourWatchlist",
                       style: TextStyle(
-                          color: Colors.black,
+                        //  color: kLightPrimaryColor,
                           fontSize: 28,
                           fontWeight: FontWeight.bold)),
                   SizedBox(
@@ -65,7 +68,7 @@ class _LoginPageState extends State<LoginPage> {
                 hintText: "Email",
                 prefixIcon: Icon(
                   Icons.mail,
-                  color: Colors.black,
+               //   color: kLightPrimaryColor,
                 ),
               ),
             ),
@@ -79,17 +82,17 @@ class _LoginPageState extends State<LoginPage> {
                 hintText: "Passwort",
                 prefixIcon: const Icon(
                   Icons.vpn_key,
-                  color: Colors.black,
+                //  color: kLightPrimaryColor,
                 ),
                 suffixIcon: IconButton(
                   icon: isPasswordVisible
                       ? const Icon(
                     Icons.visibility_off,
-                    color: Colors.black,
+                //    color: kLightPrimaryColor,
                   )
                       : const Icon(
                     Icons.visibility,
-                    color: Colors.black,
+                  //  color: kLightPrimaryColor,
                   ),
                   onPressed: () =>
                       setState(
@@ -115,27 +118,28 @@ class _LoginPageState extends State<LoginPage> {
             Container(
                 width: double.infinity,
                 child: RawMaterialButton(
-                  fillColor: const Color(0xFF0069FE),
+               //   fillColor: kAccentColor, !!!!!!!!!!!!
                   elevation: 0,
                   padding: const EdgeInsets.symmetric(vertical: 20),
                   onPressed: () async {
-                    //signIn();
-                    Navigator.pushReplacement(
+                    signIn();
+                   /* Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const MainPage()));
+                            builder: (context) => const MainPage()));*/
                   },
                   child: const Text(
                     "Login",
                     style: TextStyle(
-                      color: Colors.white,
+                 //     color: kDarkPrimaryColor,
                       fontSize: 18,
                     ),
                   ),
                 )),
             SizedBox(height: 10,),
             RichText(text: TextSpan(
-                style: TextStyle(color: Colors.black, fontSize: 15),
+                style: TextStyle(//color: kLightPrimaryColor,
+     fontSize: 15),
                 text: 'No account? ',
                 children: [
                   TextSpan(
@@ -144,10 +148,7 @@ class _LoginPageState extends State<LoginPage> {
                       text: 'Sign Up',
                       style: TextStyle(
                           decoration: TextDecoration.underline,
-                          color: Theme
-                              .of(context)
-                              .colorScheme
-                              .secondary
+                          color: Theme.of(context).colorScheme.secondary
                       )
                   )
                 ]
@@ -158,11 +159,12 @@ class _LoginPageState extends State<LoginPage> {
 
   void signIn() async {
     try{
-      User? user = (await FirebaseAuth.instance.signInWithEmailAndPassword(
+      UserCredential user = (await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: _emailController.text,
           password: _passwordController.text
-      )) as User?;
-      //print(_emailController.text);
+      )) as UserCredential;
+      //print(user.user?.uid);
+
     } on FirebaseAuthException catch(e) {
       Utils.showSnackBar(e.message);
     }
@@ -173,6 +175,7 @@ class _LoginPageState extends State<LoginPage> {
   //fürn Erik
   void signInAnonym() async {
     User? user = FirebaseAuth.instance.signInAnonymously() as User?;
+
     if (user != null) {
 
     }

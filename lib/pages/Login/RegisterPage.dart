@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:watchlist/utils/SnackBar.dart';
+import 'package:watchlist/utils/Theme.dart';
 
 class RegisterPage extends StatefulWidget {
   final VoidCallback onClickedSignIn;
@@ -23,6 +24,8 @@ class _RegisterPageState extends State<RegisterPage> {
     @override
     Widget build(BuildContext context) {
       return Container(
+        //  color: isDarkTheme == true ? kDarkPrimaryColor : kLightPrimaryColor,
+          height: double.infinity,
           padding: EdgeInsets.all(16),
           child: Form(
           key: formKey,
@@ -41,7 +44,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     ),
                     const Text("MatchYourWatchlist",
                         style: TextStyle(
-                            color: Colors.black,
+                           // color: kLightPrimaryColor,
                             fontSize: 28,
                             fontWeight: FontWeight.bold)),
                     SizedBox(
@@ -55,7 +58,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   hintText: "Email",
                   prefixIcon: Icon(
                     Icons.mail,
-                    color: Colors.black,
+                    //color: kLightPrimaryColor,
                   ),
                 ),
                 autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -74,17 +77,17 @@ class _RegisterPageState extends State<RegisterPage> {
                   hintText: "Passwort",
                   prefixIcon: const Icon(
                     Icons.vpn_key,
-                    color: Colors.black,
+                 //   color: kLightPrimaryColor,
                   ),
                   suffixIcon: IconButton(
                     icon: isPasswordVisible
                         ? const Icon(
                       Icons.visibility_off,
-                      color: Colors.black,
+                    //  color: kLightPrimaryColor,
                     )
                         : const Icon(
                       Icons.visibility,
-                      color: Colors.black,
+                     // color: kLightPrimaryColor,
                     ),
                     onPressed: () => setState(
                             () => isPasswordVisible = !isPasswordVisible),
@@ -102,24 +105,24 @@ class _RegisterPageState extends State<RegisterPage> {
               Container(
                   width: double.infinity,
                   child: RawMaterialButton(
-                    fillColor: const Color(0xFF0069FE),
+                    fillColor: kAccentColor,
                     elevation: 0,
                     padding: const EdgeInsets.symmetric(vertical: 20),
                     onPressed: () async {
                       signUp();
 
                     },
-                    child: const Text(
+                    child: Text(
                       "Register",
                       style: TextStyle(
-                        color: Colors.white,
+                    //    color: isDarkTheme == true ? kDarkPrimaryColor : kLightPrimaryColor,
                         fontSize: 18,
                       ),
                     ),
                   )),
               SizedBox(height: 10,),
               RichText(text: TextSpan(
-                  style: TextStyle(color: Colors.black, fontSize: 15),
+                  style: TextStyle(color: kLightPrimaryColor, fontSize: 15),
                   text: 'Already have an Account? ',
                   children: [
                     TextSpan(

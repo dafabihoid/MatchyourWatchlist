@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:watchlist/pages/Watchlist/Watchlist.dart';
+import 'package:watchlist/utils/Theme.dart';
 
-import '../class/Media.dart';
+import '../../backend/ListTDO.dart';
+import '../../class/Media.dart';
+import '../../utils/myThemes.dart';
 
 class ListPage extends StatefulWidget {
   const ListPage({Key? key}) : super(key: key);
@@ -10,19 +15,16 @@ class ListPage extends StatefulWidget {
 }
 
 class _ListPageState extends State<ListPage> {
-  List<String> Temp = [
+  List<String> ListsofWatchlists = [
     "Liste mit Erik",
     "Liste mit Kristina",
-
-
-
   ];
 
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
     return Scaffold(
         body: Container(
-            color: Colors.white,
             padding: EdgeInsets.all(25),
             child: SingleChildScrollView(
                 child: Column(children: [
@@ -42,11 +44,11 @@ class _ListPageState extends State<ListPage> {
                 onTap: () {
                   print("hey");
                 },
-                child: Container(
+                  child: Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.all(Radius.circular(8)),
-                    border: Border.all(color: Colors.black, width: 1),
-                    color: Colors.white,
+                    border: Border.all(width: 1),
+                    color: themeProvider.isDarkMode ? kDarkSecondaryColor : Colors.white
                   ),
                   width: double.infinity,
                   child: Row(
@@ -86,8 +88,9 @@ class _ListPageState extends State<ListPage> {
                 child: Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.all(Radius.circular(8)),
-                    border: Border.all(color: Colors.black, width: 1),
-                    color: Colors.white,
+                    border: Border.all(//color: kDarkPrimaryColor,
+                       width: 1),
+                      color: themeProvider.isDarkMode ? kDarkSecondaryColor : Colors.white
                   ),
                   width: double.infinity,
                   child: Row(
@@ -119,11 +122,11 @@ class _ListPageState extends State<ListPage> {
               ),
 
               SizedBox(
-                height: Temp.length * 113+20,
+                height: ErikApi.ErikApiListe.length * 113+20,
                 width: 400,
                 child: FutureBuilder(
                     builder: (BuildContext context, AsyncSnapshot snapshot) {
-                  if (Temp == null) {
+                  if (ErikApi.ErikApiListe == null) {
                     return Container(
                       child: Center(
                         child: Text("Loading"),
@@ -132,59 +135,14 @@ class _ListPageState extends State<ListPage> {
                   } else {
                     return ListView.builder(
                         physics: NeverScrollableScrollPhysics(),
-                        itemCount: Temp.length,
+                        itemCount: ErikApi.ErikApiListe.length,
                         itemBuilder: (BuildContext context, int index) {
-                          return Column(
-                            children: [
-                              InkWell(
-                                onTap: () {
-                                  print("hey");
-                                },
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(8)),
-                                    border: Border.all(
-                                        color: Colors.black, width: 1),
-                                    color: Colors.white,
-                                  ),
-                                  width: double.infinity,
-                                  child: Row(
-                                    children: [
-                                      ElevatedButton(
-                                        style: ElevatedButton.styleFrom(
-                                            minimumSize: Size(100, 100),
-                                            primary: Colors.lightBlueAccent,
-                                            shape: RoundedRectangleBorder(
-                                                borderRadius: BorderRadius.all(
-                                                    Radius.circular(7)))),
-                                        onPressed: () {},
-                                        child: Icon(
-                                          Icons.person,
-                                          color: Colors.white,
-                                          size: 50,
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        width: 10,
-                                      ),
-                                      Text(
-                                        Temp[index],
-                                        style: TextStyle(fontSize: 25),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              SizedBox(
-                                height: 10,
-                              )
-                            ],
-                          );
+                          return Watchlist(listTDO: ErikApi.ErikApiListe[index]);
                         });
                   }
                 }),
               ),
             ]))));
   }
+
 }

@@ -16,7 +16,7 @@ Future<MediaDTO> fetchNewMovieDTO() async{
   //für lokale api
   var response = await http.get(
     Uri.parse(
-      "${getBaseUrl()}/getRandomMedia"
+      "${getBaseUrl()}/getRandomMediaDefault"
     )
   );
   //für externe api

@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:watchlist/pages/Watchlist/Watchlist.dart';
 import 'package:watchlist/utils/Theme.dart';
 
-import '../../backend/ListTDO.dart';
+import '../../DTOs/ListTDO.dart';
 import '../../class/Media.dart';
 import '../../utils/myThemes.dart';
 

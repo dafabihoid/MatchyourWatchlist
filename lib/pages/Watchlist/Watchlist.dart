@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:watchlist/backend/ListTDO.dart';
+import 'package:watchlist/DTOs/ListTDO.dart';
 import 'package:watchlist/utils/myThemes.dart';
 
 import '../../utils/Theme.dart';

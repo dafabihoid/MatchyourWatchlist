@@ -12,6 +12,7 @@ import 'package:watchlist/pages/Profile/modifyProfil.dart';
 import 'package:watchlist/pages/Profile/myFriends.dart';
 import 'package:watchlist/utils/Theme.dart';
 import '../../utils/myThemes.dart';
+import '../../DTOs/MediaDTO.dart';
 import '../mainPage.dart';
 
 
@@ -24,7 +25,7 @@ class ProfilPage extends StatefulWidget {
 
 class _ProfilPageState extends State<ProfilPage> {
   final controller = TextEditingController();
-  late Future<MovieDTO> futureMovieDTO;
+  late Future<MediaDTO> futureMovieDTO;
   String? AccountEmail = FirebaseAuth.instance.currentUser?.email;
 
   @override

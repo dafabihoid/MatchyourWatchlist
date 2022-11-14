@@ -4,8 +4,8 @@ import 'package:watchlist/backend/Controller.dart';
 import 'package:watchlist/class/Language.dart';
 import 'package:watchlist/class/Language.dart';
 
-import '../class/Genre.dart';
-import '../class/Provider.dart';
+import '../../class/Genre.dart';
+import '../../class/Provider.dart';
 
 class FilterPage extends StatefulWidget {
   const FilterPage({Key? key}) : super(key: key);

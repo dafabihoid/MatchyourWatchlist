@@ -1,4 +1,5 @@
 import '../class/Genre.dart';
+import '../class/Provider.dart';
 
 class MediaDTO {
   final int movieId;
@@ -6,6 +7,7 @@ class MediaDTO {
   final String title;
   final String posterPath;
   final List<dynamic> genres;
+  final List<dynamic> provider;
   final double rating;
   final String mediaType;
 
@@ -15,6 +17,7 @@ class MediaDTO {
     required this.title,
     required this.posterPath,
     required this.genres,
+    required this.provider,
     required this.rating,
     required this.mediaType
   });
@@ -30,12 +33,20 @@ class MediaDTO {
       }
     }).toList();
 
+    var providerList = List.from(json['provider']).map((item) {
+      if(item is Map<String, dynamic>)
+      {
+        return Provider.fromJson(item);
+      }
+    }).toList();
+
     return MediaDTO(
       movieId: json['mediaId'],
       description: json['description'],
       title: json['title'],
       posterPath: getPosterPath(json['posterPath']),
       genres: genreList,
+      provider: providerList,
       rating: json['rating']+0.0,
       mediaType: json['mediaType']
     );

@@ -5,6 +5,7 @@ import 'package:watchlist/class/Language.dart';
 import 'package:watchlist/class/Language.dart';
 
 import '../class/Genre.dart';
+import '../class/Provider.dart';
 
 class FilterPage extends StatefulWidget {
   const FilterPage({Key? key}) : super(key: key);
@@ -130,9 +131,7 @@ List<FilterData> generateFilterDataList() {
   filterData.add(
       FilterData(
           headerValue: headers[3],
-          filterItems: [
-            FilterDataItem(filterItemId: "a", filterItemValue: "a")
-          ]
+          filterItems: getFilterDataItemsFromProviders()
       )
   );
 
@@ -153,6 +152,19 @@ List<FilterDataItem> getFilterDataItemsFromGenres(String mediaType){
   genres.then((result) {
     for (Genre element in result){
       filterDataItems.add(FilterDataItem(filterItemId: '${element.genreId}', filterItemValue: element.genreName));
+    }
+  });
+
+  return filterDataItems;
+}
+
+List<FilterDataItem> getFilterDataItemsFromProviders(){
+  List<FilterDataItem> filterDataItems = [];
+
+  Future<List<Provider>> genres = fetchImportantProvider();
+  genres.then((result) {
+    for (Provider element in result){
+      filterDataItems.add(FilterDataItem(filterItemId: '${element.providerId}', filterItemValue: element.providerName));
     }
   });
 

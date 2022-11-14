@@ -1,13 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:watchlist/DTOs/ListTDO.dart';
+import 'package:watchlist/DTOs/ListDTO.dart';
 import 'package:watchlist/utils/myThemes.dart';
 
 import '../../utils/Theme.dart';
 
 class Watchlist extends StatelessWidget {
-  final ListTDO listTDO;
+  final ListDTO listTDO;
   const Watchlist({Key? key, required this.listTDO}) : assert(listTDO != null), super(key: key);
 
   @override

@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:watchlist/pages/Watchlist/BereitsGesehen.dart';
 import 'package:watchlist/pages/Watchlist/Watchlist.dart';
 import 'package:watchlist/utils/Theme.dart';
 
 import '../../DTOs/ListDTO.dart';
 import '../../class/Media.dart';
 import '../../utils/myThemes.dart';
+import 'EigeneWatchlist.dart';
 
 class ListPage extends StatefulWidget {
   const ListPage({Key? key}) : super(key: key);
@@ -15,10 +17,6 @@ class ListPage extends StatefulWidget {
 }
 
 class _ListPageState extends State<ListPage> {
-  List<String> ListsofWatchlists = [
-    "Liste mit Erik",
-    "Liste mit Kristina",
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +40,10 @@ class _ListPageState extends State<ListPage> {
               ),
               InkWell(
                 onTap: () {
-                  print("hey");
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>EigeneWatchlist()));
                 },
                   child: Container(
                   decoration: BoxDecoration(
@@ -83,7 +84,10 @@ class _ListPageState extends State<ListPage> {
               ),
               InkWell(
                 onTap: () {
-                  print("hey");
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>BereitsGesehen()));
                 },
                 child: Container(
                   decoration: BoxDecoration(

@@ -68,7 +68,7 @@ class _FilterPageState extends State<FilterPage> {
               const ListTile(
                 title: Text("Alles auswählen"),
                 trailing: Icon(
-                  Icons.sticky_note_2_outlined,
+                  Icons.check_box_outline_blank_outlined,
                  // color: Colors.black,
                 ),
               ),
@@ -84,7 +84,7 @@ class _FilterPageState extends State<FilterPage> {
                         data[filterIndex].filterItems[index].filterItemValue,
                       ),
                       trailing: const Icon(
-                        Icons.sticky_note_2_outlined,
+                        Icons.check_box_outlined,
                      //   color: Colors.black,
                       ),
                     );

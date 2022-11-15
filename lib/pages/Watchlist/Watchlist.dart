@@ -2,8 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:watchlist/DTOs/ListDTO.dart';
+import 'package:watchlist/pages/Watchlist/EigeneWatchlist.dart';
 import 'package:watchlist/utils/myThemes.dart';
 
+import '../../Widgets/MediaView.dart';
 import '../../utils/Theme.dart';
 
 class Watchlist extends StatelessWidget {
@@ -17,7 +19,6 @@ class Watchlist extends StatelessWidget {
       children: [
         InkWell(
           onTap: () {
-
           },
           child: Container(
             decoration: BoxDecoration(

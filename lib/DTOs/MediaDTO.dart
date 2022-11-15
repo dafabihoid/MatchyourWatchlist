@@ -33,22 +33,17 @@ class MediaDTO {
       }
     }).toList();
 
-    var providerList = List.from(json['provider']).map((item) {
-      if(item is Map<String, dynamic>)
-      {
-        return Provider.fromJson(item);
-      }
-    }).toList();
+
 
     return MediaDTO(
-      movieId: json['mediaId'],
-      description: json['description'],
+      movieId: json['id'],
+      description: json['overview'],
       title: json['title'],
-      posterPath: getPosterPath(json['posterPath']),
+      posterPath: getPosterPath(json['poster_path']),
       genres: genreList,
-      provider: providerList,
-      rating: json['rating']+0.0,
-      mediaType: json['mediaType']
+      provider: List.empty(),
+      rating: json['vote_average']+0.0,
+      mediaType: ""
     );
   }
 

@@ -5,6 +5,7 @@ import 'package:watchlist/pages/mainPage.dart';
 import 'package:watchlist/pages/Homepage/Homepage.dart';
 import 'package:watchlist/pages/Login/WelcomePage.dart';
 import 'package:watchlist/pages/Login/splash.dart';
+import 'package:watchlist/utils/BackendDataProvider.dart';
 import 'package:watchlist/utils/Theme.dart';
 import '../utils/CardProvider.dart';
 import '../utils/SnackBar.dart';
@@ -21,6 +22,7 @@ Future main() async{
         providers: [
           ChangeNotifierProvider(create: (_) => CardProvider()),
           ChangeNotifierProvider(create: (_) => ThemeProvider()),
+          ChangeNotifierProvider(create: (_) => BackendDataProvider()),
         ],
       child: MyApp(),
 
@@ -32,6 +34,7 @@ class MyApp extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
+    final backendDataProvider = Provider.of<BackendDataProvider>(context);
     return MaterialApp(
 
       scaffoldMessengerKey: Utils.SnackBarKey,

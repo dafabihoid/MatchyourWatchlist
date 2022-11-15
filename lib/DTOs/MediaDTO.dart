@@ -1,5 +1,5 @@
 import '../class/Genre.dart';
-import '../class/Provider.dart';
+import '../class/MediaProvider.dart';
 
 class MediaDTO {
   final int movieId;
@@ -33,20 +33,13 @@ class MediaDTO {
       }
     }).toList();
 
-    var providerList = List.from(json['provider']).map((item) {
-      if(item is Map<String, dynamic>)
-      {
-        return Provider.fromJson(item);
-      }
-    }).toList();
-
     return MediaDTO(
       movieId: json['mediaId'],
       description: json['description'],
       title: json['title'],
       posterPath: getPosterPath(json['posterPath']),
       genres: genreList,
-      provider: providerList,
+      provider: getProvider(json),
       rating: json['rating']+0.0,
       mediaType: json['mediaType']
     );
@@ -56,14 +49,27 @@ class MediaDTO {
     return "movieId: $movieId title: $title poster: $posterPath raiting: $rating description: $description genre " + genres.toString();
   }
 
-  /**
-   * muss getestet werden ob default geht
-   * default kommt bei mediaId 647
-   */
   static String getPosterPath(String posterPath) {
     if (posterPath == "default") {
       return "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS7n9ShRlFcmM9X22DSHtblI35-XXJb7ekYgyO-y6t5Aw&s";
     }
     return "https://image.tmdb.org/t/p/w500" + posterPath;
+  }
+
+  static List getProvider(Map<String, dynamic> json) {
+    var providerList;
+    if(json['provider'] == null){
+      providerList = List.empty();
+    }
+    else {
+      providerList = List.from(json['provider']).map((item) {
+
+        if(item is Map<String, dynamic>)
+        {
+          return MediaProvider.fromJson(item);
+        }
+      }).toList();
+    }
+    return providerList;
   }
 }

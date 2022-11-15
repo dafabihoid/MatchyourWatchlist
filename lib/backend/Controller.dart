@@ -5,7 +5,7 @@ import 'package:watchlist/class/Language.dart';
 
 import '../DTOs/MediaDTO.dart';
 import '../class/Genre.dart';
-import '../class/Provider.dart';
+import '../class/MediaProvider.dart';
 
 String getBaseUrl(){
   return "http://10.0.2.2/diplo/public/tmdb";
@@ -62,7 +62,7 @@ Future<List<Language>> fetchAllLanguages() async{
   }
 }
 
-Future<List<Provider>> fetchImportantProvider() async{
+Future<List<MediaProvider>> fetchImportantProvider() async{
   var response = await http.get(
       Uri.parse(
           "${getBaseUrl()}/getImportantProviders"
@@ -70,8 +70,8 @@ Future<List<Provider>> fetchImportantProvider() async{
   );
 
   if (response.statusCode == 200) {
-    return List<Provider>.generate(jsonDecode(response.body).length, (int index) {
-      return Provider.fromJson(jsonDecode(response.body)[index]);
+    return List<MediaProvider>.generate(jsonDecode(response.body).length, (int index) {
+      return MediaProvider.fromJson(jsonDecode(response.body)[index]);
     });
   } else {
     return List.empty();

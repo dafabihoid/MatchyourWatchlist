@@ -1,13 +1,13 @@
-class Provider {
+class MediaProvider {
   late int providerId;
   late String providerName;
 
-  Provider (int id, String lang){
+  MediaProvider (int id, String lang){
     providerId = id;
     providerName = lang;
   }
 
-  Provider.fromJson(Map<String, dynamic> json)
+  MediaProvider.fromJson(Map<String, dynamic> json)
       : providerId = json['providerId'],
         providerName = json['providerName'];
 

@@ -2,10 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:watchlist/backend/Controller.dart';
 import 'package:watchlist/class/Language.dart';
-import 'package:watchlist/class/Language.dart';
 
+import 'package:provider/provider.dart';
+import '../../class/FilterData.dart';
 import '../../class/Genre.dart';
-import '../../class/Provider.dart';
+import '../../class/MediaProvider.dart';
+import '../../utils/BackendDataProvider.dart';
 
 class FilterPage extends StatefulWidget {
   const FilterPage({Key? key}) : super(key: key);
@@ -15,11 +17,15 @@ class FilterPage extends StatefulWidget {
 }
 
 class _FilterPageState extends State<FilterPage> {
-  final List<FilterData> data = generateFilterDataList();
+  late List<FilterData> data;
+  late BackendDataProvider backendDataProvider;
   int filterIndex = 0;
 
   @override
   Widget build(BuildContext context) {
+    backendDataProvider = Provider.of<BackendDataProvider>(context);
+    data = generateFilterDataList();
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -97,112 +103,94 @@ class _FilterPageState extends State<FilterPage> {
       }).toList(),
     );
   }
-}
 
-List<FilterData> generateFilterDataList() {
-  List<String> headers = ["Medien-Typ", "Genre der Filme", "Genre der Serien", "Provider", "Sprachen"];
+  List<FilterData> generateFilterDataList() {
+    List<String> headers = ["Medien-Typ", "Genre der Filme", "Genre der Serien", "Provider", "Sprachen"];
 
-  List<FilterData> filterData = [];
+    List<FilterData> filterData = [];
 
-  filterData.add(
-    FilterData(
-      headerValue: headers[0],
-      filterItems: [
-        FilterDataItem(filterItemId: "movie", filterItemValue: "Film"),
-        FilterDataItem(filterItemId: "tv", filterItemValue: "Serie"),
-      ]
-    )
-  );
+    filterData.add(
+        FilterData(
+            headerValue: headers[0],
+            filterItems: [
+              FilterDataItem(filterItemId: "movie", filterItemValue: "Film"),
+              FilterDataItem(filterItemId: "tv", filterItemValue: "Serie"),
+            ]
+        )
+    );
 
-  filterData.add(
-    FilterData(
-        headerValue: headers[1],
-        filterItems: getFilterDataItemsFromGenres("movie")
-    )
-  );
+    filterData.add(
+        FilterData(
+            headerValue: headers[1],
+            filterItems: getFilterDataItemsFromGenres("movie")
+        )
+    );
 
-  filterData.add(
-      FilterData(
-          headerValue: headers[2],
-          filterItems: getFilterDataItemsFromGenres("tv")
-      )
-  );
+    filterData.add(
+        FilterData(
+            headerValue: headers[2],
+            filterItems: getFilterDataItemsFromGenres("tv")
+        )
+    );
 
-  filterData.add(
-      FilterData(
-          headerValue: headers[3],
-          filterItems: getFilterDataItemsFromProviders()
-      )
-  );
+    filterData.add(
+        FilterData(
+            headerValue: headers[3],
+            filterItems: getFilterDataItemsFromProviders()
+        )
+    );
 
-  filterData.add(
-      FilterData(
-          headerValue: headers[4],
-          filterItems: getFilterDataItemsFromLanguages()
-      )
-  );
+    filterData.add(
+        FilterData(
+            headerValue: headers[4],
+            filterItems: getFilterDataItemsFromLanguages()
+        )
+    );
 
-  return filterData;
-}
+    return filterData;
+  }
 
-List<FilterDataItem> getFilterDataItemsFromGenres(String mediaType){
-  List<FilterDataItem> filterDataItems = [];
+  List<FilterDataItem> getFilterDataItemsFromGenres(String mediaType){
+    List<FilterDataItem> filterDataItems = [];
+    List<Genre> genres = [];
 
-  Future<List<Genre>> genres = fetchAllGenres(mediaType);
-  genres.then((result) {
-    for (Genre element in result){
+    if(mediaType == "movie"){
+      genres = backendDataProvider.allGenresMovies;
+    }
+    else {
+      genres = backendDataProvider.allGenresSeries;
+    }
+
+    genres.forEach((element) {
       filterDataItems.add(FilterDataItem(filterItemId: '${element.genreId}', filterItemValue: element.genreName));
-    }
-  });
+    });
 
-  return filterDataItems;
-}
+    return filterDataItems;
+  }
 
-List<FilterDataItem> getFilterDataItemsFromProviders(){
-  List<FilterDataItem> filterDataItems = [];
+  List<FilterDataItem> getFilterDataItemsFromProviders(){
+    List<FilterDataItem> filterDataItems = [];
 
-  Future<List<Provider>> genres = fetchImportantProvider();
-  genres.then((result) {
-    for (Provider element in result){
+    List<MediaProvider> providers = backendDataProvider.importantProviders;
+    providers.forEach((element) {
       filterDataItems.add(FilterDataItem(filterItemId: '${element.providerId}', filterItemValue: element.providerName));
-    }
-  });
+    });
 
-  return filterDataItems;
-}
+    return filterDataItems;
+  }
 
-List<FilterDataItem> getFilterDataItemsFromLanguages(){
-  List<FilterDataItem> filterDataItems = [];
+  List<FilterDataItem> getFilterDataItemsFromLanguages(){
+    List<FilterDataItem> filterDataItems = [];
 
-  Future<List<Language>> genres = fetchAllLanguages();
-  genres.then((result) {
-    for (Language element in result){
+    List<Language> languages = backendDataProvider.allLanguages;
+    languages.forEach((element) {
       filterDataItems.add(FilterDataItem(filterItemId: element.languageId, filterItemValue: element.language));
-    }
-  });
+    });
 
-  return filterDataItems;
+    return filterDataItems;
+  }
 }
 
-class FilterData {
-  String headerValue;
-  List<FilterDataItem> filterItems;
-  bool isExpanded;
 
-  FilterData({
-    required this.headerValue,
-    required this.filterItems,
-    this.isExpanded = false,
-  });
-}
 
-class FilterDataItem {
-  String filterItemId;
-  String filterItemValue;
-
-  FilterDataItem ({
-    required this.filterItemId,
-    required this.filterItemValue,
-  });
-}
 

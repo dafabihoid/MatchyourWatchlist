@@ -51,7 +51,7 @@ class MediaDTO {
 
   static String getPosterPath(String posterPath) {
     if (posterPath == "default") {
-      return "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS7n9ShRlFcmM9X22DSHtblI35-XXJb7ekYgyO-y6t5Aw&s";
+      return "https://www.oefb.at/bewerbe/oefb2/person/images/1278650591628556536_d41215fae579bb7bc764-1,0-600x315-600x315.png";
     }
     return "https://image.tmdb.org/t/p/w500" + posterPath;
   }

@@ -17,14 +17,16 @@ class FilterPage extends StatefulWidget {
 }
 
 class _FilterPageState extends State<FilterPage> {
-  late List<FilterData> data;
+  List<FilterData> data = List.empty();
   late BackendDataProvider backendDataProvider;
   int filterIndex = 0;
 
   @override
   Widget build(BuildContext context) {
     backendDataProvider = Provider.of<BackendDataProvider>(context);
-    data = generateFilterDataList();
+    if(data.isEmpty){
+      data = generateFilterDataList();
+    }
 
     return Scaffold(
       appBar: AppBar(
@@ -68,9 +70,9 @@ class _FilterPageState extends State<FilterPage> {
             );
           },
           body: Column (
-            key: Key('a'),
             children: [
               const Divider(thickness: 2, indent: 15, endIndent: 20,),
+              item.headerValue == "Sprachen" ? const SizedBox():
               const ListTile(
                 title: Text("Alles auswählen"),
                 trailing: Icon(

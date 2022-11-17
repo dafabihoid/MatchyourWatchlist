@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:watchlist/backend/Controller.dart';
 import 'package:watchlist/class/Language.dart';
 
 import 'package:provider/provider.dart';
+import '../../DTOs/FilterDTO.dart';
 import '../../class/FilterData.dart';
 import '../../class/Genre.dart';
 import '../../class/MediaProvider.dart';
@@ -19,15 +19,15 @@ class FilterPage extends StatefulWidget {
 class _FilterPageState extends State<FilterPage> {
   List<FilterData> data = List.empty();
   late BackendDataProvider backendDataProvider;
+  late FilterDTO filterSettings;
   int filterIndex = 0;
 
   @override
   Widget build(BuildContext context) {
-    backendDataProvider = Provider.of<BackendDataProvider>(context);
     if(data.isEmpty){
+      backendDataProvider = Provider.of<BackendDataProvider>(context);
       data = generateFilterDataList();
     }
-
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -86,7 +86,7 @@ class _FilterPageState extends State<FilterPage> {
                   itemCount: data[filterIndex].filterItems.length,
                   itemBuilder: (BuildContext context, int index) {
                     return ListTile(
-                      key: Key(data[filterIndex].filterItems[index].filterItemId),
+                      //key: Key(data[filterIndex].filterItems[index].filterItemId),
                       //tileColor: index % 2 == 0 ? const Color(0xFFEEEEEE) : Colors.white,
                       title: Text(
                         data[filterIndex].filterItems[index].filterItemValue,

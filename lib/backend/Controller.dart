@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:math';
 import 'package:http/http.dart' as http;
+import 'package:watchlist/DTOs/FilterDTO.dart';
 import 'package:watchlist/class/Language.dart';
 
 import '../DTOs/MediaDTO.dart';
@@ -8,15 +9,20 @@ import '../class/Genre.dart';
 import '../class/MediaProvider.dart';
 
 String getBaseUrl(){
-  return "http://10.0.2.2/diplo/public/tmdb";
+  //return "http://10.0.2.2/diplo/public/tmdb";
+  return "http://185.208.206.99/diplo/matchyourwatchlist/tmdb";
 }
+
+/**
+ * gibt fehler bei fetchnewMediaDTO -> vielleicht im cardprovider falls kein platz im buffer wäre und nichts zum speichern gibt
+ */
 
 Future<MediaDTO> fetchNewMovieDTO() async{
   var rng = Random();
   //für lokale api
   var response = await http.get(
     Uri.parse(
-      "${getBaseUrl()}/getRandomMediaDefault"
+      "${getBaseUrl()}/getRandomMedia"
     )
   );
   //für externe api
@@ -25,7 +31,22 @@ Future<MediaDTO> fetchNewMovieDTO() async{
   if (response.statusCode == 200) {
     return MediaDTO.fromJson(jsonDecode(response.body));
   } else {
+    print("fehler");
     return fetchNewMovieDTO();
+  }
+}
+
+Future<FilterDTO?> fetchNewFilterDTO(String userId) async{
+  var response = await http.get(
+      Uri.parse(
+          "${getBaseUrl()}/getFilterById/$userId"
+      )
+  );
+
+  if (response.statusCode == 200) {
+    return FilterDTO.fromJson(jsonDecode(response.body));
+  } else {
+    return null;
   }
 }
 

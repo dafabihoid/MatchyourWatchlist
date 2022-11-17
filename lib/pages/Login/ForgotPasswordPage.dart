@@ -2,7 +2,8 @@ import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:watchlist/utils/Theme.dart';
+
+import 'package:watchlist/utils/myThemes.dart';
 
 import '../../utils/SnackBar.dart';
 
@@ -22,10 +23,10 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
     return Scaffold(
         appBar: AppBar(
         iconTheme: IconThemeData(
-        color: kLightPrimaryColor),
+        color: MyThemes.kLightPrimaryColor),
           backgroundColor: Colors.transparent,
           elevation: 0,
-          title: Text("Reset Password", style: TextStyle(color: kLightPrimaryColor),),
+          title: Text("Reset Password", style: TextStyle(color: MyThemes.kLightPrimaryColor),),
         ),
         body: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -43,16 +44,16 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                         const SizedBox(
                           height: 30,
                         ),
-                        const Text(
+                         Text(
                             "Geben Sie eine Email ein, um ihr Passwort zurückzusetzen.",
                             style: TextStyle(
-                                color: kLightPrimaryColor,
+                                color: MyThemes.kLightPrimaryColor,
                                 fontSize: 28,
                                 fontWeight: FontWeight.bold)),
-                        const Text(
+                         Text(
                             "Hinweis: Mail könnte im Spam-Ordner landen!",
                             style: TextStyle(
-                                color: kLightPrimaryColor,
+                                color: MyThemes.kLightPrimaryColor,
                                 fontSize: 15,
 
                             )),
@@ -87,10 +88,10 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                               onPressed: () async {
                                 resetPassword();
                               },
-                              child: const Text(
+                              child:  Text(
                                 "Passwort zurücksetzen",
                                 style: TextStyle(
-                                  color: kLightPrimaryColor,
+                                  color: MyThemes.kLightPrimaryColor,
                                   fontSize: 18,
                                 ),
                               ),

@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:watchlist/utils/Theme.dart';
+
 
 class ThemeProvider extends ChangeNotifier {
   ThemeMode themeMode = ThemeMode.system;
+
+
+
 
   bool get isDarkMode {
     if (themeMode == ThemeMode.system) {
@@ -21,6 +24,13 @@ class ThemeProvider extends ChangeNotifier {
 }
 
 class MyThemes {
+  static Color kDarkPrimaryColor = Color(0xFF212121);
+  static Color kDarkSecondaryColor = Color(0xFF373737);
+  static Color kLightPrimaryColor = Color(0xFFFFFFFF);
+  static Color kLightSecondaryColor = Color(0xFFC0C2C5);
+  static Color kAccentColor = Color(0xFF8763B4);
+
+
   static final darkTheme = ThemeData(
     scaffoldBackgroundColor: Colors.grey.shade900,
     primaryColor: Colors.black,

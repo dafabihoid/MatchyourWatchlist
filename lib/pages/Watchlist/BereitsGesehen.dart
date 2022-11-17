@@ -13,7 +13,7 @@ class BereitsGesehen extends StatelessWidget {
         //  backgroundColor: Colors.black12,
         title: const Text("Bereits gesehen"),
       ),
-      body: MediaView(),
+      body: MediaView(Icon(Icons.ac_unit)),
     );
   }
 }

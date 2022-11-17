@@ -5,7 +5,7 @@ import 'package:watchlist/pages/mainPage.dart';
 import 'package:watchlist/pages/Homepage/Homepage.dart';
 import 'package:watchlist/pages/Login/WelcomePage.dart';
 import 'package:watchlist/pages/Login/splash.dart';
-import 'package:watchlist/utils/Theme.dart';
+
 import '../utils/CardProvider.dart';
 import '../utils/SnackBar.dart';
 import '../utils/myThemes.dart';

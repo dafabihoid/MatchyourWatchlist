@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:watchlist/utils/myThemes.dart';
 
-import '../../utils/Theme.dart';
+
 
 class modifyProfil extends StatefulWidget {
   const modifyProfil({Key? key}) : super(key: key);
@@ -13,6 +15,7 @@ class modifyProfil extends StatefulWidget {
 class _modifyProfilState extends State<modifyProfil> {
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -26,7 +29,7 @@ class _modifyProfilState extends State<modifyProfil> {
         child: Center(
           child: Column(
             children: [
-                         Image.asset("lib/assets/maxl250.png",
+              themeProvider.isDarkMode ? Image.asset("lib/assets/maxl250weiss.png", width: MediaQuery.of(context).size.width*0.4) : Image.asset("lib/assets/maxl250.png",
                               width: MediaQuery.of(context).size.width*0.4),
                         const SizedBox(
                           height: 25,

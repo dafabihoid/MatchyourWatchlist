@@ -6,7 +6,7 @@ import 'package:watchlist/pages/Watchlist/EigeneWatchlist.dart';
 import 'package:watchlist/utils/myThemes.dart';
 
 import '../../Widgets/MediaView.dart';
-import '../../utils/Theme.dart';
+
 
 class Watchlist extends StatelessWidget {
   final ListDTO listTDO;
@@ -26,7 +26,7 @@ class Watchlist extends StatelessWidget {
                 BorderRadius.all(Radius.circular(8)),
                 border: Border.all(
                     color: Colors.black, width: 1),
-                color:  themeProvider.isDarkMode ? kDarkSecondaryColor : Colors.white
+                color:  themeProvider.isDarkMode ? MyThemes.kDarkSecondaryColor : Colors.white
             ),
             width: double.infinity,
             child: Row(

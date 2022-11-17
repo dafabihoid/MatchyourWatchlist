@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:watchlist/pages/Watchlist/BereitsGesehen.dart';
 import 'package:watchlist/pages/Watchlist/Watchlist.dart';
-import 'package:watchlist/utils/Theme.dart';
+
 
 import '../../DTOs/ListDTO.dart';
 import '../../class/Media.dart';
@@ -49,7 +49,7 @@ class _ListPageState extends State<ListPage> {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.all(Radius.circular(8)),
                     border: Border.all(width: 1),
-                    color: themeProvider.isDarkMode ? kDarkSecondaryColor : Colors.white
+                    color: themeProvider.isDarkMode ? MyThemes.kDarkSecondaryColor : Colors.white
                   ),
                   width: double.infinity,
                   child: Row(
@@ -94,7 +94,7 @@ class _ListPageState extends State<ListPage> {
                     borderRadius: BorderRadius.all(Radius.circular(8)),
                     border: Border.all(//color: kDarkPrimaryColor,
                        width: 1),
-                      color: themeProvider.isDarkMode ? kDarkSecondaryColor : Colors.white
+                      color: themeProvider.isDarkMode ? MyThemes.kDarkSecondaryColor : Colors.white
                   ),
                   width: double.infinity,
                   child: Row(

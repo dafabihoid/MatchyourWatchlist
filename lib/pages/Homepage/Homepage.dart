@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:watchlist/utils/CardProvider.dart';
 import 'package:watchlist/pages/Profile/Profilpage.dart';
 import 'package:watchlist/pages/Watchlist/ListPage.dart';
-import 'package:watchlist/utils/Theme.dart';
+
 
 import '../../class/Media.dart';
 import '../../utils/tinder_Card.dart';

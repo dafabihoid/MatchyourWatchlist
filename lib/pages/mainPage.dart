@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:watchlist/pages/Homepage/Homepage.dart';
 import 'package:watchlist/pages/Profile/Profilpage.dart';
 import 'package:watchlist/pages/Watchlist/ListPage.dart';
-import 'package:watchlist/utils/Theme.dart';
+
 
 import '../utils/myThemes.dart';
 
@@ -39,8 +39,8 @@ class _MainPageState extends State<MainPage> {
       bottomNavigationBar: BottomNavigationBar(
         onTap: onTap,
         currentIndex: currentIndex,
-        selectedItemColor: kAccentColor,//.withOpacity(0.8),
-        unselectedItemColor: kLightSecondaryColor,//.withOpacity(0.5),
+        selectedItemColor: MyThemes.kAccentColor,//.withOpacity(0.8),
+        unselectedItemColor: MyThemes.kLightSecondaryColor,//.withOpacity(0.5),
         showSelectedLabels: true,
         showUnselectedLabels: false,
         //elevation: 0,

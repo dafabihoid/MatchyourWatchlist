@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../DTOs/MediaDTO.dart';
 import '../class/Media.dart';
 
-Widget MediaView(){
+Widget MediaView(temp){
   final movies= [
     Media(
         title: "TestTitle",
@@ -42,7 +42,7 @@ return Scaffold(
       child: ListView.builder(
           itemCount: movies.length,
           itemBuilder: (context, index){
-            return MovieWidget(movie: movies[index],);
+            return MovieWidget(movie: movies[index],temp: temp,);
           }
 
       ),
@@ -55,7 +55,8 @@ return Scaffold(
 
 class MovieWidget extends StatelessWidget {
   final Media movie;
-  const MovieWidget({Key? key, required this.movie}) : assert(movie != null), super(key: key);
+  final Icon temp;
+  const MovieWidget({Key? key, required this.movie, required this.temp}) : assert(movie != null), super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +64,7 @@ class MovieWidget extends StatelessWidget {
       leading: Image.network(movie.cover),
       title: Text(movie.title),
       subtitle: Text(movie.description),
-      trailing: IconButton(icon: Icon(Icons.accessible), onPressed: () {
+      trailing: IconButton(icon: temp, onPressed: () {
 
       },),
     );

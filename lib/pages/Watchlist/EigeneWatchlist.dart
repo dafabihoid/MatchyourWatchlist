@@ -13,7 +13,7 @@ class EigeneWatchlist extends StatelessWidget {
         //  backgroundColor: Colors.black12,
         title: const Text("Eigene Watchlist"),
       ),
-      body: MediaView(),
+      body: MediaView(Icon(Icons.accessible)),
     );
   }
 }

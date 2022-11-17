@@ -10,7 +10,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:watchlist/pages/Profile/AppSettings.dart';
 import 'package:watchlist/pages/Profile/modifyProfil.dart';
 import 'package:watchlist/pages/Profile/myFriends.dart';
-import 'package:watchlist/utils/Theme.dart';
+
 import '../../utils/myThemes.dart';
 import '../../DTOs/MediaDTO.dart';
 import '../mainPage.dart';
@@ -45,8 +45,8 @@ class _ProfilPageState extends State<ProfilPage> {
                           children: [
                         SizedBox(height:30,),
                         Container(
-                          child: themeProvider.isDarkMode ? Image.asset("lib/assets/maxl250weiss.png", width: MediaQuery.of(context).size.width*0.4) : Image.asset("lib/assets/maxl250.png",
-                              width: MediaQuery.of(context).size.width*0.4)
+                          child: themeProvider.isDarkMode ? Image.asset("lib/assets/maxl250weiss.png", width: MediaQuery.of(context).size.width*0.3) : Image.asset("lib/assets/maxl250.png",
+                              width: MediaQuery.of(context).size.width*0.3)
                         ),
 
                         const SizedBox(
@@ -79,7 +79,7 @@ class _ProfilPageState extends State<ProfilPage> {
                   SizedBox(height: 15,),
                   buildSettings("App Einstellungen",3),
                   SizedBox(height: 15,),
-                  buildSignOutButton("Abmelden"),
+                  buildSignOutButton("Abmelden",context),
 
 
 
@@ -91,12 +91,13 @@ class _ProfilPageState extends State<ProfilPage> {
 
   Widget buildSettings(String text, int PageID){
     String ButtonText = text;
+    final themeProvider = Provider.of<ThemeProvider>(context);
     return Container(
         width: double.infinity,
         child: ElevatedButton(
           style: ButtonStyle(
             minimumSize: MaterialStateProperty.all<Size>(Size(5,45),),
-            backgroundColor: MaterialStateProperty.all<Color>(kAccentColor),
+            backgroundColor: MaterialStateProperty.all<Color>(MyThemes.kAccentColor),
              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
              RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(15)
@@ -126,7 +127,7 @@ class _ProfilPageState extends State<ProfilPage> {
           child: Text(
             ButtonText,
             style: TextStyle(
-         //     color: Colors.white,
+              color: themeProvider.isDarkMode ?Colors.white : Colors.black,
               fontSize: 20,
             ),
           ),
@@ -135,15 +136,16 @@ class _ProfilPageState extends State<ProfilPage> {
 
 }
 }
-  Widget buildSignOutButton(String text){
+  Widget buildSignOutButton(String text, context){
     String ButtonText = text;
+    final themeProvider = Provider.of<ThemeProvider>(context);
     return Container(
 
         width: double.infinity,
         child: ElevatedButton(
           style: ButtonStyle(
               minimumSize: MaterialStateProperty.all<Size>(Size(5,45),),
-               backgroundColor: MaterialStateProperty.all<Color>(kAccentColor),
+               backgroundColor: MaterialStateProperty.all<Color>(MyThemes.kAccentColor),
             shape: MaterialStateProperty.all<RoundedRectangleBorder>(
               RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(15)
@@ -154,7 +156,7 @@ class _ProfilPageState extends State<ProfilPage> {
           child: Text(
             ButtonText,
             style: TextStyle(
-            //  color: Colors.white,
+              color: themeProvider.isDarkMode ? Colors.white: Colors.black ,
               fontSize: 20,
             ),
           ),

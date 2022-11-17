@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:watchlist/pages/Watchlist/BereitsGesehenPage.dart';
 import '../DTOs/MediaDTO.dart';
 import '../class/Media.dart';
+import '../utils/Enum.dart';
 
-Widget MediaView(temp){
+
+
+Widget MediaView(Icon1, IconType1, Icon2, IconType2){
   final movies= [
     Media(
         title: "TestTitle",
@@ -38,25 +42,27 @@ Widget MediaView(temp){
 return Scaffold(
   body: Container(
     child: Padding(
-      padding: const EdgeInsets.all(16.0),
+      padding: const EdgeInsets.only(left: 16.0, top: 16.0, bottom: 16.0),
       child: ListView.builder(
           itemCount: movies.length,
           itemBuilder: (context, index){
-            return MovieWidget(movie: movies[index],temp: temp,);
+            return MovieWidget(movie: movies[index], Icon1: Icon1, IconType1: IconType1, Icon2: Icon2, IconType2: IconType2,);
           }
 
       ),
     ),
   ),
 );
-
-
 }
 
 class MovieWidget extends StatelessWidget {
   final Media movie;
-  final Icon temp;
-  const MovieWidget({Key? key, required this.movie, required this.temp}) : assert(movie != null), super(key: key);
+  final Icon Icon1;
+  final Icon Icon2;
+  final IconType IconType1;
+  final IconType IconType2;
+
+  MovieWidget({Key? key, required this.movie, required this.Icon1, required this.Icon2, required this.IconType1, required this.IconType2}) : assert(movie != null), super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -64,9 +70,63 @@ class MovieWidget extends StatelessWidget {
       leading: Image.network(movie.cover),
       title: Text(movie.title),
       subtitle: Text(movie.description),
-      trailing: IconButton(icon: temp, onPressed: () {
+      trailing: SizedBox( width: 100,
+        child: Row(
+          children: [
 
-      },),
+            IconButton(icon: Icon1, onPressed: () {
+                switch(IconType1){
+                  case IconType.bereitsgsehen: {
+                    print("Test");
+                  }
+                  break;
+                  case IconType.add: {
+
+                  }
+                  break;
+                  case IconType.delete: {
+
+                  }
+                  break;
+                  case IconType.nochnichtgesehen: {
+
+                  }
+                  break;
+                  case IconType.nichts: {
+
+                  }
+                  break;
+                }
+
+            },),
+            IconButton(icon: Icon2, onPressed: (){
+              switch(IconType2){
+                case IconType.bereitsgsehen: {
+
+                }
+                break;
+                case IconType.add: {
+
+                }
+                break;
+                case IconType.delete: {
+
+                }
+                break;
+                case IconType.nochnichtgesehen: {
+
+                }
+                break;
+                case IconType.nichts: {
+
+                }
+                break;
+              }
+            },)
+
+          ],
+        ),
+      ),
     );
   }
 }

@@ -2,8 +2,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:watchlist/Widgets/MediaView.dart';
 
+import '../../utils/Enum.dart';
+
+
+
 class EigeneWatchlist extends StatelessWidget {
-  const EigeneWatchlist({Key? key}) : super(key: key);
+   EigeneWatchlist({Key? key}) : super(key: key);
+
+  IconType IconType1 = IconType.bereitsgsehen;
+  IconType IconType2 = IconType.delete;
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +20,7 @@ class EigeneWatchlist extends StatelessWidget {
         //  backgroundColor: Colors.black12,
         title: const Text("Eigene Watchlist"),
       ),
-      body: MediaView(Icon(Icons.accessible)),
+      body: MediaView(Icon(Icons.visibility),IconType1, Icon(Icons.delete), IconType2 )
     );
   }
 }

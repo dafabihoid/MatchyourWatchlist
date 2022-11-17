@@ -2,8 +2,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:watchlist/Widgets/MediaView.dart';
 
+import '../../utils/Enum.dart';
+
+
+
 class BereitsGesehen extends StatelessWidget {
-  const BereitsGesehen({Key? key}) : super(key: key);
+   BereitsGesehen({Key? key}) : super(key: key);
+
+  IconType IconType1 = IconType.nochnichtgesehen;
+  IconType IconType2 = IconType.delete;
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +20,7 @@ class BereitsGesehen extends StatelessWidget {
         //  backgroundColor: Colors.black12,
         title: const Text("Bereits gesehen"),
       ),
-      body: MediaView(Icon(Icons.ac_unit)),
+      body: MediaView(Icon(Icons.visibility_off),IconType1, Icon(Icons.delete), IconType2 ),
     );
   }
 }

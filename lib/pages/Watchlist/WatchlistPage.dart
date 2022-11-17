@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:watchlist/pages/Watchlist/BereitsGesehenPage.dart';
 import 'package:watchlist/pages/Watchlist/WatchlistWithFriends.dart';
-
 import '../../DTOs/ListDTO.dart';
 import '../../class/Media.dart';
 import '../../utils/myThemes.dart';
@@ -38,8 +37,9 @@ class _ListPageState extends State<ListPage> {
               EigeneWatchlistWidget(),
               const SizedBox(height: 10),
               BereitsGesehenWidget(),
+
               SizedBox(
-                height: ErikApi.ErikApiListe.length * 113,
+                height: ErikApi.ErikApiListe.length * 113 + 20,
                 width: 400,
                 child: FutureBuilder(
                     builder: (BuildContext context, AsyncSnapshot snapshot) {

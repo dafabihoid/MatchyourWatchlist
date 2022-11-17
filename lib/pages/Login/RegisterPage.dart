@@ -3,8 +3,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:watchlist/utils/SnackBar.dart';
-import 'package:watchlist/utils/Theme.dart';
+
+
+import '../../utils/myThemes.dart';
 
 class RegisterPage extends StatefulWidget {
   final VoidCallback onClickedSignIn;
@@ -23,6 +26,7 @@ class _RegisterPageState extends State<RegisterPage> {
     TextEditingController _passwordController = TextEditingController();
     @override
     Widget build(BuildContext context) {
+      final themeProvider = Provider.of<ThemeProvider>(context);
       return Container(
         //  color: isDarkTheme == true ? kDarkPrimaryColor : kLightPrimaryColor,
           height: double.infinity,
@@ -37,7 +41,7 @@ class _RegisterPageState extends State<RegisterPage> {
               Center(
                   child: Column(children: [
                     SizedBox(height:65,),
-                    Image.asset("lib/assets/Logo.png",
+                    themeProvider.isDarkMode ? Image.asset("lib/assets/Logo_white.png", width: MediaQuery.of(context).size.width*0.3) : Image.asset("lib/assets/Logo.png",
                         width: MediaQuery.of(context).size.width * 0.3),
                     const SizedBox(
                       height: 30,
@@ -105,7 +109,7 @@ class _RegisterPageState extends State<RegisterPage> {
               Container(
                   width: double.infinity,
                   child: RawMaterialButton(
-                    fillColor: kAccentColor,
+                    fillColor: MyThemes.kAccentColor,
                     elevation: 0,
                     padding: const EdgeInsets.symmetric(vertical: 20),
                     onPressed: () async {
@@ -122,15 +126,15 @@ class _RegisterPageState extends State<RegisterPage> {
                   )),
               SizedBox(height: 10,),
               RichText(text: TextSpan(
-                  style: TextStyle(color: kLightPrimaryColor, fontSize: 15),
+                  style: TextStyle(color: themeProvider.isDarkMode ? Colors.white : Colors.black, fontSize: 15),
                   text: 'Already have an Account? ',
                   children: [
                     TextSpan(
                         recognizer: TapGestureRecognizer()..onTap = widget.onClickedSignIn,
                         text: 'Sign In',
                         style: TextStyle(
-                            decoration: TextDecoration.underline,
-                            color: Theme.of(context).colorScheme.secondary
+                          //decoration: TextDecoration.underline,
+                          color: Colors.blue,
                         )
                     )
                   ]

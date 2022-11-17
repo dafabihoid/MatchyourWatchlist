@@ -94,11 +94,10 @@ class _TinderCardState extends State<TinderCard> {
                 top: Radius.circular(30)
               )
             ),
-
               builder: (BuildContext context) {
               return DraggableScrollableSheet(
                   expand: false,
-                  maxChildSize: 0.9,
+                  maxChildSize: 0.93,
                   minChildSize: 0.32,
                   builder: (context, scrollController) => SingleChildScrollView(
                     controller: scrollController,

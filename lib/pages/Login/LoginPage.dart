@@ -2,11 +2,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:watchlist/pages/Login/ForgotPasswordPage.dart';
-import 'package:watchlist/utils/Theme.dart';
+
 
 import '../../utils/SnackBar.dart';
-import '../mainPage.dart';
+import '../../utils/myThemes.dart';
+
 
 class LoginPage extends StatefulWidget {
   final VoidCallback onClickedSignUp;
@@ -32,6 +34,7 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
     return Container(
         height: double.infinity,
      //   color: kDarkPrimaryColor,
@@ -44,7 +47,11 @@ class _LoginPageState extends State<LoginPage> {
             Center(
                 child: Column(children: [
                   SizedBox(height:65,),
-                  Image.asset("lib/assets/Logo.png",
+                  themeProvider.isDarkMode ? Image.asset("lib/assets/Logo_white.png",
+                      width: MediaQuery
+                          .of(context)
+                          .size
+                          .width * 0.3) : Image.asset("lib/assets/Logo.png",
                       width: MediaQuery
                           .of(context)
                           .size
@@ -118,7 +125,7 @@ class _LoginPageState extends State<LoginPage> {
             Container(
                 width: double.infinity,
                 child: RawMaterialButton(
-               //   fillColor: kAccentColor, !!!!!!!!!!!!
+                  fillColor: MyThemes.kAccentColor,
                   elevation: 0,
                   padding: const EdgeInsets.symmetric(vertical: 20),
                   onPressed: () async {
@@ -138,8 +145,9 @@ class _LoginPageState extends State<LoginPage> {
                 )),
             SizedBox(height: 10,),
             RichText(text: TextSpan(
-                style: TextStyle(//color: kLightPrimaryColor,
-     fontSize: 15),
+                style: TextStyle(
+                color: themeProvider.isDarkMode ? Colors.white : Colors.black,
+                fontSize: 15),
                 text: 'No account? ',
                 children: [
                   TextSpan(
@@ -147,8 +155,8 @@ class _LoginPageState extends State<LoginPage> {
                         ..onTap = widget.onClickedSignUp,
                       text: 'Sign Up',
                       style: TextStyle(
-                          decoration: TextDecoration.underline,
-                          color: Theme.of(context).colorScheme.secondary
+                          //decoration: TextDecoration.underline,
+                          color: Colors.blue,
                       )
                   )
                 ]

@@ -8,8 +8,8 @@ class Genre {
   }
 
   Genre.fromJson(Map<String, dynamic> json)
-      : genreId = json['id'],
-        genreName = json['name'];
+      : genreId = json['genreId'],
+        genreName = json['genreName'];
 
   Map<String, dynamic> toJson() => {
     'genreId': genreId,

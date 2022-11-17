@@ -20,13 +20,13 @@ String getBaseUrl(){
 Future<MediaDTO> fetchNewMovieDTO() async{
   var rng = Random();
   //für lokale api
-  /*var response = await http.get(
+  var response = await http.get(
     Uri.parse(
       "${getBaseUrl()}/getRandomMedia"
     )
-  );*/
+  );
   //für externe api
-  var response = await http.get(Uri.parse("https://api.themoviedb.org/3/movie/"+ rng.nextInt(2000).toString() +"?api_key=baabd94df20419bfe4e7fe9bc72dc923"));
+  //var response = await http.get(Uri.parse("https://api.themoviedb.org/3/movie/"+ rng.nextInt(2000).toString() +"?api_key=baabd94df20419bfe4e7fe9bc72dc923"));
 
   if (response.statusCode == 200) {
     return MediaDTO.fromJson(jsonDecode(response.body));

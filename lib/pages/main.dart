@@ -1,16 +1,11 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:watchlist/pages/mainPage.dart';
-import 'package:watchlist/pages/Homepage/Homepage.dart';
-import 'package:watchlist/pages/Login/WelcomePage.dart';
 import 'package:watchlist/pages/Login/splash.dart';
 import 'package:watchlist/utils/BackendDataProvider.dart';
-import 'package:watchlist/utils/Theme.dart';
 import '../utils/CardProvider.dart';
 import '../utils/SnackBar.dart';
 import '../utils/myThemes.dart';
-import 'Watchlist/WatchlistPage.dart';
 
 
 

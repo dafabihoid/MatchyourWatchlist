@@ -9,7 +9,7 @@ import 'package:watchlist/pages/Login/splash.dart';
 import '../utils/CardProvider.dart';
 import '../utils/SnackBar.dart';
 import '../utils/myThemes.dart';
-import 'Watchlist/ListPage.dart';
+import 'Watchlist/WatchlistPage.dart';
 
 
 

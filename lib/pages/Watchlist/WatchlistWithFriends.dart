@@ -2,15 +2,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:watchlist/DTOs/ListDTO.dart';
-import 'package:watchlist/pages/Watchlist/EigeneWatchlist.dart';
+import 'package:watchlist/pages/Watchlist/EigeneWatchlistPage.dart';
 import 'package:watchlist/utils/myThemes.dart';
 
 import '../../Widgets/MediaView.dart';
 
 
-class Watchlist extends StatelessWidget {
+class WatchlistWithFriends extends StatelessWidget {
   final ListDTO listTDO;
-  const Watchlist({Key? key, required this.listTDO}) : assert(listTDO != null), super(key: key);
+  const WatchlistWithFriends({Key? key, required this.listTDO}) : assert(listTDO != null), super(key: key);
 
   @override
   Widget build(BuildContext context) {

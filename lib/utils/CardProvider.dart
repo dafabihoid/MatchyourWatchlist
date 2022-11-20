@@ -16,12 +16,10 @@ class CardProvider extends ChangeNotifier {
   List<Media> tempMovies = [];
 
   List<Media> get getMovies => movies;
-
   bool get getIsMoving => isMoving;
-
   Offset get getPosition => position;
-
   double get getAngle => angle;
+
 
   CardProvider() {
     bufferMovies();

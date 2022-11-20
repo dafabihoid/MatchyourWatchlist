@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:watchlist/pages/Login/splash.dart';
 import 'package:watchlist/utils/BackendDataProvider.dart';
+import '../Singleton/MainFilter.dart';
 import '../utils/CardProvider.dart';
 import '../utils/SnackBar.dart';
 import '../utils/myThemes.dart';
@@ -12,6 +13,7 @@ import '../utils/myThemes.dart';
 Future main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  MainFilter mainFilter = MainFilter();
   runApp(
     MultiProvider(
         providers: [

@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:math';
 import 'package:http/http.dart' as http;
 import 'package:watchlist/DTOs/FilterDTO.dart';
+import 'package:watchlist/Singleton/MainFilter.dart';
 import 'package:watchlist/class/Language.dart';
 
 import '../DTOs/MediaDTO.dart';
@@ -13,20 +14,17 @@ String getBaseUrl(){
   return "http://185.208.206.99/diplo/matchyourwatchlist/tmdb";
 }
 
-/**
- * gibt fehler bei fetchnewMediaDTO -> vielleicht im cardprovider falls kein platz im buffer wäre und nichts zum speichern gibt
- */
-
 Future<MediaDTO> fetchNewMovieDTO() async{
-  var rng = Random();
-  //für lokale api
+  var json = MainFilter().toFilterDTO().toJson();
   var response = await http.get(
     Uri.parse(
-      "${getBaseUrl()}/getRandomMedia"
+      "${getBaseUrl()}/getRandomMedia/${jsonEncode(json)}"
     )
   );
-  //für externe api
-  //var response = await http.get(Uri.parse("https://api.themoviedb.org/3/movie/"+ rng.nextInt(2000).toString() +"?api_key=baabd94df20419bfe4e7fe9bc72dc923"));
+
+  /*für externe api
+  var rng = Random();
+  var response = await http.get(Uri.parse("https://api.themoviedb.org/3/movie/"+ rng.nextInt(2000).toString() +"?api_key=baabd94df20419bfe4e7fe9bc72dc923"));*/
 
   if (response.statusCode == 200) {
     return MediaDTO.fromJson(jsonDecode(response.body));

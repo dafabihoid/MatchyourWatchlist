@@ -11,7 +11,7 @@ class FilterData {
 }
 
 class FilterDataItem {
-  String filterItemId;
+  Object filterItemId;
   String filterItemValue;
 
   FilterDataItem ({

@@ -26,7 +26,8 @@ class ProfilPage extends StatefulWidget {
 class _ProfilPageState extends State<ProfilPage> {
   final controller = TextEditingController();
   late Future<MediaDTO> futureMovieDTO;
-  String? AccountEmail = FirebaseAuth.instance.currentUser?.email;
+  //String? AccountEmail = FirebaseAuth.instance.currentUser?.email;
+  String? AccountEmail = "mail";
 
   @override
   Widget build(BuildContext context) {

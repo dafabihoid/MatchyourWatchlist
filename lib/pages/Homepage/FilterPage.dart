@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:watchlist/Singleton/MainFilter.dart';
+import 'package:watchlist/Widgets/FilterTile.dart';
 import 'package:watchlist/class/Language.dart';
 
 import 'package:provider/provider.dart';
@@ -8,6 +10,7 @@ import '../../class/FilterData.dart';
 import '../../class/Genre.dart';
 import '../../class/MediaProvider.dart';
 import '../../utils/BackendDataProvider.dart';
+import '../../utils/GlobalString.dart';
 
 class FilterPage extends StatefulWidget {
   const FilterPage({Key? key}) : super(key: key);
@@ -19,8 +22,9 @@ class FilterPage extends StatefulWidget {
 class _FilterPageState extends State<FilterPage> {
   List<FilterData> data = List.empty();
   late BackendDataProvider backendDataProvider;
-  late FilterDTO filterSettings;
+  MainFilter mainFilter = MainFilter();
   int filterIndex = 0;
+
 
   @override
   Widget build(BuildContext context) {
@@ -85,17 +89,7 @@ class _FilterPageState extends State<FilterPage> {
                   shrinkWrap: true,
                   itemCount: data[filterIndex].filterItems.length,
                   itemBuilder: (BuildContext context, int index) {
-                    return ListTile(
-                      //key: Key(data[filterIndex].filterItems[index].filterItemId),
-                      //tileColor: index % 2 == 0 ? const Color(0xFFEEEEEE) : Colors.white,
-                      title: Text(
-                        data[filterIndex].filterItems[index].filterItemValue,
-                      ),
-                      trailing: const Icon(
-                        Icons.check_box_outlined,
-                     //   color: Colors.black,
-                      ),
-                    );
+                    return FilterTile(tileField: item.headerValue, tileId: data[filterIndex].filterItems[index].filterItemId, tileValue: data[filterIndex].filterItems[index].filterItemValue);
                   }
               ),
             ],
@@ -107,7 +101,7 @@ class _FilterPageState extends State<FilterPage> {
   }
 
   List<FilterData> generateFilterDataList() {
-    List<String> headers = ["Medien-Typ", "Genre der Filme", "Genre der Serien", "Provider", "Sprachen"];
+    List<String> headers = [GlobalStrings.mediaTyp, GlobalStrings.genreOfMovies, GlobalStrings.genreOfSeries, GlobalStrings.provider, GlobalStrings.language];
 
     List<FilterData> filterData = [];
 
@@ -164,7 +158,7 @@ class _FilterPageState extends State<FilterPage> {
     }
 
     genres.forEach((element) {
-      filterDataItems.add(FilterDataItem(filterItemId: '${element.genreId}', filterItemValue: element.genreName));
+      filterDataItems.add(FilterDataItem(filterItemId: element.genreId, filterItemValue: element.genreName));
     });
 
     return filterDataItems;
@@ -175,7 +169,7 @@ class _FilterPageState extends State<FilterPage> {
 
     List<MediaProvider> providers = backendDataProvider.importantProviders;
     providers.forEach((element) {
-      filterDataItems.add(FilterDataItem(filterItemId: '${element.providerId}', filterItemValue: element.providerName));
+      filterDataItems.add(FilterDataItem(filterItemId: element.providerId, filterItemValue: element.providerName));
     });
 
     return filterDataItems;

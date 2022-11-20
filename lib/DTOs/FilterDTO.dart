@@ -4,47 +4,61 @@ import 'package:watchlist/class/MediaProvider.dart';
 import '../class/Genre.dart';
 
 class FilterDTO{
-  Language language = Language("en", "English");
-  List<Genre> genres = [];
-  List<MediaProvider> mediaProviders = [];
-  List<String> mediaTypes = {"movie", "tv"} as List<String>;
+  String languageId = "en";
+  List<int> genreMovieIds = [];
+  List<int> genreSeriesIds = [];
+  List<int> mediaProviderIds = [];
+  List<String> mediaTypes = ["movie", "tv"];
 
   FilterDTO({
-    required this.language,
-    required this.genres,
-    required this.mediaProviders,
+    required this.languageId,
+    required this.genreMovieIds,
+    required this.genreSeriesIds,
+    required this.mediaProviderIds,
     required this.mediaTypes
   });
 
   factory FilterDTO.fromJson(Map<String, dynamic> json){
     return FilterDTO(
-        language: json['language'],
-        genres: loadGenres(json),
-        mediaProviders: loadMediaProvider(json),
+        languageId: json['languageId'],
+        genreMovieIds: loadGenreMovieIds(json),
+        genreSeriesIds: loadGenreSeriesIds(json),
+        mediaProviderIds: loadMediaProviderIds(json),
         mediaTypes: loadMediaTypes(json)
     );
   }
 
-  static List<Genre> loadGenres(Map<String, dynamic> json){
-    var genreList = List.from(json['genres']).map((item) {
-      if(item is Map<String, dynamic>)
+  static List<int> loadGenreMovieIds(Map<String, dynamic> json){
+    var genreList = List.from(json['genreMovieIds']).map((item) {
+      if(item is int)
       {
-        return Genre.fromJson(item);
+        return item;
       }
     }).toList();
 
-    return genreList.whereType<Genre>().toList();
+    return genreList.whereType<int>().toList();
   }
 
-  static List<MediaProvider> loadMediaProvider(Map<String, dynamic> json) {
-    var mediaProviderList = List.from(json['mediaProviders']).map((item) {
-      if(item is Map<String, dynamic>)
+  static List<int> loadGenreSeriesIds(Map<String, dynamic> json){
+    var genreList = List.from(json['genreSeriesIds']).map((item) {
+      if(item is int)
       {
-        return MediaProvider.fromJson(item);
+        return item;
       }
     }).toList();
 
-    return mediaProviderList.whereType<MediaProvider>().toList();
+    return genreList.whereType<int>().toList();
+  }
+
+  static List<int> loadMediaProviderIds(Map<String, dynamic> json) {
+    var mediaProviderList = List.from(json['mediaProviderIds']).map((item) {
+      if(item is int)
+      {
+        return item;
+      }
+    }).toList();
+
+    return mediaProviderList.whereType<int>().toList();
   }
 
   static List<String> loadMediaTypes(Map<String, dynamic> json) {
@@ -57,4 +71,12 @@ class FilterDTO{
 
     return mediaTypesList.whereType<String>().toList();
   }
+
+  Map<String, dynamic> toJson() => {
+    'languageId': languageId,
+    'genreMovieIds': genreMovieIds,
+    'genreSeriesIds': genreSeriesIds,
+    'mediaProviderIds': mediaProviderIds,
+    'mediaTypes': mediaTypes,
+  };
 }

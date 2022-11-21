@@ -34,7 +34,7 @@ class BackendDataProvider extends ChangeNotifier {
   }
 
   void loadAllLanguages(){
-    Future<List<Language>> futureLanguages = fetchAllLanguages();
+    Future<List<Language>> futureLanguages = fetchImportantLanguages();
     futureLanguages.then((result) {
       for (Language language in result) {
         allLanguages.add(language);

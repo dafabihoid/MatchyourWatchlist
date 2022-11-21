@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:watchlist/Singleton/MainFilter.dart';
+import 'package:watchlist/pages/main.dart';
 import 'package:watchlist/utils/GlobalString.dart';
 
 class FilterTile extends StatefulWidget {
@@ -8,11 +9,14 @@ class FilterTile extends StatefulWidget {
   final Object tileId;
   final String tileValue;
 
+  final ValueChanged<int> update;
+
   const FilterTile({
     Key? key,
     required this.tileField,
     required this.tileId,
     required this.tileValue,
+    required this.update,
   }) : super(key: key);
 
   @override
@@ -23,7 +27,7 @@ class _FilterTile extends State<FilterTile> {
   late String tileField;
   late Object tileId;
   late String tileValue;
-  late Icon checkBox;
+  Icon checkBox = const Icon(Icons.check_box_outline_blank);
   MainFilter mainFilter = MainFilter();
 
   void switchIcon(){
@@ -69,11 +73,29 @@ class _FilterTile extends State<FilterTile> {
   void changeFilterSettings(){
     switch(tileField){
       case(GlobalStrings.language):
-        mainFilter.languageId = tileId as String;
+        if (mainFilter.getLanguage() == tileId){
+          if(mainFilter.getLanguage() == "en"){
+            mainFilter.setLanguage("de");
+          } else {
+            mainFilter.setLanguage("en");
+          }
+          widget.update(0);
+          return;
+        }
+        mainFilter.setLanguage(tileId as String);
+        widget.update(0);
         break;
       case(GlobalStrings.genreOfMovies):
         if (mainFilter.genreMovieIds.contains(tileId)){
           mainFilter.genreMovieIds.remove(tileId);
+          if(mainFilter.genreMovieIds.isEmpty){
+            if (tileId == 28){
+              mainFilter.genreMovieIds.add(12);
+            } else {
+              mainFilter.genreMovieIds.add(28);
+            }
+          }
+          widget.update(0);
           return;
         }
         mainFilter.genreMovieIds.add(tileId as int);
@@ -81,6 +103,15 @@ class _FilterTile extends State<FilterTile> {
       case(GlobalStrings.genreOfSeries):
         if (mainFilter.genreSeriesIds.contains(tileId)){
           mainFilter.genreSeriesIds.remove(tileId);
+          mainFilter.genreSeriesIds.remove(tileId);
+          if(mainFilter.genreSeriesIds.isEmpty){
+            if (tileId == 10759){
+              mainFilter.genreSeriesIds.add(16);
+            } else {
+              mainFilter.genreSeriesIds.add(10759);
+            }
+          }
+          widget.update(0);
           return;
         }
         mainFilter.genreSeriesIds.add(tileId as int);
@@ -88,6 +119,15 @@ class _FilterTile extends State<FilterTile> {
       case(GlobalStrings.provider):
         if (mainFilter.mediaProviderIds.contains(tileId)){
           mainFilter.mediaProviderIds.remove(tileId);
+          mainFilter.mediaProviderIds.remove(tileId);
+          if(mainFilter.mediaProviderIds.isEmpty){
+            if (tileId == 8){
+              mainFilter.mediaProviderIds.add(9);
+            } else {
+              mainFilter.mediaProviderIds.add(8);
+            }
+          }
+          widget.update(0);
           return;
         }
         mainFilter.mediaProviderIds.add(tileId as int);
@@ -95,6 +135,15 @@ class _FilterTile extends State<FilterTile> {
       case(GlobalStrings.mediaTyp):
         if (mainFilter.mediaTypes.contains(tileId)){
           mainFilter.mediaTypes.remove(tileId);
+          mainFilter.mediaTypes.remove(tileId);
+          if(mainFilter.mediaTypes.isEmpty){
+            if (tileId == "movie"){
+              mainFilter.mediaTypes.add("tv");
+            } else {
+              mainFilter.mediaTypes.add("movie");
+            }
+          }
+          widget.update(0);
           return;
         }
         mainFilter.mediaTypes.add(tileId as String);
@@ -122,7 +171,6 @@ class _FilterTile extends State<FilterTile> {
       onTap: () {
         onFilterPress();
         setState(() {
-
         });
       },
     );

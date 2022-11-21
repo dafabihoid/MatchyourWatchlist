@@ -16,6 +16,7 @@ String getBaseUrl(){
 
 Future<MediaDTO> fetchNewMovieDTO() async{
   var json = MainFilter().toFilterDTO().toJson();
+  //print(jsonEncode(json));
   var response = await http.get(
     Uri.parse(
       "${getBaseUrl()}/getRandomMedia/${jsonEncode(json)}"
@@ -29,7 +30,6 @@ Future<MediaDTO> fetchNewMovieDTO() async{
   if (response.statusCode == 200) {
     return MediaDTO.fromJson(jsonDecode(response.body));
   } else {
-    print("fehler");
     return fetchNewMovieDTO();
   }
 }
@@ -69,6 +69,22 @@ Future<List<Language>> fetchAllLanguages() async{
   var response = await http.get(
       Uri.parse(
           "${getBaseUrl()}/getAllLanguages"
+      )
+  );
+
+  if (response.statusCode == 200) {
+    return List<Language>.generate(jsonDecode(response.body).length, (int index) {
+      return Language.fromJson(jsonDecode(response.body)[index]);
+    });
+  } else {
+    return List.empty();
+  }
+}
+
+Future<List<Language>> fetchImportantLanguages() async{
+  var response = await http.get(
+      Uri.parse(
+          "${getBaseUrl()}/getImportantLanguages"
       )
   );
 

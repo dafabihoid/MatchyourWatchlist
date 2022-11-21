@@ -5,7 +5,6 @@ import 'package:watchlist/Widgets/FilterTile.dart';
 import 'package:watchlist/class/Language.dart';
 
 import 'package:provider/provider.dart';
-import '../../DTOs/FilterDTO.dart';
 import '../../class/FilterData.dart';
 import '../../class/Genre.dart';
 import '../../class/MediaProvider.dart';
@@ -25,17 +24,21 @@ class _FilterPageState extends State<FilterPage> {
   MainFilter mainFilter = MainFilter();
   int filterIndex = 0;
 
+  void update(int noUse){
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
     if(data.isEmpty){
       backendDataProvider = Provider.of<BackendDataProvider>(context);
+      fillFilterList();
       data = generateFilterDataList();
     }
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: const Text("Filter Settings"),
+        title: const Text("Filter Einstellungen"),
     //    backgroundColor: Colors.black12,
       ),
 
@@ -76,7 +79,7 @@ class _FilterPageState extends State<FilterPage> {
           body: Column (
             children: [
               const Divider(thickness: 2, indent: 15, endIndent: 20,),
-              item.headerValue == "Sprachen" ? const SizedBox():
+              item.headerValue == GlobalStrings.language ? const SizedBox():
               const ListTile(
                 title: Text("Alles auswählen"),
                 trailing: Icon(
@@ -89,7 +92,7 @@ class _FilterPageState extends State<FilterPage> {
                   shrinkWrap: true,
                   itemCount: data[filterIndex].filterItems.length,
                   itemBuilder: (BuildContext context, int index) {
-                    return FilterTile(tileField: item.headerValue, tileId: data[filterIndex].filterItems[index].filterItemId, tileValue: data[filterIndex].filterItems[index].filterItemValue);
+                    return FilterTile(tileField: item.headerValue, tileId: data[filterIndex].filterItems[index].filterItemId, tileValue: data[filterIndex].filterItems[index].filterItemValue, update: update,);
                   }
               ),
             ],
@@ -98,6 +101,18 @@ class _FilterPageState extends State<FilterPage> {
         );
       }).toList(),
     );
+  }
+
+  void fillFilterList(){
+    backendDataProvider.allGenresMovies.forEach((element) {
+      mainFilter.addGenreMovie(element.genreId);
+    });
+    backendDataProvider.allGenresSeries.forEach((element) {
+      mainFilter.addGenreSeries(element.genreId);
+    });
+    backendDataProvider.importantProviders.forEach((element) {
+      mainFilter.addMediaProvider(element.providerId);
+    });
   }
 
   List<FilterData> generateFilterDataList() {

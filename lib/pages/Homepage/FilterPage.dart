@@ -32,7 +32,7 @@ class _FilterPageState extends State<FilterPage> {
   Widget build(BuildContext context) {
     if(data.isEmpty){
       backendDataProvider = Provider.of<BackendDataProvider>(context);
-      fillFilterList();
+      //fillFilterList();
       data = generateFilterDataList();
     }
     return Scaffold(

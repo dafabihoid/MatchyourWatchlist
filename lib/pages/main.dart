@@ -31,7 +31,10 @@ class MyApp extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
-    final backendDataProvider = Provider.of<BackendDataProvider>(context);
+    BackendDataProvider backendDataProvider = Provider.of<BackendDataProvider>(context);
+
+    loadFilterSettings(backendDataProvider);
+
     return MaterialApp(
 
       scaffoldMessengerKey: Utils.SnackBarKey,
@@ -44,7 +47,25 @@ class MyApp extends StatelessWidget{
       home: Splash(), //ListPage(),
     );
   }
-      }
+
+  void loadFilterSettings(BackendDataProvider backendDataProvider) async {
+    MainFilter mainFilter = MainFilter();
+    if(backendDataProvider.importantProviders.isEmpty || backendDataProvider.allGenresMovies.isEmpty || backendDataProvider.allGenresSeries.isEmpty){
+      await Future.delayed(const Duration(milliseconds: 300),(){});
+      loadFilterSettings(backendDataProvider);
+      return;
+    }
+    backendDataProvider.allGenresMovies.forEach((element) {
+      mainFilter.addGenreMovie(element.genreId);
+    });
+    backendDataProvider.allGenresSeries.forEach((element) {
+      mainFilter.addGenreSeries(element.genreId);
+    });
+    backendDataProvider.importantProviders.forEach((element) {
+      mainFilter.addMediaProvider(element.providerId);
+    });
+  }
+}
 
 
 

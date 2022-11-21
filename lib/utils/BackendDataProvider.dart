@@ -13,13 +13,26 @@ class BackendDataProvider extends ChangeNotifier {
   List<MediaProvider> importantProviders = [];
 
   BackendDataProvider(){
-   loadAllGenresMovies("movie");
-   loadAllGenresMovies("tv");
-   loadAllLanguages();
-   loadImportantProviders();
+   initializeFunctions();
   }
 
-  void loadAllGenresMovies(String mediaType){
+  void initializeFunctions() {
+    loadAllGenresMovies("movie");
+    loadAllGenresMovies("tv");
+    loadAllLanguages();
+    loadImportantProviders();
+  }
+
+  /*
+  void initializeFunctions() async {
+    await loadAllGenresMovies("movie");
+    await loadAllGenresMovies("tv");
+    await loadAllLanguages();
+    await loadImportantProviders();
+  }
+   */
+
+  Future<bool> loadAllGenresMovies(String mediaType) async{
     Future<List<Genre>> futureGenres = fetchAllGenres(mediaType);
     futureGenres.then((result) {
       for (Genre genre in result) {
@@ -31,24 +44,27 @@ class BackendDataProvider extends ChangeNotifier {
         }
       }
     });
+    return true;
   }
 
-  void loadAllLanguages(){
+  Future<bool> loadAllLanguages() async{
     Future<List<Language>> futureLanguages = fetchImportantLanguages();
     futureLanguages.then((result) {
       for (Language language in result) {
         allLanguages.add(language);
       }
     });
+    return true;
   }
 
-  void loadImportantProviders(){
+  Future<bool> loadImportantProviders() async{
     Future<List<MediaProvider>> futureProviders = fetchImportantProvider();
     futureProviders.then((result) {
       for (MediaProvider provider in result) {
         importantProviders.add(provider);
       }
     });
+    return true;
   }
 
 }

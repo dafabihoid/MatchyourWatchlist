@@ -9,6 +9,11 @@ import '../DTOs/MediaDTO.dart';
 import '../class/Genre.dart';
 import '../class/MediaProvider.dart';
 
+/**
+ * bei main beim laden der filtereinstellungen einen lade kreis anzeigen bis laden fertig ist
+ * fertig für laden über simpelton in variable speichern und checken über gleiche methode wie bei filter laden
+ */
+
 String getBaseUrl(){
   //return "http://10.0.2.2/diplo/public/tmdb";
   return "http://185.208.206.99/diplo/matchyourwatchlist/tmdb";
@@ -16,7 +21,7 @@ String getBaseUrl(){
 
 Future<MediaDTO> fetchNewMovieDTO() async{
   var json = MainFilter().toFilterDTO().toJson();
-  //print(jsonEncode(json));
+  print(jsonEncode(json));
   var response = await http.get(
     Uri.parse(
       "${getBaseUrl()}/getRandomMedia/${jsonEncode(json)}"

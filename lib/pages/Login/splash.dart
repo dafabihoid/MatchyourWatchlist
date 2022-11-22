@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:watchlist/Singleton/AppData.dart';
 
 import '../../utils/CardProvider.dart';
 import '../mainPage.dart';
@@ -19,33 +20,49 @@ class _SplashState extends State<Splash> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    Navigatetohome();
+
   }
 
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<CardProvider>(context);
-    provider.getMovies.forEach((element) {
-      Future.wait([
-        precacheImage(NetworkImage(element.cover), context),
-      ]);
-    });
+    Navigatetohome(context);
 
     return Scaffold(
         body: Center(
-            child: Container(
-              width: MediaQuery.of(context).size.width*0.7,
-              decoration: const BoxDecoration(
-                  image: DecorationImage(
+            child: Column (
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(
+                  width: MediaQuery.of(context).size.width*0.8,
+                  height: MediaQuery.of(context).size.height*0.4,
+                  decoration: const BoxDecoration(
+                    image: DecorationImage(
                       image: AssetImage("lib/assets/LogoSchrift.png"),
-                      )),
-            ))
+                  )),
+                ),
+                const CircularProgressIndicator(
+                  valueColor: AlwaysStoppedAnimation<Color> (Colors.deepPurpleAccent),
+                )
+              ],
+            ),
+        ),
     );
 
   }
 
-   Navigatetohome()async {
-    await Future.delayed(Duration(milliseconds: 1500),(){});
+  Navigatetohome(BuildContext context) async {
+    AppData appData = AppData();
+    while(!appData.filterSettingsAreAvailable) {
+      await Future.delayed(const Duration(milliseconds: 500),(){});
+    }
+    final provider = Provider.of<CardProvider>(context, listen: false);
+    provider.getMovies.forEach((element) {
+     Future.wait([
+       precacheImage(NetworkImage(element.cover), context),
+     ]);
+    });
+    await Future.delayed(const Duration(milliseconds: 1500),(){});
     Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>WelcomePage()));
    }
 }

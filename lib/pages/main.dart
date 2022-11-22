@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:watchlist/Singleton/AppData.dart';
 import 'package:watchlist/pages/Login/splash.dart';
 import 'package:watchlist/utils/BackendDataProvider.dart';
 import '../Singleton/MainFilter.dart';
@@ -13,6 +14,7 @@ import '../utils/myThemes.dart';
 Future main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  AppData appData = AppData();
   MainFilter mainFilter = MainFilter();
   runApp(
     MultiProvider(
@@ -64,6 +66,9 @@ class MyApp extends StatelessWidget{
     backendDataProvider.importantProviders.forEach((element) {
       mainFilter.addMediaProvider(element.providerId);
     });
+
+    AppData appData = AppData();
+    appData.filterSettingsAreAvailable = true;
   }
 }
 

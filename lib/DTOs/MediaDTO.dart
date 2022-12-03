@@ -2,7 +2,7 @@ import '../class/Genre.dart';
 import '../class/MediaProvider.dart';
 
 class MediaDTO {
-  final int movieId;
+  final int mediaId;
   final String description;
   final String title;
   final String posterPath;
@@ -12,7 +12,7 @@ class MediaDTO {
   final String mediaType;
 
   const MediaDTO({
-    required this.movieId,
+    required this.mediaId,
     required this.description,
     required this.title,
     required this.posterPath,
@@ -34,7 +34,7 @@ class MediaDTO {
     }).toList();
 
     return MediaDTO(
-      movieId: json['mediaId'],
+      mediaId: json['mediaId'],
       description: json['description'],
       title: json['title'],
       posterPath: getPosterPath(json['posterPath']),
@@ -46,7 +46,7 @@ class MediaDTO {
   }
 
   String output(){
-    return "movieId: $movieId title: $title poster: $posterPath raiting: $rating description: $description genre " + genres.toString();
+    return "movieId: $mediaId title: $title poster: $posterPath raiting: $rating description: $description genre " + genres.toString();
   }
 
   static String getPosterPath(String posterPath) {

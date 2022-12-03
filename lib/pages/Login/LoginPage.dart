@@ -176,8 +176,6 @@ class _LoginPageState extends State<LoginPage> {
     } on FirebaseAuthException catch(e) {
       Utils.showSnackBar(e.message);
     }
-
-
   }
 
   //fürn Erik

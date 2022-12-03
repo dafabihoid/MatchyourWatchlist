@@ -19,13 +19,6 @@ class HomePage extends StatefulWidget {
 
 class _HomepageState extends State<HomePage> {
 
-  final movie = Media(
-    title: "Doktor Strange",
-    description: "Test",
-    genre: "Sci FI",
-    cover: "https://de.web.img3.acsta.net/pictures/22/04/07/09/24/5141471.jpg",
-  );
-
   List pages = [
     const ListPage(),
     const ProfilPage(),

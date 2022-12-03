@@ -82,7 +82,7 @@ class CardProvider extends ChangeNotifier {
         }
         tempGenres = "$tempGenres, " + element.genreName;
       }
-      tempMovies.insert(0,Media(title: result.title,genre: tempGenres, description: result.description, cover: result.posterPath));
+      tempMovies.insert(0,Media(id: result.mediaId,title: result.title,genre: tempGenres, description: result.description, cover: result.posterPath));
     });
   }
 
@@ -160,7 +160,7 @@ class CardProvider extends ChangeNotifier {
   }
 
   void movieListUpdate(){
-    movies.insert(0, Media(title: tempMovies.last.title, genre: tempMovies.last.genre, description: tempMovies.last.description, cover: tempMovies.last.cover));
+    movies.insert(0, Media(id: tempMovies.last.id, title: tempMovies.last.title, genre: tempMovies.last.genre, description: tempMovies.last.description, cover: tempMovies.last.cover));
     tempMovies.removeLast();
   }
 }

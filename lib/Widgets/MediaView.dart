@@ -9,30 +9,35 @@ import '../utils/Enum.dart';
 Widget MediaView(Icon1, IconType1, Icon2, IconType2){
   final movies= [
     Media(
+        id: 0,
         title: "TestTitle",
         genre: "TestGenre",
         description: "TestDescription",
         cover: "https://image.tmdb.org/t/p/w500/ggFHVNu6YYI5L9pCfOacjizRGt.jpg"
     ),
     Media(
+        id: 0,
         title: "TestTitle2",
         genre: "TestGenre2",
         description: "TestDescription2",
         cover: "https://image.tmdb.org/t/p/w500/ggFHVNu6YYI5L9pCfOacjizRGt.jpg"
     ),
     Media(
+        id: 0,
         title: "TestTitle2",
         genre: "TestGenre2",
         description: "TestDescription2",
         cover: "https://image.tmdb.org/t/p/w500/ggFHVNu6YYI5L9pCfOacjizRGt.jpg"
     ),
     Media(
+        id: 0,
         title: "TestTitle2",
         genre: "TestGenre2",
         description: "TestDescription2",
         cover: "https://image.tmdb.org/t/p/w500/ggFHVNu6YYI5L9pCfOacjizRGt.jpg"
     ),
     Media(
+        id: 0,
         title: "TestTitle2",
         genre: "TestGenre2",
         description: "TestDescription2",

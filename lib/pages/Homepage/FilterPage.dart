@@ -17,10 +17,6 @@ class _FilterPageState extends State<FilterPage> {
 
   @override
   Widget build(BuildContext context) {
-    MainFilter mainFilter = MainFilter();
-    mainFilter.genreMovieListIncludesAll = false;
-    mainFilter.genreSeriesListIncludesAll = false;
-
     return WillPopScope(
         onWillPop: () async {
           checkFilterSettings();
@@ -46,14 +42,7 @@ class _FilterPageState extends State<FilterPage> {
   }
 
   void checkFilterSettings(){
-    BackendDataProvider backendDataProvider = BackendDataProvider();
-    MainFilter mainFilter = MainFilter();
-    if (mainFilter.genreMovieIds.length == backendDataProvider.allGenresMovies.length){
-      mainFilter.genreMovieListIncludesAll = true;
-    }
-    if (mainFilter.genreSeriesIds.length == backendDataProvider.allGenresSeries.length){
-      mainFilter.genreSeriesListIncludesAll = true;
-    }
+
   }
 }
 

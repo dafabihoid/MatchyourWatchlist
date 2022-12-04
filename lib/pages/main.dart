@@ -68,8 +68,6 @@ class MyApp extends StatelessWidget{
     backendDataProvider.importantProviders.forEach((element) {
       mainFilter.addMediaProvider(element.providerId);
     });
-    mainFilter.genreMovieListIncludesAll = true;
-    mainFilter.genreSeriesListIncludesAll = true;
 
     backendDataProvider.allGenresMovies.forEach((element) {
       listCreationFilter.addGenreMovie(element.genreId);

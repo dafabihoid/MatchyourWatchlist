@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:math';
 import 'package:http/http.dart' as http;
 import 'package:watchlist/DTOs/FilterDTO.dart';
 import 'package:watchlist/Singleton/MainFilter.dart';
@@ -10,8 +9,8 @@ import '../class/Genre.dart';
 import '../class/MediaProvider.dart';
 
 String getBaseUrl(){
-  //return "http://10.0.2.2/diplo/public/tmdb";
-  return "http://185.208.206.99/diplo/matchyourwatchlist/tmdb";
+  return "http://10.0.2.2/diplo/public/tmdb";
+  //return "http://185.208.206.99/diplo/matchyourwatchlist/tmdb";
 }
 
 Future<MediaDTO> fetchNewMovieDTO() async{
@@ -22,10 +21,6 @@ Future<MediaDTO> fetchNewMovieDTO() async{
       "${getBaseUrl()}/getRandomMedia/${jsonEncode(json)}"
     )
   );
-
-  /*für externe api
-  var rng = Random();
-  var response = await http.get(Uri.parse("https://api.themoviedb.org/3/movie/"+ rng.nextInt(2000).toString() +"?api_key=baabd94df20419bfe4e7fe9bc72dc923"));*/
 
   if (response.statusCode == 200) {
     return MediaDTO.fromJson(jsonDecode(response.body));

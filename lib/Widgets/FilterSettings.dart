@@ -4,12 +4,11 @@ import 'package:watchlist/Singleton/MainFilter.dart';
 import 'package:watchlist/Widgets/FilterTile.dart';
 import 'package:watchlist/class/Language.dart';
 
-import 'package:provider/provider.dart';
 import '../../class/FilterData.dart';
 import '../../class/Genre.dart';
 import '../../class/MediaProvider.dart';
-import '../../utils/BackendDataProvider.dart';
 import '../../utils/GlobalString.dart';
+import '../Singleton/BackendDataProvider.dart';
 
 class FilterSettings extends StatefulWidget {
   const FilterSettings({Key? key}) : super(key: key);
@@ -20,7 +19,7 @@ class FilterSettings extends StatefulWidget {
 
 class _FilterSettingsState extends State<FilterSettings> {
   List<FilterData> data = List.empty();
-  late BackendDataProvider backendDataProvider;
+  BackendDataProvider backendDataProvider = BackendDataProvider();
   MainFilter mainFilter = MainFilter();
 
   void update(int noUse){
@@ -30,8 +29,6 @@ class _FilterSettingsState extends State<FilterSettings> {
   @override
   Widget build(BuildContext context) {
     if(data.isEmpty){
-      backendDataProvider = Provider.of<BackendDataProvider>(context);
-      //fillFilterList();
       data = generateFilterDataList();
     }
 

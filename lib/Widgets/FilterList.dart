@@ -4,12 +4,11 @@ import 'package:watchlist/Singleton/ListCreationFilter.dart';
 import 'package:watchlist/Widgets/FilterListTile.dart';
 import 'package:watchlist/class/Language.dart';
 
-import 'package:provider/provider.dart';
 import '../../class/FilterData.dart';
 import '../../class/Genre.dart';
 import '../../class/MediaProvider.dart';
-import '../../utils/BackendDataProvider.dart';
 import '../../utils/GlobalString.dart';
+import '../Singleton/BackendDataProvider.dart';
 
 class FilterList extends StatefulWidget {
   const FilterList({Key? key}) : super(key: key);
@@ -20,8 +19,7 @@ class FilterList extends StatefulWidget {
 
 class _FilterListState extends State<FilterList> {
   List<FilterData> data = List.empty();
-  late BackendDataProvider backendDataProvider;
-  ListCreationFilter listCreationFilter = ListCreationFilter();
+  BackendDataProvider backendDataProvider = BackendDataProvider();
 
   void update(int noUse){
     setState(() {});
@@ -30,8 +28,6 @@ class _FilterListState extends State<FilterList> {
   @override
   Widget build(BuildContext context) {
     if(data.isEmpty){
-      backendDataProvider = Provider.of<BackendDataProvider>(context);
-      fillFilterList();
       data = generateFilterDataList();
     }
 
@@ -79,18 +75,6 @@ class _FilterListState extends State<FilterList> {
         );
       }).toList(),
     );
-  }
-
-  void fillFilterList(){
-    backendDataProvider.allGenresMovies.forEach((element) {
-      listCreationFilter.addGenreMovie(element.genreId);
-    });
-    backendDataProvider.allGenresSeries.forEach((element) {
-      listCreationFilter.addGenreSeries(element.genreId);
-    });
-    backendDataProvider.importantProviders.forEach((element) {
-      listCreationFilter.addMediaProvider(element.providerId);
-    });
   }
 
   List<FilterData> generateFilterDataList() {

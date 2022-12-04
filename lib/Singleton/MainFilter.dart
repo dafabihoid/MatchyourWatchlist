@@ -9,6 +9,9 @@ class MainFilter {
   List<int> mediaProviderIds = [];
   List<String> mediaTypes = ["movie", "tv"];
 
+  bool genreMovieListIncludesAll = false;
+  bool genreSeriesListIncludesAll = false;
+
   factory MainFilter(){
     return _mainFilter;
   }
@@ -56,6 +59,6 @@ class MainFilter {
   }
 
   FilterDTO toFilterDTO(){
-    return FilterDTO(languageId: languageId, genreMovieIds: genreMovieIds, genreSeriesIds: genreSeriesIds,mediaProviderIds: mediaProviderIds, mediaTypes: mediaTypes);
+    return FilterDTO(languageId: languageId, genreMovieIds: !genreMovieListIncludesAll ? genreMovieIds : List.empty(), genreSeriesIds: !genreSeriesListIncludesAll ? genreSeriesIds : List.empty(),mediaProviderIds: mediaProviderIds, mediaTypes: mediaTypes);
   }
 }

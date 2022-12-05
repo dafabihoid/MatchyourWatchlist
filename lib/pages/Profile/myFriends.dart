@@ -116,7 +116,7 @@ class showFriends extends StatelessWidget {
         ),
         title: Text(friends.anzeigename),
         subtitle: Text(friends.username),
-        trailing: IconButton(icon: Icon(Icons.accessible), onPressed: () {
+        trailing: IconButton(icon: Icon(Icons.add), onPressed: () {
 
         },),
       ),

@@ -35,9 +35,9 @@ class _WelcomePageState extends State<WelcomePage> {
         body: StreamBuilder<User?>(
           stream: FirebaseAuth.instance.authStateChanges(),
           builder: (context, snapshot) {
-            //if (snapshot.hasData) {
+            if (snapshot.hasData) {
               return MainPage();
-         //}
+         }
         return AuthPage();
           },
         )

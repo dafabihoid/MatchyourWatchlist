@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:watchlist/DTOs/ListDTO.dart';
 import 'package:watchlist/pages/Watchlist/EigeneWatchlistPage.dart';
+import 'package:watchlist/pages/Watchlist/WatchlistWithFriendsPage.dart';
 import 'package:watchlist/utils/myThemes.dart';
 
-import '../../Widgets/MediaView.dart';
+
 
 
 class WatchlistWithFriends extends StatelessWidget {
@@ -19,6 +20,10 @@ class WatchlistWithFriends extends StatelessWidget {
       children: [
         InkWell(
           onTap: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) =>WatchlistWithFriendsPage(listDTO: listTDO,)));
           },
           child: Container(
             decoration: BoxDecoration(

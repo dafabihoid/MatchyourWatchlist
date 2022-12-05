@@ -166,6 +166,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void signIn() async {
+    showDialog(context: context,barrierDismissible: false, builder: (context) => Center(child:CircularProgressIndicator()));
     try{
       UserCredential user = (await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: _emailController.text,
@@ -178,12 +179,4 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
-  //fürn Erik
-  void signInAnonym() async {
-    User? user = FirebaseAuth.instance.signInAnonymously() as User?;
-
-    if (user != null) {
-
-    }
-  }
 }

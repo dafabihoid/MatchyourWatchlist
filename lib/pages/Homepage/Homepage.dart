@@ -68,6 +68,7 @@ class _HomepageState extends State<HomePage> {
                     radius: 25,
                     backgroundColor: Colors.white60,
                     child: IconButton(
+                      enableFeedback: false,
                       onPressed: () {
                         SearchButtonPressed();
                       },

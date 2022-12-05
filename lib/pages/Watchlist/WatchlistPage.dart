@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:watchlist/pages/Watchlist/BereitsGesehenPage.dart';
 import 'package:watchlist/pages/Watchlist/WatchlistWithFriends.dart';
+import 'package:watchlist/pages/Watchlist/newWatchlist/FriendstoWatchlist.dart';
 import '../../DTOs/ListDTO.dart';
 import '../../class/Media.dart';
 import '../../utils/myThemes.dart';
@@ -27,12 +28,43 @@ class _ListPageState extends State<ListPage> {
                 child: Column(
                     children: [
               const SizedBox(height: 15),
-              const Center(
-                child: Text(
-                  "Watchlists",
-                  style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-                ),
+               Row(
+                 children: [
+                   CircleAvatar(
+                     radius: 25,
+                     backgroundColor: Colors.transparent,
+                     child: IconButton(
+                       enableFeedback: false,
+                         highlightColor: Colors.transparent,
+                         splashColor: Colors.transparent,
+                       onPressed: () {
+                       },
+                       icon: Icon(null),
+                       color: Colors.black,
+
+                     ),
+                   ),
+                   Spacer(),
+                   Center(
+                    child: Text(
+                      "Watchlists",
+                      style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                    ),
               ),
+                   Spacer(),
+                   CircleAvatar(
+                     radius: 25,
+                     backgroundColor: MyThemes.kAccentColor,
+                     child: IconButton(
+                       onPressed: () {
+                         Navigator.push(context, MaterialPageRoute(builder: (context) => FriendstoWatchlist()));
+                       },
+                       icon: const Icon(Icons.add),
+                       color: themeProvider.isDarkMode ? Colors.white : Colors.black
+                     ),
+                   ),
+                 ],
+               ),
               SizedBox(height: 15),
               EigeneWatchlistWidget(),
               const SizedBox(height: 10),
@@ -60,6 +92,10 @@ class _ListPageState extends State<ListPage> {
                   }
                 }),
               ),
+
+
+
+
             ]))));
   }
 }

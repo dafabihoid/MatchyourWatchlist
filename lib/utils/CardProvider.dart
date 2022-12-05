@@ -21,12 +21,18 @@ class CardProvider extends ChangeNotifier {
   double get getAngle => angle;
 
 
-  CardProvider() {
+  CardProvider();
+
+  void initializeData(){
     bufferMovies();
     resetUser();
   }
 
   void setScreenSize(Size getscreenSize) => screenSize = getscreenSize;
+
+  void resetCardProvider(){
+    removeListener(() { });
+  }
 
   void startPosition(DragStartDetails details) {
     if (tempMovies.length<10)
@@ -106,7 +112,7 @@ class CardProvider extends ChangeNotifier {
     movieListUpdate();
     movieListUpdate();
 
-    notifyListeners();
+    //notifyListeners();
   }
 
   CardStatus? getStatus() {

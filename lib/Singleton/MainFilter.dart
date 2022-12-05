@@ -15,6 +15,15 @@ class MainFilter {
 
   MainFilter._internal();
 
+  void resetData(){
+    print("aaaaaaaaaaaaaaaaaa");
+    languageId = "en";
+    genreMovieIds = [];
+    genreSeriesIds = [];
+    mediaProviderIds = [];
+    mediaTypes = ["movie", "tv"];
+  }
+
   String getLanguage(){
     return languageId;
   }

@@ -35,8 +35,7 @@ class MyApp extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
-    BackendDataProvider backendDataProvider = BackendDataProvider();
-    loadFilterSettings(backendDataProvider);
+    final cardProvider = Provider.of<CardProvider>(context);
 
     return MaterialApp(
 
@@ -51,36 +50,5 @@ class MyApp extends StatelessWidget{
     );
   }
 
-  void loadFilterSettings(BackendDataProvider backendDataProvider) async {
-    MainFilter mainFilter = MainFilter();
-    ListCreationFilter listCreationFilter = ListCreationFilter();
-    if(backendDataProvider.importantProviders.isEmpty || backendDataProvider.allGenresMovies.isEmpty || backendDataProvider.allGenresSeries.isEmpty){
-      await Future.delayed(const Duration(milliseconds: 300),(){});
-      loadFilterSettings(backendDataProvider);
-      return;
-    }
-    backendDataProvider.allGenresMovies.forEach((element) {
-      mainFilter.addGenreMovie(element.genreId);
-    });
-    backendDataProvider.allGenresSeries.forEach((element) {
-      mainFilter.addGenreSeries(element.genreId);
-    });
-    backendDataProvider.importantProviders.forEach((element) {
-      mainFilter.addMediaProvider(element.providerId);
-    });
-
-    backendDataProvider.allGenresMovies.forEach((element) {
-      listCreationFilter.addGenreMovie(element.genreId);
-    });
-    backendDataProvider.allGenresSeries.forEach((element) {
-      listCreationFilter.addGenreSeries(element.genreId);
-    });
-    backendDataProvider.importantProviders.forEach((element) {
-      listCreationFilter.addMediaProvider(element.providerId);
-    });
-
-    AppData appData = AppData();
-    appData.filterSettingsAreAvailable = true;
-  }
 }
 

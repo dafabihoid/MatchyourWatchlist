@@ -10,6 +10,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:watchlist/pages/Profile/AppSettings.dart';
 import 'package:watchlist/pages/Profile/modifyProfil.dart';
 import 'package:watchlist/pages/Profile/myFriends.dart';
+import 'package:watchlist/utils/CardProvider.dart';
 
 import '../../utils/myThemes.dart';
 import '../../DTOs/MediaDTO.dart';
@@ -140,6 +141,8 @@ class _ProfilPageState extends State<ProfilPage> {
   Widget buildSignOutButton(String text, context){
     String ButtonText = text;
     final themeProvider = Provider.of<ThemeProvider>(context);
+    final cardProvider = Provider.of<CardProvider>(context);
+    cardProvider.resetCardProvider();
     return Container(
 
         width: double.infinity,

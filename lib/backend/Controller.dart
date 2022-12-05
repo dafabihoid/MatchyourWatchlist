@@ -23,6 +23,15 @@ Future<MediaDTO> fetchNewMovieDTO() async{
   );
 
   if (response.statusCode == 200) {
+    if(response.body == "error_no_media_available"){
+      /*
+       * hier muss für den fall das wegen den filter kein film gefunden werden kann ein failsafe eingebaut werden
+       */
+      throw Exception("media not found with this settings");
+    }
+    if(response.body == "error_no_connection"){
+      throw Exception("no successful connection to TheMovieDatabase");
+    }
     return MediaDTO.fromJson(jsonDecode(response.body));
   } else {
     return fetchNewMovieDTO();

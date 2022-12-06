@@ -22,7 +22,6 @@ class _InitializingDataLoadingPageState extends State<InitializingDataLoadingPag
 
   @override
   Widget build(BuildContext context) {
-    print("bbbbbbbb");
     if(!started){
       started = true;
       BackendDataProvider backendDataProvider = BackendDataProvider();

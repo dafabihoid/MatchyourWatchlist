@@ -16,7 +16,6 @@ class MainFilter {
   MainFilter._internal();
 
   void resetData(){
-    print("aaaaaaaaaaaaaaaaaa");
     languageId = "en";
     genreMovieIds = [];
     genreSeriesIds = [];

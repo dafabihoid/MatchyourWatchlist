@@ -11,37 +11,47 @@ Widget MediaView(Icon1, IconType1, Icon2, IconType2){
     Media(
         id: 0,
         title: "TestTitle",
-        genre: "TestGenre",
+        genres: "TestGenre",
+        providers: "TestProvider",
         description: "TestDescription",
-        cover: "https://image.tmdb.org/t/p/w500/ggFHVNu6YYI5L9pCfOacjizRGt.jpg"
+        cover: "https://image.tmdb.org/t/p/w500/ggFHVNu6YYI5L9pCfOacjizRGt.jpg",
+        mediaType: "movie"
     ),
     Media(
         id: 0,
         title: "TestTitle2",
-        genre: "TestGenre2",
+        genres: "TestGenre2",
+        providers: "TestProvider",
         description: "TestDescription2",
-        cover: "https://image.tmdb.org/t/p/w500/ggFHVNu6YYI5L9pCfOacjizRGt.jpg"
+        cover: "https://image.tmdb.org/t/p/w500/ggFHVNu6YYI5L9pCfOacjizRGt.jpg",
+        mediaType: "movie"
     ),
     Media(
         id: 0,
         title: "TestTitle2",
-        genre: "TestGenre2",
+        genres: "TestGenre2",
+        providers: "TestProvider",
         description: "TestDescription2",
-        cover: "https://image.tmdb.org/t/p/w500/ggFHVNu6YYI5L9pCfOacjizRGt.jpg"
+        cover: "https://image.tmdb.org/t/p/w500/ggFHVNu6YYI5L9pCfOacjizRGt.jpg",
+        mediaType: "movie"
     ),
     Media(
         id: 0,
         title: "TestTitle2",
-        genre: "TestGenre2",
+        genres: "TestGenre2",
+        providers: "TestProvider",
         description: "TestDescription2",
-        cover: "https://image.tmdb.org/t/p/w500/ggFHVNu6YYI5L9pCfOacjizRGt.jpg"
+        cover: "https://image.tmdb.org/t/p/w500/ggFHVNu6YYI5L9pCfOacjizRGt.jpg",
+        mediaType: "movie"
     ),
     Media(
         id: 0,
         title: "TestTitle2",
-        genre: "TestGenre2",
+        genres: "TestGenre2",
+        providers: "TestProvider",
         description: "TestDescription2",
-        cover: "https://image.tmdb.org/t/p/w500/ggFHVNu6YYI5L9pCfOacjizRGt.jpg"
+        cover: "https://image.tmdb.org/t/p/w500/ggFHVNu6YYI5L9pCfOacjizRGt.jpg",
+        mediaType: "movie"
     ),
   ];
 return Scaffold(

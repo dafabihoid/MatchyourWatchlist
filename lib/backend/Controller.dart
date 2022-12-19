@@ -68,7 +68,6 @@ Future<List<Genre>> fetchAllGenres(String mediaType) async{
   }
 }
 
-
 Future<List<Language>> fetchAllLanguages() async{
   var response = await http.get(
       Uri.parse(
@@ -115,4 +114,13 @@ Future<List<MediaProvider>> fetchImportantProvider() async{
   } else {
     return List.empty();
   }
+}
+
+Future<void> createNewUserWithDetails(userId, userName) async{
+  var response = await http.get(
+      Uri.parse(
+          "${getBaseUrl()}/createNewUserWithDetails/$userId/$userName"
+      )
+  );
+
 }

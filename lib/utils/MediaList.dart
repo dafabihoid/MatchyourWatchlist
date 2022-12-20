@@ -24,37 +24,47 @@ class _MediaListState extends State<MediaList> {
     Media(
         id: 1,
         title: "TestTitle",
-        genre: "TestGenre",
+        genres: "TestGenre",
         description: "TestDescription",
         cover: "https://image.tmdb.org/t/p/w500/ggFHVNu6YYI5L9pCfOacjizRGt.jpg",
+        providers: 'Test',
+        mediaType: 'movie',
     ),
     Media(
         id: 1,
         title: "TestTitle2",
-        genre: "TestGenre2",
+        genres: "TestGenre2",
         description: "TestDescription2",
-        cover: "https://image.tmdb.org/t/p/w500/ggFHVNu6YYI5L9pCfOacjizRGt.jpg"
+        cover: "https://image.tmdb.org/t/p/w500/ggFHVNu6YYI5L9pCfOacjizRGt.jpg",
+        providers: 'Test',
+        mediaType: 'movie'
     ),
     Media(
         id: 1,
         title: "TestTitle2",
-        genre: "TestGenre2",
+        genres: "TestGenre2",
         description: "TestDescription2",
-        cover: "https://image.tmdb.org/t/p/w500/ggFHVNu6YYI5L9pCfOacjizRGt.jpg"
+        cover: "https://image.tmdb.org/t/p/w500/ggFHVNu6YYI5L9pCfOacjizRGt.jpg",
+        providers: 'Test',
+        mediaType: 'movie'
     ),
     Media(
         id: 1,
         title: "TestTitle2",
-        genre: "TestGenre2",
+        genres: "TestGenre2",
         description: "TestDescription2",
-        cover: "https://image.tmdb.org/t/p/w500/ggFHVNu6YYI5L9pCfOacjizRGt.jpg"
+        cover: "https://image.tmdb.org/t/p/w500/ggFHVNu6YYI5L9pCfOacjizRGt.jpg",
+        providers: 'Test',
+        mediaType: 'movie'
     ),
     Media(
         id: 1,
         title: "TestTitle2",
-        genre: "TestGenre2",
+        genres: "TestGenre2",
         description: "TestDescription2",
-        cover: "https://image.tmdb.org/t/p/w500/ggFHVNu6YYI5L9pCfOacjizRGt.jpg"
+        cover: "https://image.tmdb.org/t/p/w500/ggFHVNu6YYI5L9pCfOacjizRGt.jpg",
+        providers: 'Test',
+        mediaType: 'movie'
     ),
   ];
 

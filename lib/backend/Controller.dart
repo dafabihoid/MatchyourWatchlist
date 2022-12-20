@@ -48,7 +48,8 @@ Future<FilterDTO?> fetchNewFilterDTO(String userId) async{
   if (response.statusCode == 200) {
     return FilterDTO.fromJson(jsonDecode(response.body));
   } else {
-    return null;
+    await Future.delayed(const Duration(milliseconds: 1000),(){});
+    return fetchNewFilterDTO(userId);
   }
 }
 

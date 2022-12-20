@@ -24,7 +24,7 @@ class CardProvider extends ChangeNotifier {
 
   CardProvider();
 
-  void initializeData(){
+  void initializeData() async{
     bufferMovies();
     resetUser();
   }

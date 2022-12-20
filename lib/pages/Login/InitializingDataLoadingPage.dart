@@ -62,7 +62,9 @@ class _InitializingDataLoadingPageState extends State<InitializingDataLoadingPag
         precacheImage(NetworkImage(element.cover), context),
       ]);
     });
-    await Future.delayed(const Duration(milliseconds: 500),(){});
+    while(provider.movies.isEmpty) {
+      await Future.delayed(const Duration(milliseconds: 500),(){});
+    }
     initializingFinished = true;
     setState(() {});
   }

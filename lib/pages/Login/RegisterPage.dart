@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:watchlist/backend/Controller.dart';
 import 'package:watchlist/utils/SnackBar.dart';
 
 
@@ -155,6 +156,8 @@ class _RegisterPageState extends State<RegisterPage> {
       } on FirebaseAuthException catch (e){
         Utils.showSnackBar(e.message);
       }
+
+      //await createNewUserWithDetails("a3", "testUserName");
 
       Navigator.of(context).pop();
 

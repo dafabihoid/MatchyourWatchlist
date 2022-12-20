@@ -1,36 +1,29 @@
-import 'package:flutter/material.dart';
-
 import 'package:watchlist/class/Language.dart';
 import '../../class/Genre.dart';
 import '../../class/MediaProvider.dart';
 import '../backend/Controller.dart';
 
 
-class BackendDataProvider extends ChangeNotifier {
+class BackendDataProvider {
+  static final BackendDataProvider _backendDataProvider = BackendDataProvider._internal();
+
+  factory BackendDataProvider(){
+    return _backendDataProvider;
+  }
+
+  BackendDataProvider._internal();
+
   List<Genre> allGenresMovies = [];
   List<Genre> allGenresSeries = [];
   List<Language> allLanguages = [];
   List<MediaProvider> importantProviders = [];
 
-  BackendDataProvider(){
-   initializeFunctions();
-  }
-
-  void initializeFunctions() {
+  void initializeFunctions() async{
     loadAllGenresMovies("movie");
     loadAllGenresMovies("tv");
     loadAllLanguages();
     loadImportantProviders();
   }
-
-  /*
-  void initializeFunctions() async {
-    await loadAllGenresMovies("movie");
-    await loadAllGenresMovies("tv");
-    await loadAllLanguages();
-    await loadImportantProviders();
-  }
-   */
 
   Future<bool> loadAllGenresMovies(String mediaType) async{
     Future<List<Genre>> futureGenres = fetchAllGenres(mediaType);

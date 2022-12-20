@@ -147,7 +147,7 @@ class _TinderCardState extends State<TinderCard> {
 
   Widget buildGenre() => Row(children: [
     Expanded(child: Text(
-          widget.movie.genre,
+          widget.movie.genres,
           style: const TextStyle(
             fontSize: 18,
             color: Colors.white,

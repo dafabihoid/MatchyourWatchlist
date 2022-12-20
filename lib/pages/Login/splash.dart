@@ -41,9 +41,6 @@ class _SplashState extends State<Splash> {
                       image: AssetImage("lib/assets/LogoSchrift.png"),
                   )),
                 ),
-                const CircularProgressIndicator(
-                  valueColor: AlwaysStoppedAnimation<Color> (Colors.deepPurpleAccent),
-                )
               ],
             ),
         ),
@@ -52,16 +49,6 @@ class _SplashState extends State<Splash> {
   }
 
   Navigatetohome(BuildContext context) async {
-    AppData appData = AppData();
-    while(!appData.filterSettingsAreAvailable) {
-      await Future.delayed(const Duration(milliseconds: 500),(){});
-    }
-    final provider = Provider.of<CardProvider>(context, listen: false);
-    provider.getMovies.forEach((element) {
-     Future.wait([
-       precacheImage(NetworkImage(element.cover), context),
-     ]);
-    });
     await Future.delayed(const Duration(milliseconds: 500),(){});
     Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>WelcomePage()));
    }

@@ -1,7 +1,7 @@
 import 'package:watchlist/DTOs/FilterDTO.dart';
 
-class MainFilter {
-  static final MainFilter _mainFilter = MainFilter._internal();
+class ListCreationFilter {
+  static final ListCreationFilter _listCreationFilter = ListCreationFilter._internal();
 
   String languageId = "en";
   List<int> genreMovieIds = [];
@@ -9,19 +9,11 @@ class MainFilter {
   List<int> mediaProviderIds = [];
   List<String> mediaTypes = ["movie", "tv"];
 
-  factory MainFilter(){
-    return _mainFilter;
+  factory ListCreationFilter(){
+    return _listCreationFilter;
   }
 
-  MainFilter._internal();
-
-  void resetData(){
-    languageId = "en";
-    genreMovieIds = [];
-    genreSeriesIds = [];
-    mediaProviderIds = [];
-    mediaTypes = ["movie", "tv"];
-  }
+  ListCreationFilter._internal();
 
   String getLanguage(){
     return languageId;
@@ -64,6 +56,6 @@ class MainFilter {
   }
 
   FilterDTO toFilterDTO(){
-    return FilterDTO(languageId: languageId, genreMovieIds:genreMovieIds, genreSeriesIds: genreSeriesIds,mediaProviderIds: mediaProviderIds, mediaTypes: mediaTypes);
+    return FilterDTO(languageId: languageId, genreMovieIds: genreMovieIds, genreSeriesIds: genreSeriesIds,mediaProviderIds: mediaProviderIds, mediaTypes: mediaTypes);
   }
 }

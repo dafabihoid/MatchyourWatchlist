@@ -1,6 +1,10 @@
 import '../class/Media.dart';
 
 class Watchlist {
-  List<Media> Watchliste1 = <Media>{}.toList(growable: true);
+  late int watchlistId;
+  late String watchlistName;
+  late bool isMainList;
+  late bool isAlreadyWatchedList;
+  List<Media> watchlistItems = <Media>{}.toList(growable: true);
 }
 

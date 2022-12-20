@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:watchlist/backend/Controller.dart';
+import 'package:watchlist/class/MediaProvider.dart';
 import '../../class/Media.dart';
 import '../DTOs/MediaDTO.dart';
 import '../class/Genre.dart';
@@ -21,12 +22,18 @@ class CardProvider extends ChangeNotifier {
   double get getAngle => angle;
 
 
-  CardProvider() {
+  CardProvider();
+
+  void initializeData(){
     bufferMovies();
     resetUser();
   }
 
   void setScreenSize(Size getscreenSize) => screenSize = getscreenSize;
+
+  void resetCardProvider(){
+    removeListener(() { });
+  }
 
   void startPosition(DragStartDetails details) {
     if (tempMovies.length<10)
@@ -75,6 +82,7 @@ class CardProvider extends ChangeNotifier {
     Future<MediaDTO> futureMovieDTO = fetchNewMovieDTO();
     futureMovieDTO.then((result) {
       String tempGenres = "";
+      String tempProviders = "";
       for (Genre element in result.genres) {
         if (element == result.genres[0]){
           tempGenres = element.genreName;
@@ -82,7 +90,14 @@ class CardProvider extends ChangeNotifier {
         }
         tempGenres = "$tempGenres, " + element.genreName;
       }
-      tempMovies.insert(0,Media(id: result.mediaId,title: result.title,genre: tempGenres, description: result.description, cover: result.posterPath));
+      for (MediaProvider element in result.provider) {
+        if (element == result.genres[0]){
+          tempProviders = element.providerName;
+          continue;
+        }
+        tempProviders = "$tempProviders, " + element.providerName;
+      }
+      tempMovies.insert(0,Media(id: result.mediaId,title: result.title,genres: tempGenres, providers: tempProviders, description: result.description, cover: result.posterPath, mediaType: result.mediaType));
     });
   }
 
@@ -106,7 +121,7 @@ class CardProvider extends ChangeNotifier {
     movieListUpdate();
     movieListUpdate();
 
-    notifyListeners();
+    //notifyListeners();
   }
 
   CardStatus? getStatus() {
@@ -160,7 +175,7 @@ class CardProvider extends ChangeNotifier {
   }
 
   void movieListUpdate(){
-    movies.insert(0, Media(id: tempMovies.last.id, title: tempMovies.last.title, genre: tempMovies.last.genre, description: tempMovies.last.description, cover: tempMovies.last.cover));
+    movies.insert(0, Media(id: tempMovies.last.id, title: tempMovies.last.title, genres: tempMovies.last.genres, providers: tempMovies.last.providers, description: tempMovies.last.description, cover: tempMovies.last.cover, mediaType: tempMovies.last.mediaType));
     tempMovies.removeLast();
   }
 }

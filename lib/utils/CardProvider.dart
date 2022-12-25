@@ -140,6 +140,9 @@ class CardProvider extends ChangeNotifier {
     angle = 20;
 
     position += Offset(screenSize.width * 2, 0);
+
+
+
     deleteCard();
     print("like");
     notifyListeners();
@@ -151,6 +154,13 @@ class CardProvider extends ChangeNotifier {
     deleteCard();
 
     notifyListeners();
+  }
+
+  void addMovieToWatchlist(){
+    if (movies.isEmpty){
+      return;
+    }
+    movies.last.id;
   }
 
   void deleteCard() async {

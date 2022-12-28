@@ -1,3 +1,5 @@
+import 'package:http/http.dart';
+
 import '../class/Genre.dart';
 import '../class/MediaProvider.dart';
 
@@ -71,5 +73,28 @@ class MediaDTO {
       }).toList();
     }
     return providerList;
+  }
+
+  Map<String, dynamic> toJson() => {
+    'mediaId': mediaId,
+    'description': description,
+    'title': title,
+    'posterPath': posterPathToJson(),
+    'genres': varToJson(genres),
+    'provider': varToJson(provider),
+    'rating': rating,
+    'mediaType': mediaType,
+  };
+
+  List<Map<String, dynamic>> varToJson(variable) {
+    List<Map<String, dynamic>> jsonVariable = [];
+    variable.forEach((element) {
+      jsonVariable.add(element.toJson());
+    });
+    return jsonVariable;
+  }
+
+  String posterPathToJson(){
+    return posterPath.split("/").last;
   }
 }

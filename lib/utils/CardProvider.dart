@@ -10,6 +10,7 @@ enum CardStatus { like, dislike }
 
 class CardProvider extends ChangeNotifier {
   List<Media> movies = [];
+  Map<int, MediaDTO> mediaDTOs = new Map<int, MediaDTO>();
   bool isMoving = false;
   Offset position = Offset.zero;
   Size screenSize = Size.zero;
@@ -81,6 +82,7 @@ class CardProvider extends ChangeNotifier {
   void fetchMovie () {
     Future<MediaDTO> futureMovieDTO = fetchNewMovieDTO();
     futureMovieDTO.then((result) {
+      mediaDTOs.addAll({result.mediaId : result});
       String tempGenres = "";
       String tempProviders = "";
       for (Genre element in result.genres) {
@@ -138,21 +140,21 @@ class CardProvider extends ChangeNotifier {
 
   void liked() {
     angle = 20;
-
     position += Offset(screenSize.width * 2, 0);
 
-
+    addMovieToWatchlist();
 
     deleteCard();
-    print("like");
     notifyListeners();
   }
 
   void disliked() {
     angle = -20;
     position -= Offset(screenSize.width * 2, 0);
-    deleteCard();
 
+    dontAddMovieToWatchlist();
+
+    deleteCard();
     notifyListeners();
   }
 
@@ -160,7 +162,20 @@ class CardProvider extends ChangeNotifier {
     if (movies.isEmpty){
       return;
     }
-    movies.last.id;
+    if (mediaDTOs.containsKey(movies.last.id)){
+      MediaDTO mediaDTO = mediaDTOs[movies.last.id]!;
+      addMediaToWatchlist(0, mediaDTO, "de-de");
+      mediaDTOs.remove(movies.last.id);
+    }
+  }
+
+  void dontAddMovieToWatchlist(){
+    if (movies.isEmpty){
+      return;
+    }
+    if (mediaDTOs.containsKey(movies.last.id)){
+      mediaDTOs.remove(movies.last.id);
+    }
   }
 
   void deleteCard() async {

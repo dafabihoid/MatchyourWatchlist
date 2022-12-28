@@ -4,6 +4,7 @@ import 'package:watchlist/DTOs/FilterDTO.dart';
 import 'package:watchlist/Singleton/MainFilter.dart';
 import 'package:watchlist/class/Language.dart';
 
+import '../DTOs/ListWithMediaDTO.dart';
 import '../DTOs/MediaDTO.dart';
 import '../class/Genre.dart';
 import '../class/MediaProvider.dart';
@@ -123,5 +124,44 @@ Future<void> createNewUserWithDetails(userId, userName) async{
           "${getBaseUrl()}/createNewUserWithDetails/$userId/$userName"
       )
   );
+}
 
+Future<void> addMediaToWatchlist(listId, MediaDTO mediaDTO, languageId) async{
+  var json = mediaDTO.toJson();
+  print("${getBaseUrl()}/addMediaToWatchlist/$listId/${jsonEncode(json)}/$languageId");
+  var response = await http.get(
+      Uri.parse(
+          "${getBaseUrl()}/addMediaToWatchlist/$listId/${jsonEncode(json)}/$languageId"
+      )
+  );
+}
+
+Future<String> getUserNameByUserId(userId) async{
+  var response = await http.get(
+      Uri.parse(
+          "${getBaseUrl()}/getRandomMedia/$userId"
+      )
+  );
+
+  if (response.statusCode == 200) {
+    return jsonDecode(response.body);
+  } else {
+    return "user not found";
+  }
+}
+
+Future<List<ListWithMediaDTO>> fetchAllWatchlistsForUser(userId) async{
+  var response = await http.get(
+      Uri.parse(
+          "${getBaseUrl()}/loadPersonalWatchlistDataForUser/$userId"
+      )
+  );
+
+  if (response.statusCode == 200) {
+    return List<ListWithMediaDTO>.generate(jsonDecode(response.body).length, (int index) {
+      return ListWithMediaDTO.fromJson(jsonDecode(response.body)[index]);
+    });
+  } else {
+    return List.empty();
+  }
 }

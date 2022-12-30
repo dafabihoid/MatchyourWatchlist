@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:watchlist/pages/Watchlist/BereitsGesehenPage.dart';
 import '../DTOs/MediaDTO.dart';
 import '../class/Media.dart';
 import '../utils/Enum.dart';

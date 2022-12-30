@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:watchlist/Singleton/AppData.dart';
 import 'package:watchlist/Singleton/BackendDataProvider.dart';
 import 'package:watchlist/Singleton/ListCreationFilter.dart';
+import 'package:watchlist/utils/GlobalString.dart';
 
 import '../../Singleton/MainFilter.dart';
 import '../../utils/CardProvider.dart';
@@ -24,9 +25,7 @@ class _InitializingDataLoadingPageState extends State<InitializingDataLoadingPag
   Widget build(BuildContext context) {
     if(!started){
       started = true;
-      BackendDataProvider backendDataProvider = BackendDataProvider();
-      loadFilterSettings(backendDataProvider);
-      Navigatetohome(context);
+      startInitialization();
     }
 
     return Scaffold(
@@ -47,7 +46,14 @@ class _InitializingDataLoadingPageState extends State<InitializingDataLoadingPag
 
   }
 
-  Navigatetohome(BuildContext context) async {
+  void startInitialization(){
+    loadUserData();
+    BackendDataProvider backendDataProvider = BackendDataProvider();
+    loadFilterSettings(backendDataProvider);
+    initializeMovies(context);
+  }
+
+  void initializeMovies(BuildContext context) async {
     if (!mounted) {
       return;
     }
@@ -69,10 +75,23 @@ class _InitializingDataLoadingPageState extends State<InitializingDataLoadingPag
     setState(() {});
   }
 
+  void loadUserData() async{
+    AppData appData = AppData();
+
+    appData.userId = "a1";
+
+    appData.userBackendDataAvailable = true;
+  }
+
   void loadFilterSettings(BackendDataProvider backendDataProvider) async {
-    while(backendDataProvider.importantProviders.isEmpty || backendDataProvider.allGenresMovies.isEmpty || backendDataProvider.allGenresSeries.isEmpty){
+    AppData appData = AppData();
+
+    while(!appData.userBackendDataAvailable || backendDataProvider.importantProviders.isEmpty || backendDataProvider.allGenresMovies.isEmpty || backendDataProvider.allGenresSeries.isEmpty){
       await Future.delayed(const Duration(milliseconds: 300),(){});
     }
+
+    backendDataProvider.loadWatchlists();
+
     MainFilter mainFilter = MainFilter();
     ListCreationFilter listCreationFilter = ListCreationFilter();
 
@@ -98,7 +117,25 @@ class _InitializingDataLoadingPageState extends State<InitializingDataLoadingPag
       listCreationFilter.addMediaProvider(element.providerId);
     });
 
-    AppData appData = AppData();
+    while(backendDataProvider.listWithMediaDTOList.isEmpty){
+      await Future.delayed(const Duration(milliseconds: 200),(){});
+    }
+    await Future.delayed(const Duration(milliseconds: 100),(){});
+
+    appData.mainListId = checkForListTypeAndReturnListId(GlobalStrings.listTypeFlagMainList);
+    appData.isAlreadyWatchedListId = checkForListTypeAndReturnListId(GlobalStrings.listTypeFlagAlreadyWatchedList);
+
     appData.filterSettingsAreAvailable = true;
+  }
+
+
+  int checkForListTypeAndReturnListId(String checkForListType){
+    BackendDataProvider backendDataProvider = BackendDataProvider();
+    for (var element in backendDataProvider.listWithMediaDTOList) {
+        if(element.listType == checkForListType){
+          return element.listId;
+        }
+    }
+    return -1;
   }
 }

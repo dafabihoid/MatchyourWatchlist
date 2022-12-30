@@ -3,6 +3,7 @@ import 'package:watchlist/backend/Controller.dart';
 import 'package:watchlist/class/MediaProvider.dart';
 import '../../class/Media.dart';
 import '../DTOs/MediaDTO.dart';
+import '../Singleton/BackendDataProvider.dart';
 import '../class/Genre.dart';
 
 enum CardStatus { like, dislike }
@@ -164,8 +165,11 @@ class CardProvider extends ChangeNotifier {
     }
     if (mediaDTOs.containsKey(movies.last.id)){
       MediaDTO mediaDTO = mediaDTOs[movies.last.id]!;
-      addMediaToWatchlist(0, mediaDTO, "de-de");
+      addMediaToWatchlist(mediaDTO, "de-de");
       mediaDTOs.remove(movies.last.id);
+
+      BackendDataProvider backendDataProvider = BackendDataProvider();
+      String string = "";
     }
   }
 

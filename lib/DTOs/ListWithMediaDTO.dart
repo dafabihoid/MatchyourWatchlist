@@ -33,8 +33,6 @@ class ListWithMediaDTO {
         return MediaDTO.fromJson(item);
       }
     }).toList();
-
     return mediaDTOList.whereType<MediaDTO>().toList();
   }
-
 }

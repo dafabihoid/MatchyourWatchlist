@@ -1,17 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:watchlist/DTOs/ListDTO.dart';
-import 'package:watchlist/pages/Watchlist/EigeneWatchlistPage.dart';
-import 'package:watchlist/pages/Watchlist/WatchlistWithFriendsPage.dart';
+import 'package:watchlist/DTOs/ListWithMediaDTO.dart';
+import 'package:watchlist/pages/Watchlist/WatchlistDataPage.dart';
+import 'package:watchlist/utils/GlobalString.dart';
 import 'package:watchlist/utils/myThemes.dart';
 
-
-
-
-class WatchlistWithFriends extends StatelessWidget {
-  final ListDTO listTDO;
-  const WatchlistWithFriends({Key? key, required this.listTDO}) : assert(listTDO != null), super(key: key);
+class WatchlistTile extends StatelessWidget {
+  final ListWithMediaDTO listWithMediaDTO;
+  const WatchlistTile({Key? key, required this.listWithMediaDTO}) : assert(listWithMediaDTO != null), super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,10 +17,7 @@ class WatchlistWithFriends extends StatelessWidget {
       children: [
         InkWell(
           onTap: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) =>WatchlistWithFriendsPage(listDTO: listTDO,)));
+            tabOnTile(context);
           },
           child: Container(
             decoration: BoxDecoration(
@@ -39,15 +33,15 @@ class WatchlistWithFriends extends StatelessWidget {
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
                       minimumSize: Size(100, 100),
-                      primary: Colors.lightBlueAccent,
+                      primary: getColorByListType(),
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.all(
                               Radius.circular(7)))),
                   onPressed: () {
-                    print(listTDO.Id);
+                    tabOnTile(context);
                   },
                   child: Icon(
-                    Icons.person,
+                    getIconByListType(),
                     color: Colors.white,
                     size: 50,
                   ),
@@ -56,7 +50,7 @@ class WatchlistWithFriends extends StatelessWidget {
                   width: 10,
                 ),
                 Text(
-                  listTDO.WatchlistName,
+                  listWithMediaDTO.listName,
                   style: TextStyle(fontSize: 25),
                 ),
               ],
@@ -68,5 +62,32 @@ class WatchlistWithFriends extends StatelessWidget {
         )
       ],
     );
+  }
+
+  void tabOnTile(BuildContext context){
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => WatchlistDataPage(listWithMediaDTO: listWithMediaDTO,)));
+  }
+
+  IconData getIconByListType(){
+    if(listWithMediaDTO.listType == GlobalStrings.listTypeFlagMainList){
+      return Icons.favorite;
+    }
+    if(listWithMediaDTO.listType == GlobalStrings.listTypeFlagAlreadyWatchedList){
+      return Icons.remove_red_eye;
+    }
+    return Icons.person;
+  }
+
+  Color getColorByListType(){
+    if(listWithMediaDTO.listType == GlobalStrings.listTypeFlagMainList){
+      return Colors.blueAccent;
+    }
+    if(listWithMediaDTO.listType == GlobalStrings.listTypeFlagAlreadyWatchedList){
+      return Colors.redAccent;
+    }
+    return Colors.lightBlueAccent;
   }
 }

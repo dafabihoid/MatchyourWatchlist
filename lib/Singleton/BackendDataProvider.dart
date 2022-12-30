@@ -1,6 +1,7 @@
 import 'package:watchlist/class/Language.dart';
 import '../../class/Genre.dart';
 import '../../class/MediaProvider.dart';
+import '../DTOs/ListWithMediaDTO.dart';
 import '../backend/Controller.dart';
 
 
@@ -17,12 +18,31 @@ class BackendDataProvider {
   List<Genre> allGenresSeries = [];
   List<Language> allLanguages = [];
   List<MediaProvider> importantProviders = [];
+  List<ListWithMediaDTO> listWithMediaDTOList = [];
+
+  void clearData(){
+    allGenresMovies = [];
+    allGenresSeries = [];
+    allLanguages = [];
+    importantProviders = [];
+    listWithMediaDTOList = [];
+  }
 
   void initializeFunctions() async{
     loadAllGenresMovies("movie");
     loadAllGenresMovies("tv");
     loadAllLanguages();
     loadImportantProviders();
+  }
+
+  Future<bool> loadWatchlists() async{
+    Future<List<ListWithMediaDTO>> futureListWithMediaDTO = fetchAllWatchlistsForUser();
+    futureListWithMediaDTO.then((result) {
+      for (ListWithMediaDTO listWithMediaDTO in result) {
+        listWithMediaDTOList.add(listWithMediaDTO);
+      }
+    });
+    return true;
   }
 
   Future<bool> loadAllGenresMovies(String mediaType) async{

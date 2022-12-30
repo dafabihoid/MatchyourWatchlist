@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:watchlist/DTOs/FilterDTO.dart';
+import 'package:watchlist/Singleton/AppData.dart';
 import 'package:watchlist/Singleton/MainFilter.dart';
 import 'package:watchlist/class/Language.dart';
 
@@ -126,20 +127,22 @@ Future<void> createNewUserWithDetails(userId, userName) async{
   );
 }
 
-Future<void> addMediaToWatchlist(listId, MediaDTO mediaDTO, languageId) async{
+Future<void> addMediaToWatchlist(MediaDTO mediaDTO, languageId) async{
   var json = mediaDTO.toJson();
-  print("${getBaseUrl()}/addMediaToWatchlist/$listId/${jsonEncode(json)}/$languageId");
+  AppData appData = AppData();
+  print("${getBaseUrl()}/addMediaToWatchlist/${appData.mainListId}/${jsonEncode(json)}/$languageId");
   var response = await http.get(
       Uri.parse(
-          "${getBaseUrl()}/addMediaToWatchlist/$listId/${jsonEncode(json)}/$languageId"
+          "${getBaseUrl()}/addMediaToWatchlist/${appData.mainListId}/${jsonEncode(json)}/$languageId"
       )
   );
 }
 
-Future<String> getUserNameByUserId(userId) async{
+Future<String> getUserNameByUserId() async{
+  AppData appData = AppData();
   var response = await http.get(
       Uri.parse(
-          "${getBaseUrl()}/getRandomMedia/$userId"
+          "${getBaseUrl()}/getRandomMedia/${appData.userId}"
       )
   );
 
@@ -150,10 +153,12 @@ Future<String> getUserNameByUserId(userId) async{
   }
 }
 
-Future<List<ListWithMediaDTO>> fetchAllWatchlistsForUser(userId) async{
+Future<List<ListWithMediaDTO>> fetchAllWatchlistsForUser() async{
+  AppData appData = AppData();
+  String str = "${getBaseUrl()}/loadPersonalWatchlistDataForUser/${appData.userId}";
   var response = await http.get(
       Uri.parse(
-          "${getBaseUrl()}/loadPersonalWatchlistDataForUser/$userId"
+          "${getBaseUrl()}/loadPersonalWatchlistDataForUser/${appData.userId}"
       )
   );
 

@@ -1,14 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:watchlist/pages/Watchlist/BereitsGesehenPage.dart';
-import 'package:watchlist/pages/Watchlist/WatchlistWithFriends.dart';
+import 'package:watchlist/Singleton/BackendDataProvider.dart';
+import 'package:watchlist/pages/Watchlist/WatchlistTile.dart';
 import 'package:watchlist/pages/Watchlist/newWatchlist/FriendstoWatchlist.dart';
-import '../../DTOs/ListDTO.dart';
-import '../../class/Media.dart';
 import '../../utils/myThemes.dart';
-import 'BereitsGesehenWidget.dart';
-import 'EigeneWatchlistPage.dart';
-import 'EigeneWatchlistWidget.dart';
+
 
 class ListPage extends StatefulWidget {
   const ListPage({Key? key}) : super(key: key);
@@ -18,6 +14,8 @@ class ListPage extends StatefulWidget {
 }
 
 class _ListPageState extends State<ListPage> {
+  BackendDataProvider backendDataProvider = BackendDataProvider();
+
   @override
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
@@ -65,17 +63,17 @@ class _ListPageState extends State<ListPage> {
                    ),
                  ],
                ),
-              SizedBox(height: 15),
-              EigeneWatchlistWidget(),
-              const SizedBox(height: 10),
-              BereitsGesehenWidget(),
+              //SizedBox(height: 15),
+              //EigeneWatchlistWidget(),
+              //const SizedBox(height: 10),
+              //BereitsGesehenWidget(),
 
               SizedBox(
-                height: ErikApi.ErikApiListe.length * 113 + 20,
+                height: backendDataProvider.listWithMediaDTOList.length * 113 + 20,
                 width: 400,
                 child: FutureBuilder(
                     builder: (BuildContext context, AsyncSnapshot snapshot) {
-                  if (ErikApi.ErikApiListe == null) {
+                  if (backendDataProvider.listWithMediaDTOList.isEmpty) {
                     return Container(
                       child: Center(
                         child: Text("Loading"),
@@ -84,10 +82,10 @@ class _ListPageState extends State<ListPage> {
                   } else {
                     return ListView.builder(
                         physics: NeverScrollableScrollPhysics(),
-                        itemCount: ErikApi.ErikApiListe.length,
+                        itemCount: backendDataProvider.listWithMediaDTOList.length,
                         itemBuilder: (BuildContext context, int index) {
-                          return WatchlistWithFriends(
-                              listTDO: ErikApi.ErikApiListe[index]);
+                          return WatchlistTile(
+                              listWithMediaDTO: backendDataProvider.listWithMediaDTOList[index]);
                         });
                   }
                 }),

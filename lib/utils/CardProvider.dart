@@ -169,7 +169,7 @@ class CardProvider extends ChangeNotifier {
     }
     if (mediaDTOs.containsKey(movies.last.id)){
       MediaDTO mediaDTO = mediaDTOs[movies.last.id]!;
-      addMediaToWatchlist(mediaDTO, appData.appLanguage);
+      addMediaToWatchlist(mediaDTO);
       backendDataProvider.addMediaToListWithMediaByListType(GlobalStrings.listTypeFlagMainList, mediaDTO);
       mediaDTOs.remove(movies.last.id);
     }

@@ -4,7 +4,7 @@ import 'package:watchlist/class/MediaProvider.dart';
 import '../class/Genre.dart';
 
 class FilterDTO{
-  String languageId = "en";
+  String languageId = "de";
   List<int> genreMovieIds = [];
   List<int> genreSeriesIds = [];
   List<int> mediaProviderIds = [];

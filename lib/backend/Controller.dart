@@ -127,13 +127,24 @@ Future<void> createNewUserWithDetails(userId, userName) async{
   );
 }
 
-Future<void> addMediaToWatchlist(MediaDTO mediaDTO, languageId) async{
+Future<void> addMediaToWatchlist(MediaDTO mediaDTO) async{
   var json = mediaDTO.toJson();
   AppData appData = AppData();
-  print("${getBaseUrl()}/addMediaToWatchlist/${appData.mainListId}/${jsonEncode(json)}/$languageId");
+  print("${getBaseUrl()}/addMediaToWatchlist/${appData.mainListId}/${jsonEncode(json)}/${appData.appLanguage}");
   var response = await http.get(
       Uri.parse(
-          "${getBaseUrl()}/addMediaToWatchlist/${appData.mainListId}/${jsonEncode(json)}/$languageId"
+          "${getBaseUrl()}/addMediaToWatchlist/${appData.mainListId}/${jsonEncode(json)}/${appData.appLanguage}"
+      )
+  );
+}
+
+Future<void> transferMediaBetweenWatchLists(ListWithMediaDTO listWithMediaDTO) async{
+  var json = listWithMediaDTO.toJson();
+  AppData appData = AppData();
+  print("${getBaseUrl()}/transferMediaBetweenWatchLists/${jsonEncode(json)}/${appData.appLanguage}");
+  var response = await http.get(
+      Uri.parse(
+          "${getBaseUrl()}/transferMediaBetweenWatchLists/${jsonEncode(json)}/${appData.appLanguage}"
       )
   );
 }

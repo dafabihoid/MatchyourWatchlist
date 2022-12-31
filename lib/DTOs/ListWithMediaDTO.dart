@@ -35,4 +35,19 @@ class ListWithMediaDTO {
     }).toList();
     return mediaDTOList.whereType<MediaDTO>().toList();
   }
+
+  Map<String, dynamic> toJson() => {
+    'listId': listId,
+    'listName': listName,
+    'listType': listType,
+    'mediaDTOList': mediaDTOListToJson(),
+  };
+
+  List<Map<String, dynamic>> mediaDTOListToJson() {
+    List<Map<String, dynamic>> jsonList = [];
+    mediaDTOList.forEach((element) {
+      jsonList.add(element.toJson());
+    });
+    return jsonList;
+  }
 }

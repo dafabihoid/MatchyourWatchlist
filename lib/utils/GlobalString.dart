@@ -7,4 +7,5 @@ class GlobalStrings {
   static const String listTypeFlagMainList = "mainList";
   static const String listTypeFlagAlreadyWatchedList = "alreadyWatchedList";
   static const String listTypeFlagJoinedList = "joinedList";
+  static const String listTypeFlagTransferList = "transferList";
 }

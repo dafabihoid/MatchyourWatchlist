@@ -11,8 +11,8 @@ import '../class/Genre.dart';
 import '../class/MediaProvider.dart';
 
 String getBaseUrl(){
-  return "http://10.0.2.2/diplo/public/tmdb";
-  //return "http://185.208.206.99/diplo/matchyourwatchlist/tmdb";
+  //return "http://10.0.2.2/diplo/public/tmdb";
+  return "http://185.208.206.99/diplo/matchyourwatchlist/tmdb";
 }
 
 Future<MediaDTO> fetchNewMovieDTO() async{

@@ -29,7 +29,7 @@ Future<MediaDTO> fetchNewMovieDTO() async{
       /*
        * hier muss für den fall das wegen den filter kein film gefunden werden kann ein failsafe eingebaut werden
        */
-      throw Exception("media not found with this settings");
+      throw Exception("no media found with this settings");
     }
     if(response.body == "error_no_connection"){
       throw Exception("no successful connection to TheMovieDatabase");

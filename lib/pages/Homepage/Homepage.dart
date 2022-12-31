@@ -6,7 +6,7 @@ import 'package:watchlist/pages/Watchlist/WatchlistPage.dart';
 
 
 import '../../class/Media.dart';
-import '../../utils/tinder_Card.dart';
+import '../../Widgets/tinder_Card.dart';
 import 'FilterPage.dart';
 import 'SearchPage.dart';
 

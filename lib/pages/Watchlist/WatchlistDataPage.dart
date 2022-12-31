@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:watchlist/DTOs/ListWithMediaDTO.dart';
-import 'package:watchlist/utils/MediaList.dart';
+import 'package:watchlist/Widgets/MediaList.dart';
 
 import '../../utils/Enum.dart';
 import '../../utils/GlobalString.dart';

@@ -1,10 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:watchlist/DTOs/ListWithMediaDTO.dart';
-import 'package:watchlist/utils/MediaTile.dart';
-
-import '../class/Media.dart';
-import 'Enum.dart';
+import '../utils/Enum.dart';
+import 'MediaTile.dart';
 
 class MediaList extends StatefulWidget {
   ListWithMediaDTO listWithMediaDTO;

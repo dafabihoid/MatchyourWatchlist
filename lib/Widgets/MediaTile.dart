@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../DTOs/MediaDTO.dart';
 import '../class/Genre.dart';
-import 'Enum.dart';
+import '../utils/Enum.dart';
 
 class MediaTile extends StatefulWidget {
   MediaDTO media;

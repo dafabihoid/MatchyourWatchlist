@@ -2,6 +2,7 @@ import 'package:watchlist/class/Language.dart';
 import '../../class/Genre.dart';
 import '../../class/MediaProvider.dart';
 import '../DTOs/ListWithMediaDTO.dart';
+import '../DTOs/MediaDTO.dart';
 import '../backend/Controller.dart';
 
 
@@ -78,6 +79,15 @@ class BackendDataProvider {
       }
     });
     return true;
+  }
+
+  void addMediaToListWithMediaByListType(String listType, MediaDTO mediaDTO){
+    for (int i = 0; i<listWithMediaDTOList.length; i++) {
+      if(listWithMediaDTOList[i].listType == listType){
+        listWithMediaDTOList[i].mediaDTOList.add(mediaDTO);
+        return;
+      }
+    }
   }
 
 }

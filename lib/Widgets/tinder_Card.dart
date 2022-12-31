@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:watchlist/utils/myThemes.dart';
 import '../../class/Media.dart';
-import 'CardProvider.dart';
+import '../utils/CardProvider.dart';
 
 class TinderCard extends StatefulWidget {
   final Media movie;

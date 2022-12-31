@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:watchlist/Singleton/AppData.dart';
 import 'package:watchlist/backend/Controller.dart';
 import 'package:watchlist/class/MediaProvider.dart';
+import 'package:watchlist/utils/GlobalString.dart';
 import '../../class/Media.dart';
 import '../DTOs/MediaDTO.dart';
 import '../Singleton/BackendDataProvider.dart';
@@ -10,6 +12,8 @@ enum CardStatus { like, dislike }
 
 
 class CardProvider extends ChangeNotifier {
+  AppData appData = AppData();
+  BackendDataProvider backendDataProvider = BackendDataProvider();
   List<Media> movies = [];
   Map<int, MediaDTO> mediaDTOs = new Map<int, MediaDTO>();
   bool isMoving = false;
@@ -165,11 +169,9 @@ class CardProvider extends ChangeNotifier {
     }
     if (mediaDTOs.containsKey(movies.last.id)){
       MediaDTO mediaDTO = mediaDTOs[movies.last.id]!;
-      addMediaToWatchlist(mediaDTO, "de-de");
+      addMediaToWatchlist(mediaDTO, appData.appLanguage);
+      backendDataProvider.addMediaToListWithMediaByListType(GlobalStrings.listTypeFlagMainList, mediaDTO);
       mediaDTOs.remove(movies.last.id);
-
-      BackendDataProvider backendDataProvider = BackendDataProvider();
-      String string = "";
     }
   }
 

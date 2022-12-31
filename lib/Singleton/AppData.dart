@@ -8,7 +8,7 @@ class AppData {
   String userName = "";
   String userDisplayName = "";
   int mainListId = -1;
-  int isAlreadyWatchedListId = -1;
+  int alreadyWatchedListId = -1;
 
   factory AppData(){
     return _appData;

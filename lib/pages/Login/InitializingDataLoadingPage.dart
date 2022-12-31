@@ -123,7 +123,7 @@ class _InitializingDataLoadingPageState extends State<InitializingDataLoadingPag
     await Future.delayed(const Duration(milliseconds: 100),(){});
 
     appData.mainListId = checkForListTypeAndReturnListId(GlobalStrings.listTypeFlagMainList);
-    appData.isAlreadyWatchedListId = checkForListTypeAndReturnListId(GlobalStrings.listTypeFlagAlreadyWatchedList);
+    appData.alreadyWatchedListId = checkForListTypeAndReturnListId(GlobalStrings.listTypeFlagAlreadyWatchedList);
 
     appData.filterSettingsAreAvailable = true;
   }

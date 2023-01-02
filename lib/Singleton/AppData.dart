@@ -3,6 +3,7 @@ class AppData {
 
   bool filterSettingsAreAvailable = false;
   bool userBackendDataAvailable = false;
+  bool homePageLoading = true;
   String appLanguage = "de-de";
   String userId = "";
   String userName = "";

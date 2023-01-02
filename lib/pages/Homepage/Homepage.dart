@@ -1,5 +1,7 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:watchlist/Singleton/AppData.dart';
 import 'package:watchlist/utils/CardProvider.dart';
 import 'package:watchlist/pages/Profile/Profilpage.dart';
 import 'package:watchlist/pages/Watchlist/WatchlistPage.dart';
@@ -7,6 +9,7 @@ import 'package:watchlist/pages/Watchlist/WatchlistPage.dart';
 
 import '../../class/Media.dart';
 import '../../Widgets/tinder_Card.dart';
+import '../../utils/ButtonsProvider.dart';
 import 'FilterPage.dart';
 import 'SearchPage.dart';
 
@@ -24,10 +27,27 @@ class _HomepageState extends State<HomePage> {
     const ProfilPage(),
   ];
 
+  bool isLoading = false;
+
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+AppData appdata = AppData();
+    if (appdata.homePageLoading){
+      WidgetsBinding.instance.addPostFrameCallback((_) { loadImageData(); });
+      appdata.homePageLoading = false;
+    }
+
+  }
+
   @override
   Widget build(BuildContext context) {
     final screenwidth = MediaQuery.of(context).size.width;
     final screenheight = MediaQuery.of(context).size.height;
+    final buttonProvider = Provider.of<ButtonsProvider>(context, listen: false);
+    final testprovider = Provider.of<CardProvider>(context);
 
     return Scaffold(
       body: SafeArea(
@@ -50,12 +70,13 @@ class _HomepageState extends State<HomePage> {
               child: Column(
                 children: [
                   Expanded(
-                    child: buildCards(),
+                    child: isLoading
+                        ?Center(child: CircularProgressIndicator(),)
+                        :buildCards(),
                   ),
-              //    SizedBox(
-               //     height: 10,
-              //    ),
-             //     buildButtons(),
+                  buttonProvider.ButtonsActivated
+                      ? buildButtons()
+                      : SizedBox()
                 ],
               )
            ),
@@ -145,6 +166,24 @@ class _HomepageState extends State<HomePage> {
       .toList(growable: true),
 
     );
+  }
+  Future loadImageData() async {
+
+    setState(() => isLoading = true);
+    final provider = Provider.of<CardProvider>(context, listen: false);
+
+    provider.initializeData();
+    while(provider.movies.isEmpty) {
+      await Future.delayed(const Duration(milliseconds: 200),(){});
+    }
+
+    await precacheImage(CachedNetworkImageProvider(provider.movies.last.cover.toString()), context);
+
+    print("object");
+    print(provider.movies.last.cover.toString());
+    print("object");
+    setState(() => isLoading = false);
+
   }
 }
 

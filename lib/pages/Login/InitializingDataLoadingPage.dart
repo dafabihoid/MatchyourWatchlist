@@ -1,9 +1,13 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:watchlist/Singleton/AppData.dart';
 import 'package:watchlist/Singleton/BackendDataProvider.dart';
 import 'package:watchlist/Singleton/ListCreationFilter.dart';
+import 'package:watchlist/class/Media.dart';
+import 'package:watchlist/pages/Homepage/Homepage.dart';
 import 'package:watchlist/utils/GlobalString.dart';
+import 'package:watchlist/Widgets/tinder_Card.dart';
 
 import '../../Singleton/MainFilter.dart';
 import '../../utils/CardProvider.dart';
@@ -21,6 +25,8 @@ class _InitializingDataLoadingPageState extends State<InitializingDataLoadingPag
   bool initializingFinished = false;
   bool started = false;
 
+
+
   @override
   Widget build(BuildContext context) {
     if(!started){
@@ -31,16 +37,16 @@ class _InitializingDataLoadingPageState extends State<InitializingDataLoadingPag
     return Scaffold(
       body: Center(
         child: !initializingFinished ?
-          Column (
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const CircularProgressIndicator(
-                valueColor: AlwaysStoppedAnimation<Color> (Colors.deepPurpleAccent),
-              )
-            ],
-          ) :
-          MainPage(),
+        Column (
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const CircularProgressIndicator(
+              valueColor: AlwaysStoppedAnimation<Color> (Colors.deepPurpleAccent),
+            )
+          ],
+        ) :
+        MainPage(),
       ),
     );
 
@@ -50,7 +56,8 @@ class _InitializingDataLoadingPageState extends State<InitializingDataLoadingPag
     loadUserData();
     BackendDataProvider backendDataProvider = BackendDataProvider();
     loadFilterSettings(backendDataProvider);
-    initializeMovies(context);
+
+    //initializeMovies(context); brauch ma nima ( is in der Homepage (loadImageData)
   }
 
   void initializeMovies(BuildContext context) async {
@@ -63,16 +70,15 @@ class _InitializingDataLoadingPageState extends State<InitializingDataLoadingPag
     }
     final provider = Provider.of<CardProvider>(context, listen: false);
     provider.initializeData();
-    provider.getMovies.forEach((element) {
-      Future.wait([
+    provider.getMovies.forEach((element) async {
+      await Future.wait([
         precacheImage(NetworkImage(element.cover), context),
       ]);
     });
     while(provider.movies.isEmpty) {
       await Future.delayed(const Duration(milliseconds: 500),(){});
     }
-    initializingFinished = true;
-    setState(() {});
+
   }
 
   void loadUserData() async{
@@ -126,6 +132,8 @@ class _InitializingDataLoadingPageState extends State<InitializingDataLoadingPag
     appData.alreadyWatchedListId = checkForListTypeAndReturnListId(GlobalStrings.listTypeFlagAlreadyWatchedList);
 
     appData.filterSettingsAreAvailable = true;
+    initializingFinished = true;
+    setState(() {});
   }
 
 
@@ -138,4 +146,8 @@ class _InitializingDataLoadingPageState extends State<InitializingDataLoadingPag
     }
     return -1;
   }
+
+
+
+
 }

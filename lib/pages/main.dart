@@ -6,6 +6,7 @@ import 'package:watchlist/Singleton/BackendDataProvider.dart';
 import 'package:watchlist/Singleton/ListCreationFilter.dart';
 import 'package:watchlist/pages/Login/splash.dart';
 import '../Singleton/MainFilter.dart';
+import '../utils/ButtonsProvider.dart';
 import '../utils/CardProvider.dart';
 import '../utils/SnackBar.dart';
 import '../utils/myThemes.dart';
@@ -24,6 +25,7 @@ Future main() async{
         providers: [
           ChangeNotifierProvider(create: (_) => CardProvider()),
           ChangeNotifierProvider(create: (_) => ThemeProvider()),
+          ChangeNotifierProvider(create: (_) => ButtonsProvider()),
         ],
       child: MyApp(),
 

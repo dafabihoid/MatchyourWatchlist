@@ -286,7 +286,7 @@ class _TinderCardState extends State<TinderCard> {
                     Row(
                       children: [
 
-                        Text("widget.movie.genres.toString()", style: TextStyle(fontSize: 18,color: Colors.grey.withOpacity(0.5)),),
+                        Text(widget.movie.genres.toString(), style: TextStyle(fontSize: 18,color: Colors.grey.withOpacity(0.5)),),
                         Spacer()
                       ],
                     ),

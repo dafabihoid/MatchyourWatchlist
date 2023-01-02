@@ -109,9 +109,9 @@ class _MediaTileState extends State<MediaTile> {
     String str = "";
     for (Genre element in genres) {
       if (str == ""){
-        str = "${element.genreId}";
+        str = element.genreName;
       } else {
-        str = "$str, ${element.genreId}";
+        str = "$str, ${element.genreName}";
       }
     }
     return str;

@@ -3,14 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:watchlist/Singleton/AppData.dart';
 import 'package:watchlist/Singleton/BackendDataProvider.dart';
-import 'package:watchlist/Singleton/ListCreationFilter.dart';
 import 'package:watchlist/pages/Login/splash.dart';
 import '../Singleton/MainFilter.dart';
 import '../utils/ButtonsProvider.dart';
 import '../utils/CardProvider.dart';
 import '../utils/SnackBar.dart';
 import '../utils/myThemes.dart';
-
+import 'package:flutter/services.dart';
 
 
 Future main() async{
@@ -20,6 +19,10 @@ Future main() async{
   MainFilter mainFilter = MainFilter();
   BackendDataProvider backendDataProvider = BackendDataProvider();
   backendDataProvider.initializeFunctions();
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]).then((value) =>
   runApp(
     MultiProvider(
         providers: [
@@ -28,9 +31,8 @@ Future main() async{
           ChangeNotifierProvider(create: (_) => ButtonsProvider()),
         ],
       child: MyApp(),
-
     )
-  );
+  ));
 }
 class MyApp extends StatelessWidget{
 

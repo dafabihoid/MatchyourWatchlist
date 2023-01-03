@@ -98,7 +98,7 @@ class CardProvider extends ChangeNotifier {
         tempGenres = "$tempGenres, " + element.genreName;
       }
       for (MediaProvider element in result.provider) {
-        if (element == result.genres[0]){
+        if (element == result.provider[0]){
           tempProviders = element.providerName;
           continue;
         }

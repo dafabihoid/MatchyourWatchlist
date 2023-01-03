@@ -21,20 +21,19 @@ class WatchlistDataPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          leading: IconButton(
-            icon: Icon(Icons.arrow_back, color: Colors.white),
-            onPressed: () {
-              transferList.mediaDTOList.isEmpty ? null : transferMediaBetweenWatchlists();
-              Navigator.of(context).pop();
-            },
+    return WillPopScope(
+      child: Scaffold(
+          appBar: AppBar(
+            centerTitle: true,
+            //  backgroundColor: Colors.black12,
+            title: Text(listWithMediaDTO.listName),
           ),
-          centerTitle: true,
-          //  backgroundColor: Colors.black12,
-          title: Text(listWithMediaDTO.listName),
-        ),
-        body: loadMediaListByListType()//MediaView(Icon(Icons.visibility_off),IconType1, Icon(Icons.delete), IconType2 ),
+          body: loadMediaListByListType()//MediaView(Icon(Icons.visibility_off),IconType1, Icon(Icons.delete), IconType2 ),
+      ),
+      onWillPop: () async {
+        transferList.mediaDTOList.isEmpty ? null : transferMediaBetweenWatchlists();
+        return true;
+      },
     );
   }
 

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:watchlist/Singleton/AppData.dart';
 import 'package:watchlist/backend/Controller.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:watchlist/pages/Profile/AppSettings.dart';
@@ -25,6 +26,7 @@ class ProfilPage extends StatefulWidget {
 }
 
 class _ProfilPageState extends State<ProfilPage> {
+  AppData appData = AppData();
   final controller = TextEditingController();
   late Future<MediaDTO> futureMovieDTO;
   //String? AccountEmail = FirebaseAuth.instance.currentUser?.email;
@@ -45,7 +47,7 @@ class _ProfilPageState extends State<ProfilPage> {
                   Center(
                       child: Column(
                           children: [
-                        SizedBox(height:30,),
+                        const SizedBox(height:30,),
                         Container(
                           child: themeProvider.isDarkMode ? Image.asset("lib/assets/maxl250weiss.png", width: MediaQuery.of(context).size.width*0.3) : Image.asset("lib/assets/maxl250.png",
                               width: MediaQuery.of(context).size.width*0.3)
@@ -54,8 +56,8 @@ class _ProfilPageState extends State<ProfilPage> {
                         const SizedBox(
                           height: 20,
                         ),
-                        const Text("Username",
-                            style: TextStyle(
+                        Text(appData.userData.userName,
+                            style: const TextStyle(
                              //   color: kLightPrimaryColor,
                                 fontSize: 28,
                                 fontWeight: FontWeight.bold)),
@@ -63,11 +65,11 @@ class _ProfilPageState extends State<ProfilPage> {
                               height: 5,
                             ),
                          Text(AccountEmail!,
-                            style: TextStyle(
+                            style: const TextStyle(
                          //       color: kLightPrimaryColor,
                                 fontSize: 14,
                                 )),
-                        SizedBox(
+                        const SizedBox(
                           height: 30,
                         ),
 

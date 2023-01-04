@@ -178,8 +178,9 @@ AppData appdata = AppData();
     }
 
     await precacheImage(CachedNetworkImageProvider(provider.movies.last.cover.toString()), context);
+    isLoading = false;
 
-    setState(() => isLoading = false);
+    setState(() {});
 
   }
 }

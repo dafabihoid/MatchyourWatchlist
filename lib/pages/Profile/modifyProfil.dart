@@ -1,7 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:watchlist/Singleton/AppData.dart';
 import 'package:watchlist/utils/myThemes.dart';
+
+import '../../backend/Controller.dart';
 
 
 
@@ -15,7 +18,7 @@ class modifyProfil extends StatefulWidget {
 
 class _modifyProfilState extends State<modifyProfil> {
   late TextEditingController textfieldController;
-  String name = "TestName";
+  AppData appData = AppData();
 
   @override
   void initState(){
@@ -31,8 +34,6 @@ class _modifyProfilState extends State<modifyProfil> {
   @override
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
-
-
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -61,20 +62,20 @@ class _modifyProfilState extends State<modifyProfil> {
                                       fontSize: 22,
                                       fontWeight: FontWeight.bold)),
                               Spacer(),
-                              Text(name,
+                              Text(appData.userData.userName,
                                   style: TextStyle(
                                       //color: kLightPrimaryColor,
                                       fontSize: 22,
                                       fontWeight: FontWeight.bold)),
                               IconButton(
-                                  onPressed: () async{
-                                final name = await EditButtonPressed();
-                                if(name == null  || name.isEmpty) return;
-                                setState(() {
-                                  this.name = name;
-                                });
+                                onPressed: () async{
+                                  final name = await EditButtonPressed();
+                                  if(name == null  || name.isEmpty) return;
+                                  appData.userData.userName = name;
+                                  updateUserNameForUser();
+                                  setState(() {});
                                 },
-                                  icon: Icon(Icons.edit))
+                                icon: Icon(Icons.edit))
                             ],
                           ),
                 Text(
@@ -93,7 +94,7 @@ class _modifyProfilState extends State<modifyProfil> {
                             fontSize: 22,
                             fontWeight: FontWeight.bold)),
                     Spacer(),
-                    Text("@Name",
+                    Text(appData.userData.userAccountName,
                         style: TextStyle(
                       //      color: kLightPrimaryColor,
                             fontSize: 22,

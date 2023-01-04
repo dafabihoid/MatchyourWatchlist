@@ -1,15 +1,13 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:watchlist/Singleton/AppData.dart';
 import 'package:watchlist/Singleton/BackendDataProvider.dart';
 import 'package:watchlist/Singleton/ListCreationFilter.dart';
-import 'package:watchlist/class/Media.dart';
-import 'package:watchlist/pages/Homepage/Homepage.dart';
 import 'package:watchlist/utils/GlobalString.dart';
-import 'package:watchlist/Widgets/tinder_Card.dart';
 
+import '../../DTOs/UserDataDTO.dart';
 import '../../Singleton/MainFilter.dart';
+import '../../backend/Controller.dart';
 import '../../utils/CardProvider.dart';
 import '../mainPage.dart';
 
@@ -84,7 +82,8 @@ class _InitializingDataLoadingPageState extends State<InitializingDataLoadingPag
   void loadUserData() async{
     AppData appData = AppData();
 
-    appData.userId = "a1";
+    Future<UserDataDTO> futureUserDataDTO = getUserDataByUserId("a1");
+    await futureUserDataDTO.then((value) => appData.userData = value);
 
     appData.userBackendDataAvailable = true;
   }

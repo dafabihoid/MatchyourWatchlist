@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:watchlist/DTOs/FilterDTO.dart';
+import 'package:watchlist/DTOs/UserDataDTO.dart';
 import 'package:watchlist/Singleton/AppData.dart';
 import 'package:watchlist/Singleton/MainFilter.dart';
 import 'package:watchlist/class/Language.dart';
@@ -11,8 +12,8 @@ import '../class/Genre.dart';
 import '../class/MediaProvider.dart';
 
 String getBaseUrl(){
-  //return "http://10.0.2.2/diplo/public/tmdb";
-  return "http://85.255.144.134/diplo/matchyourwatchlist/tmdb";
+  return "http://10.0.2.2/diplo/public/tmdb";
+  //return "http://85.255.144.134/diplo/matchyourwatchlist/tmdb";
 }
 
 Future<MediaDTO> fetchNewMovieDTO() async{
@@ -149,11 +150,47 @@ Future<void> transferMediaBetweenWatchLists(ListWithMediaDTO listWithMediaDTO) a
   );
 }
 
+Future<UserDataDTO> getUserDataByUserId(String userId) async{
+  var response = await http.get(
+      Uri.parse(
+          "${getBaseUrl()}/getUserDataByUserId/$userId"
+      )
+  );
+
+  if (response.statusCode == 200) {
+    return  UserDataDTO.fromJson(jsonDecode(response.body));
+  } else {
+    return UserDataDTO(userId: userId, userName: "error", userAccountName: "error");
+  }
+}
+
+Future<void> updateUserNameForUser() async{
+  AppData appData = AppData();
+  var response = await http.get(
+      Uri.parse(
+          "${getBaseUrl()}/updateUserNameForUser/${appData.userData.userId}/${appData.userData.userName}"
+      )
+  );
+}
+
+Future<bool> userNameAlreadyExists(String userName) async{
+  var response = await http.get(
+      Uri.parse(
+          "${getBaseUrl()}/userNameAlreadyExists/$userName"
+      )
+  );
+  if (response.statusCode == 200) {
+    return jsonDecode(response.body);
+  } else {
+    return throw Future.error(StackTrace);
+  }
+}
+
 Future<String> getUserNameByUserId() async{
   AppData appData = AppData();
   var response = await http.get(
       Uri.parse(
-          "${getBaseUrl()}/getRandomMedia/${appData.userId}"
+          "${getBaseUrl()}/getRandomMedia/${appData.userData.userId}"
       )
   );
 
@@ -166,10 +203,10 @@ Future<String> getUserNameByUserId() async{
 
 Future<List<ListWithMediaDTO>> fetchAllWatchlistsForUser() async{
   AppData appData = AppData();
-  String str = "${getBaseUrl()}/loadPersonalWatchlistDataForUser/${appData.userId}";
+  String str = "${getBaseUrl()}/loadPersonalWatchlistDataForUser/${appData.userData.userId}";
   var response = await http.get(
       Uri.parse(
-          "${getBaseUrl()}/loadPersonalWatchlistDataForUser/${appData.userId}"
+          "${getBaseUrl()}/loadPersonalWatchlistDataForUser/${appData.userData.userId}"
       )
   );
 

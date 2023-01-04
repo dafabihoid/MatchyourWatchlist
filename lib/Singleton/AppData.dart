@@ -1,3 +1,5 @@
+import 'package:watchlist/DTOs/UserDataDTO.dart';
+
 class AppData {
   static final AppData _appData = AppData._internal();
 
@@ -5,9 +7,7 @@ class AppData {
   bool userBackendDataAvailable = false;
   bool homePageLoading = true;
   String appLanguage = "de-de";
-  String userId = "";
-  String userName = "";
-  String userDisplayName = "";
+  UserDataDTO userData = UserDataDTO(userId: "", userName: "", userAccountName: "");
   int mainListId = -1;
   int alreadyWatchedListId = -1;
 

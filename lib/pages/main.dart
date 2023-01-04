@@ -4,13 +4,13 @@ import 'package:provider/provider.dart';
 import 'package:watchlist/Singleton/AppData.dart';
 import 'package:watchlist/Singleton/BackendDataProvider.dart';
 import 'package:watchlist/pages/Login/splash.dart';
+import 'package:watchlist/utils/NewWatchlistProvider.dart';
 import '../Singleton/MainFilter.dart';
 import '../utils/ButtonsProvider.dart';
 import '../utils/CardProvider.dart';
 import '../utils/SnackBar.dart';
 import '../utils/myThemes.dart';
 import 'package:flutter/services.dart';
-
 
 Future main() async{
   WidgetsFlutterBinding.ensureInitialized();
@@ -29,6 +29,7 @@ Future main() async{
           ChangeNotifierProvider(create: (_) => CardProvider()),
           ChangeNotifierProvider(create: (_) => ThemeProvider()),
           ChangeNotifierProvider(create: (_) => ButtonsProvider()),
+          ChangeNotifierProvider(create: (_) => NewWatchlistProvider()),
         ],
       child: MyApp(),
     )

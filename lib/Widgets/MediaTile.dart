@@ -76,7 +76,30 @@ class _MediaTileState extends State<MediaTile> {
                 }
                 break;
                 case IconType.delete: {
+                  showDialog(
+                    context: context,
+                    barrierDismissible: false,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: Text("Löschen"),
+                        content: Text("Bist du sicher?"),
+                        actions: [
+                          TextButton(
+                            child: Text('Abbrechen',),
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                          ),
+                          TextButton(
+                            child: Text('Ja',),
+                            onPressed: () {
 
+                            },
+                          ),
+                        ],
+                      );
+                    },
+                  );
                 }
                 break;
                 case IconType.nochnichtgesehen: {

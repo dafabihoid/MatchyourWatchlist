@@ -4,6 +4,8 @@ import 'package:provider/provider.dart';
 import 'package:watchlist/class/Friends.dart';
 import 'package:watchlist/utils/myThemes.dart';
 
+import '../../utils/NewWatchlistProvider.dart';
+
 class myFriends extends StatefulWidget {
   const myFriends({Key? key}) : super(key: key);
 
@@ -29,6 +31,8 @@ class _myFriendsState extends State<myFriends> {
 
     ),
   ];
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -81,15 +85,26 @@ class _myFriendsState extends State<myFriends> {
   }
 }
 
-class showFriends extends StatelessWidget {
+class showFriends extends StatefulWidget {
   final Friends friends;
   const showFriends({Key? key, required this.friends}) : assert(friends != null), super(key: key);
 
   @override
+  State<showFriends> createState() => _showFriendsState();
+}
+class _showFriendsState extends State<showFriends> {
+  _showFriendsState();
+  bool clicked = false;
+  bool isAdded = false;
+  @override
   Widget build(BuildContext context) {
+
     final themeProvider = Provider.of<ThemeProvider>(context);
+    final addedFriends = Provider.of<NewWatchlistProvider>(context);
+
+
     return InkWell(
-      onTap: (){
+      onTap: () {
         showModalBottomSheet(
             context: context,
             isScrollControlled: true,
@@ -103,7 +118,8 @@ class showFriends extends StatelessWidget {
                 expand: false,
                 initialChildSize: 0.32,
 
-                builder: (context, scrollController) => ModalBottomSheet_Friends(context),
+                builder: (context, scrollController) =>
+                    ModalBottomSheet_Friends(context),
 
               );
             }
@@ -111,52 +127,94 @@ class showFriends extends StatelessWidget {
       },
       child: ListTile(
         leading: Container(
-            child: themeProvider.isDarkMode ? Image.asset("lib/assets/maxl250weiss.png", width: MediaQuery.of(context).size.width*0.1) : Image.asset("lib/assets/maxl250.png",
-                width: MediaQuery.of(context).size.width*0.1)
+            child: themeProvider.isDarkMode ? Image.asset(
+                "lib/assets/maxl250weiss.png", width: MediaQuery
+                .of(context)
+                .size
+                .width * 0.1) : Image.asset("lib/assets/maxl250.png",
+                width: MediaQuery
+                    .of(context)
+                    .size
+                    .width * 0.1)
         ),
-        title: Text(friends.anzeigename),
-        subtitle: Text(friends.username),
-        trailing: IconButton(icon: Icon(Icons.add), onPressed: () {
+        title: Text(widget.friends.anzeigename),
+        subtitle: Text(widget.friends.username),
+        trailing: IconButton(icon: (clicked==false) ? Icon(Icons.add) : Icon(Icons.delete), onPressed: () {
+          if (isAdded == false) {
+            addedFriends.addedFriends.add(widget.friends);
+            isAdded = true;
+            clicked = true;
+            setState(() {
 
+            });
+          }
+          else if (isAdded == true) {
+            addedFriends.addedFriends.removeWhere((element) =>
+            element.username == widget.friends.username);
+            isAdded = false;
+            setState(() {
+              clicked = false;
+            });
+          }
         },),
       ),
     );
   }
 
-
-Widget ModalBottomSheet_Friends(context) {
-  final themeProvider = Provider.of<ThemeProvider>(context);
-  return Container(
-      child: Column(
-        children: [
-          SizedBox(height: 10,),
-          Row(
-            children: [
-              Spacer(),
-              themeProvider.isDarkMode ? Image.asset("lib/assets/maxl250weiss.png", width: MediaQuery.of(context).size.width*0.1) : Image.asset("lib/assets/maxl250.png",
-                  width: MediaQuery.of(context).size.width*0.1),
-              SizedBox(width: 5,),
-              Column(
-                children: [
-                  Container(
-                    child:Text(friends.anzeigename),
-                  ),
-                  Container(
-                    alignment: Alignment.centerLeft,
-                    child: Text(friends.username),
-                  )
-                ],
-              ),
-              Spacer()
-            ],
-          ),
-          SizedBox(height: 10,),
-          SizedBox(width: MediaQuery.of(context).size.width*0.9,child: ElevatedButton(onPressed: (){}, child: Text("Freund entfernen"),)),
-          SizedBox(width: MediaQuery.of(context).size.width*0.9,child: ElevatedButton(onPressed: (){}, child: Text("Freund blockieren"),)),
-          SizedBox(width: MediaQuery.of(context).size.width*0.9,child: ElevatedButton(onPressed: (){Navigator.pop(context);}, child: Text("Abbrechen"),)),
-        ],
-      )
-);
-}
-
+  Widget ModalBottomSheet_Friends(context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
+    return Container(
+        child: Column(
+          children: [
+            SizedBox(height: 10,),
+            Row(
+              children: [
+                Spacer(),
+                themeProvider.isDarkMode ? Image.asset(
+                    "lib/assets/maxl250weiss.png", width: MediaQuery
+                    .of(context)
+                    .size
+                    .width * 0.1) : Image.asset("lib/assets/maxl250.png",
+                    width: MediaQuery
+                        .of(context)
+                        .size
+                        .width * 0.1),
+                SizedBox(width: 5,),
+                Column(
+                  children: [
+                    Container(
+                      child: Text(widget.friends.anzeigename),
+                    ),
+                    Container(
+                      alignment: Alignment.centerLeft,
+                      child: Text(widget.friends.username),
+                    )
+                  ],
+                ),
+                Spacer()
+              ],
+            ),
+            SizedBox(height: 10,),
+            SizedBox(width: MediaQuery
+                .of(context)
+                .size
+                .width * 0.9,
+                child: ElevatedButton(
+                  onPressed: () {}, child: Text("Freund entfernen"),)),
+            SizedBox(width: MediaQuery
+                .of(context)
+                .size
+                .width * 0.9,
+                child: ElevatedButton(
+                  onPressed: () {}, child: Text("Freund blockieren"),)),
+            SizedBox(width: MediaQuery
+                .of(context)
+                .size
+                .width * 0.9, child: ElevatedButton(onPressed: () {
+              Navigator.pop(context);
+            }, child: Text("Abbrechen"),)),
+          ],
+        )
+    );
+  }
 }

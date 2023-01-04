@@ -4,12 +4,14 @@ class AppData {
   bool filterSettingsAreAvailable = false;
   bool userBackendDataAvailable = false;
   bool homePageLoading = true;
+
   String appLanguage = "de-de";
   String userId = "";
   String userName = "";
   String userDisplayName = "";
   int mainListId = -1;
   int alreadyWatchedListId = -1;
+
 
   factory AppData(){
     return _appData;

@@ -290,6 +290,13 @@ class _TinderCardState extends State<TinderCard> {
                         Spacer()
                       ],
                     ),
+                    Row(
+                      children: [
+                        Text("Provider:",style: TextStyle(fontSize: 20)),
+                        Text(widget.movie.providers, style: TextStyle(fontSize: 20),),
+                        Spacer()
+                      ],
+                    ),
                     SizedBox(height: 30,),
                         Row(
                         children: [

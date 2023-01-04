@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:watchlist/Widgets/FilterList.dart';
 
 class WatchlistFilters extends StatefulWidget {
   const WatchlistFilters({Key? key}) : super(key: key);
@@ -22,7 +23,7 @@ class _WatchlistFiltersState extends State<WatchlistFilters> {
           child: SingleChildScrollView (
             child: Column (
               children: [
-                //_buildPanel(),
+                FilterList()
               ],
             ),
           )

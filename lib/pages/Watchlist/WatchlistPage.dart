@@ -69,7 +69,7 @@ class _ListPageState extends State<ListPage> {
               //BereitsGesehenWidget(),
 
               SizedBox(
-                height: backendDataProvider.listWithMediaDTOList.length * 113 + 20,
+                height: backendDataProvider.listWithMediaDTOList.length * 200 + 20,
                 width: 400,
                 child: FutureBuilder(
                     builder: (BuildContext context, AsyncSnapshot snapshot) {

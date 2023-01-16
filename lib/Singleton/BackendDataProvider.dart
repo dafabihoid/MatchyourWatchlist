@@ -22,10 +22,6 @@ class BackendDataProvider {
   List<ListWithMediaDTO> listWithMediaDTOList = [];
 
   void clearData(){
-    allGenresMovies = [];
-    allGenresSeries = [];
-    allLanguages = [];
-    importantProviders = [];
     listWithMediaDTOList = [];
   }
 

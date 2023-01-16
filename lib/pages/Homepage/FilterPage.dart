@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:watchlist/Singleton/BackendDataProvider.dart';
-import 'package:watchlist/Singleton/MainFilter.dart';
+import 'package:provider/provider.dart';
 
 import '../../Widgets/FilterSettings.dart';
+import '../../utils/CardProvider.dart';
 
 
 class FilterPage extends StatefulWidget {
@@ -17,10 +17,19 @@ class _FilterPageState extends State<FilterPage> {
 
   @override
   Widget build(BuildContext context) {
+    final cardProvider = Provider.of<CardProvider>(context);
     return WillPopScope(
         onWillPop: () async {
           checkFilterSettings();
-          return true;
+          cardProvider.clearMediaData();
+          cardProvider.initializeData();
+          while(true){
+            if(cardProvider.movies.isNotEmpty){
+              await Future.delayed(const Duration(milliseconds: 100),(){});
+              return true;
+            }
+            await Future.delayed(const Duration(milliseconds: 100),(){});
+          }
         },
         child: Scaffold(
           appBar: AppBar(

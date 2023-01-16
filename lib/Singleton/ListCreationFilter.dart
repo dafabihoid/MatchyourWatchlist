@@ -13,6 +13,14 @@ class ListCreationFilter {
     return _listCreationFilter;
   }
 
+  void resetData(){
+    languageId = "en";
+    genreMovieIds = [];
+    genreSeriesIds = [];
+    mediaProviderIds = [];
+    mediaTypes = ["movie", "tv"];
+  }
+
   ListCreationFilter._internal();
 
   String getLanguage(){

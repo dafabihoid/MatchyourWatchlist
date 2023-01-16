@@ -6,6 +6,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:watchlist/Singleton/AppData.dart';
+import 'package:watchlist/Singleton/BackendDataProvider.dart';
+import 'package:watchlist/Singleton/ListCreationFilter.dart';
+import 'package:watchlist/Singleton/MainFilter.dart';
+import 'package:watchlist/Singleton/MainFilter.dart';
+import 'package:watchlist/Singleton/Watchlists.dart';
 import 'package:watchlist/backend/Controller.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:watchlist/pages/Profile/AppSettings.dart';
@@ -140,11 +145,10 @@ class _ProfilPageState extends State<ProfilPage> {
 
 }
 }
-  Widget buildSignOutButton(String text, context){
+Widget buildSignOutButton(String text, context){
     String ButtonText = text;
     final themeProvider = Provider.of<ThemeProvider>(context);
     final cardProvider = Provider.of<CardProvider>(context);
-    cardProvider.resetCardProvider();
     return Container(
 
         width: double.infinity,
@@ -158,7 +162,11 @@ class _ProfilPageState extends State<ProfilPage> {
               )
             )
           ),
-          onPressed: () => FirebaseAuth.instance.signOut(),
+          onPressed: () {
+            resetAllData();
+            cardProvider.resetCardProvider();
+            FirebaseAuth.instance.signOut();
+          },
           child: Text(
             ButtonText,
             style: TextStyle(
@@ -169,7 +177,19 @@ class _ProfilPageState extends State<ProfilPage> {
 
         )
     );
+}
 
+void resetAllData(){
+  AppData appData = AppData();
+  appData.resetData();
+  BackendDataProvider backendDataProvider = BackendDataProvider();
+  backendDataProvider.clearData();
+  ListCreationFilter listCreationFilter = ListCreationFilter();
+  listCreationFilter.resetData();
+  MainFilter mainFilter = MainFilter();
+  mainFilter.resetData();
+  Watchlists watchlists = Watchlists();
+  watchlists.resetData();
 }
 
 

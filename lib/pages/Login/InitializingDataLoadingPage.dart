@@ -23,8 +23,6 @@ class _InitializingDataLoadingPageState extends State<InitializingDataLoadingPag
   bool initializingFinished = false;
   bool started = false;
 
-
-
   @override
   Widget build(BuildContext context) {
     if(!started){

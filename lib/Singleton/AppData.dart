@@ -6,7 +6,6 @@ class AppData {
   bool filterSettingsAreAvailable = false;
   bool userBackendDataAvailable = false;
   bool homePageLoading = true;
-
   String appLanguage = "de-de";
   UserDataDTO userData = UserDataDTO(userId: "", userName: "", userAccountName: "");
   int mainListId = -1;
@@ -15,6 +14,16 @@ class AppData {
 
   factory AppData(){
     return _appData;
+  }
+
+  void resetData(){
+    filterSettingsAreAvailable = false;
+    userBackendDataAvailable = false;
+    homePageLoading = true;
+    appLanguage = "de-de";
+    userData = UserDataDTO(userId: "", userName: "", userAccountName: "");
+    mainListId = -1;
+    alreadyWatchedListId = -1;
   }
 
   AppData._internal();

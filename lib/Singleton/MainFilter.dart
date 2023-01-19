@@ -1,13 +1,17 @@
 import 'package:watchlist/DTOs/FilterDTO.dart';
 
+import '../class/FilterSettingData.dart';
+
 class MainFilter {
   static final MainFilter _mainFilter = MainFilter._internal();
 
-  String languageId = "en";
-  List<int> genreMovieIds = [];
-  List<int> genreSeriesIds = [];
-  List<int> mediaProviderIds = [];
-  List<String> mediaTypes = ["movie", "tv"];
+  FilterSettingData filterSettingData = FilterSettingData(
+      languageId: "en",
+      genreMovieIds: [],
+      genreSeriesIds: [],
+      mediaProviderIds: [],
+      mediaTypes: ["movie", "tv"]
+  );
 
   factory MainFilter(){
     return _mainFilter;
@@ -16,54 +20,56 @@ class MainFilter {
   MainFilter._internal();
 
   void resetData(){
-    languageId = "en";
-    genreMovieIds = [];
-    genreSeriesIds = [];
-    mediaProviderIds = [];
-    mediaTypes = ["movie", "tv"];
+    filterSettingData = FilterSettingData(
+        languageId: "en",
+        genreMovieIds: [],
+        genreSeriesIds: [],
+        mediaProviderIds: [],
+        mediaTypes: ["movie", "tv"]
+    );
   }
 
   String getLanguage(){
-    return languageId;
+    return filterSettingData.languageId;
   }
 
   void setLanguage(String languageId){
-    this.languageId = languageId;
+    filterSettingData.languageId = languageId;
   }
 
   void addGenreMovie (int id){
-    genreMovieIds.add(id);
+    filterSettingData.genreMovieIds.add(id);
   }
 
   void removeGenreMovie (int id){
-    genreMovieIds.remove(id);
+    filterSettingData.genreMovieIds.remove(id);
   }
 
   void addGenreSeries (int id){
-    genreSeriesIds.add(id);
+    filterSettingData.genreSeriesIds.add(id);
   }
 
   void removeGenreSeries (int id){
-    genreSeriesIds.remove(id);
+    filterSettingData.genreSeriesIds.remove(id);
   }
 
   void addMediaProvider (int id){
-    mediaProviderIds.add(id);
+    filterSettingData.mediaProviderIds.add(id);
   }
 
   void removeMediaProvider (int id){
-    mediaProviderIds.remove(id);
+    filterSettingData.mediaProviderIds.remove(id);
   }
 
   void addMediaType (String mediaType){
-    mediaTypes.add(mediaType);
+    filterSettingData.mediaTypes.add(mediaType);
   }
 
   void removeMediaType (String mediaType){
-    mediaTypes.remove(mediaType);
+    filterSettingData.mediaTypes.remove(mediaType);
   }
 
   FilterDTO toFilterDTO(){
-    return FilterDTO(languageId: languageId, genreMovieIds:genreMovieIds, genreSeriesIds: genreSeriesIds,mediaProviderIds: mediaProviderIds, mediaTypes: mediaTypes);
+    return FilterDTO(languageId: filterSettingData.languageId, genreMovieIds: filterSettingData.genreMovieIds, genreSeriesIds: filterSettingData.genreSeriesIds,mediaProviderIds: filterSettingData.mediaProviderIds, mediaTypes: filterSettingData.mediaTypes);
   }
 }

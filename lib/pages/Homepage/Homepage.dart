@@ -42,6 +42,12 @@ AppData appdata = AppData();
 
   }
 
+  void resetState(){
+    setState(() {
+
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final screenwidth = MediaQuery.of(context).size.width;
@@ -125,7 +131,7 @@ AppData appdata = AppData();
 
   void FilterButtonPressed() {
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => FilterPage()));
+        context, MaterialPageRoute(builder: (context) => FilterPage(callback: resetState,)));
   }
 
   void LikeButtonPressed() {}

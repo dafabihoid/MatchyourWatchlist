@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:watchlist/backend/Controller.dart';
 import 'package:watchlist/pages/Homepage/Homepage.dart';
 import 'package:watchlist/pages/Profile/Profilpage.dart';
 import 'package:watchlist/pages/Watchlist/WatchlistPage.dart';

@@ -19,15 +19,18 @@ class _myFriendsState extends State<myFriends> {
     Friends(
         username: "TestUsername",
         anzeigename: "TestAnzeigename",
+        userId: "Test",
     ),
     Friends(
       username: "TestUsername1",
       anzeigename: "TestAnzeigename1",
+      userId: "Test1",
 
     ),
     Friends(
       username: "TestUsername2",
       anzeigename: "TestAnzeigename2",
+      userId: "Test2",
 
     ),
   ];
@@ -62,6 +65,24 @@ class _myFriendsState extends State<myFriends> {
           SizedBox(height: 10,),
           Row(
             children: [
+              Text("Ausstehende Anfragen",style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
+              Spacer()
+            ],
+          ),
+
+          Container(
+            height: 300,
+            child: ListView.builder(
+                itemCount: Friend.length,
+                itemBuilder: (context, index){
+                  return showFriends(friends: Friend[index]);
+                }
+
+            ),
+          ),
+          SizedBox(height: 10,),
+          Row(
+            children: [
               Text("Freunde",style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
               Spacer()
             ],
@@ -84,6 +105,7 @@ class _myFriendsState extends State<myFriends> {
     );
   }
 }
+
 
 class showFriends extends StatefulWidget {
   final Friends friends;

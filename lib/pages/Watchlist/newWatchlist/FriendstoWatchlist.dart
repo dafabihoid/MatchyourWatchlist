@@ -23,15 +23,18 @@ class _FriendstoWatchlistState extends State<FriendstoWatchlist> {
     Friends(
       username: "TestUsername",
       anzeigename: "TestAnzeigename",
+      userId: "Test",
     ),
     Friends(
       username: "TestUsername1",
       anzeigename: "TestAnzeigename1",
+      userId: "Test1",
 
     ),
     Friends(
       username: "TestUsername2",
       anzeigename: "TestAnzeigename2",
+      userId: "Test2",
 
     ),
   ];

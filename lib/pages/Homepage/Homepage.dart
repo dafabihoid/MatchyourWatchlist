@@ -7,6 +7,7 @@ import 'package:watchlist/pages/Profile/Profilpage.dart';
 import 'package:watchlist/pages/Watchlist/WatchlistPage.dart';
 
 
+import '../../backend/Controller.dart';
 import '../../class/Media.dart';
 import '../../Widgets/tinder_Card.dart';
 import '../../utils/ButtonsProvider.dart';
@@ -48,6 +49,8 @@ AppData appdata = AppData();
     final screenheight = MediaQuery.of(context).size.height;
     final buttonProvider = Provider.of<ButtonsProvider>(context, listen: false);
     final testprovider = Provider.of<CardProvider>(context);
+
+    getAllRequests("Test2");
 
     return Scaffold(
       body: SafeArea(

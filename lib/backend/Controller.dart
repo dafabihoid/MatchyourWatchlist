@@ -6,6 +6,7 @@ import 'package:watchlist/Singleton/AppData.dart';
 import 'package:watchlist/Singleton/MainFilter.dart';
 import 'package:watchlist/class/Language.dart';
 
+import '../DTOs/FriendsDTO.dart';
 import '../DTOs/ListWithMediaDTO.dart';
 import '../DTOs/MediaDTO.dart';
 import '../class/Genre.dart';
@@ -14,6 +15,9 @@ import '../class/MediaProvider.dart';
 String getBaseUrl(){
   //return "http://10.0.2.2/diplo/public/tmdb";
   return "http://85.255.144.134/diplo/matchyourwatchlist/tmdb";
+}
+String getFriendUrl(){
+  return "http://192.168.1.100/friends";
 }
 
 Future<MediaDTO> fetchNewMovieDTO() async{
@@ -218,3 +222,22 @@ Future<List<ListWithMediaDTO>> fetchAllWatchlistsForUser() async{
     return List.empty();
   }
 }
+
+Future<List<FriendsDTO>> getAllRequests(String UserId) async{
+  var response = await http.get(
+      Uri.parse(
+          "${getFriendUrl()}/listAllRequests/$UserId"
+      )
+  );
+
+  if (response.statusCode == 200) {
+    List<FriendsDTO> list = List<FriendsDTO>.generate(jsonDecode(response.body).length, (int index) {
+      return FriendsDTO.fromJson(jsonDecode(response.body)[index]);
+    });
+    return list;
+  } else {
+    return List.empty();
+  }
+}
+
+

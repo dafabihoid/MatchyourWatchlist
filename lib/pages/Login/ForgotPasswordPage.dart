@@ -2,6 +2,7 @@ import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'package:watchlist/utils/myThemes.dart';
 
@@ -20,6 +21,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
 
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
     return Scaffold(
         appBar: AppBar(
         iconTheme: IconThemeData(
@@ -28,76 +30,83 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
           elevation: 0,
           title: Text("Reset Password", style: TextStyle(color: MyThemes.kLightPrimaryColor),),
         ),
-        body: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Center(
-                  child: Padding(
-                      padding: EdgeInsets.all(18),
-                      child: Column(children: [
-                        Image.asset("lib/assets/Logo.png",
-                            width: MediaQuery
-                                .of(context)
-                                .size
-                                .width * 0.3),
-                        const SizedBox(
-                          height: 30,
-                        ),
-                         Text(
-                            "Geben Sie eine Email ein, um ihr Passwort zurückzusetzen.",
-                            style: TextStyle(
-                                color: MyThemes.kLightPrimaryColor,
-                                fontSize: 28,
-                                fontWeight: FontWeight.bold)),
-                         Text(
-                            "Hinweis: Mail könnte im Spam-Ordner landen!",
-                            style: TextStyle(
-                                color: MyThemes.kLightPrimaryColor,
-                                fontSize: 15,
-
-                            )),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        TextFormField(
-                          controller: _emailController,
-                          keyboardType: TextInputType.emailAddress,
-                          decoration: InputDecoration(
-                            hintText: "Email",
-                            prefixIcon: Icon(
-                              Icons.mail,
-                              color: Colors.black,
-                            ),
+        body: SingleChildScrollView(
+          child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                 Padding(
+                        padding: EdgeInsets.all(18),
+                        child: Column(children: [
+                          SizedBox(height: 30,),
+                          Image.asset(themeProvider.isDarkMode
+                              ? "lib/assets/Logo_white.png"
+                              : "lib/assets/Logo.png",
+                              width: MediaQuery
+                                  .of(context)
+                                  .size
+                                  .width * 0.3),
+                          const SizedBox(
+                            height: 30,
                           ),
-                          textInputAction: TextInputAction.done,
-                          validator: (email) =>
-                          email != null && !EmailValidator.validate(email)
-                              ? "Enter a valid email"
-                              : null,
-                        ),
-                        const SizedBox(
-                          height: 26,
-                        ),
-                        Container(
-                            width: double.infinity,
-                            child: RawMaterialButton(
-                              fillColor: const Color(0xFF0069FE),
-                              elevation: 0,
-                              padding: const EdgeInsets.symmetric(vertical: 20),
-                              onPressed: () async {
-                                resetPassword();
-                              },
-                              child:  Text(
-                                "Passwort zurücksetzen",
-                                style: TextStyle(
-                                  color: MyThemes.kLightPrimaryColor,
-                                  fontSize: 18,
-                                ),
+                           Text(
+                              "Geben Sie eine Email ein, um ihr Passwort zurückzusetzen.",
+                             style: TextStyle(color: themeProvider.isDarkMode
+                                 ? Colors.white
+                                 : Colors.black, fontSize: 20),),
+                           Row(
+                             children: [
+                               Text(
+                                  "Hinweis: Mail könnte im Spam-Ordner landen!",
+                                 style: TextStyle(color: themeProvider.isDarkMode
+                                     ? Colors.white
+                                     : Colors.black, fontSize: 16),),
+                               Spacer()
+                             ],
+                           ),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          TextFormField(
+                            controller: _emailController,
+                            keyboardType: TextInputType.emailAddress,
+                            decoration: InputDecoration(
+                              hintText: "Email",
+                              prefixIcon: Icon(
+                                Icons.mail,
+                                color: themeProvider.isDarkMode
+                                    ? Colors.white
+                                    : Colors.black,
                               ),
-                            )),
-                      ],)))
-            ])
+                            ),
+                            textInputAction: TextInputAction.done,
+                            validator: (email) =>
+                            email != null && !EmailValidator.validate(email)
+                                ? "Enter a valid email"
+                                : null,
+                          ),
+                          const SizedBox(
+                            height: 26,
+                          ),
+                          Container(
+                              width: double.infinity,
+                              child: RawMaterialButton(
+                                fillColor: MyThemes.kAccentColor,
+                                elevation: 0,
+                                padding: const EdgeInsets.symmetric(vertical: 20),
+                                onPressed: () async {
+                                  resetPassword();
+                                },
+                                child: Text(
+                                  "Passwort zurücksetzen",
+                                  style: TextStyle(color: themeProvider.isDarkMode
+                                  ? Colors.white
+                                      : Colors.black, fontSize: 15),
+                                ),
+                              )
+                          )],))
+              ]),
+        )
 
     );
   }

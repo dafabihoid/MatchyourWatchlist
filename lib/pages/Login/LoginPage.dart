@@ -173,9 +173,11 @@ class _LoginPageState extends State<LoginPage> {
           password: _passwordController.text
       )) as UserCredential;
       //print(user.user?.uid);
+      Navigator.pop(context);
 
     } on FirebaseAuthException catch(e) {
       Utils.showSnackBar(e.message);
+      Navigator.pop(context);
     }
   }
 

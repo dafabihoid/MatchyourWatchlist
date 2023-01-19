@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:watchlist/class/Friends.dart';
 import 'package:watchlist/utils/myThemes.dart';
 
-import '../../utils/NewWatchlistProvider.dart';
+import '../../Singleton/NewWatchlistProvider.dart';
 
 class myFriends extends StatefulWidget {
   const myFriends({Key? key}) : super(key: key);
@@ -100,7 +100,7 @@ class _showFriendsState extends State<showFriends> {
   Widget build(BuildContext context) {
 
     final themeProvider = Provider.of<ThemeProvider>(context);
-    final addedFriends = Provider.of<NewWatchlistProvider>(context);
+    WatchlistSingleton watchlistSingleton = new WatchlistSingleton();
 
 
     return InkWell(
@@ -141,7 +141,7 @@ class _showFriendsState extends State<showFriends> {
         subtitle: Text(widget.friends.username),
         trailing: IconButton(icon: (clicked==false) ? Icon(Icons.add) : Icon(Icons.delete), onPressed: () {
           if (isAdded == false) {
-            addedFriends.addedFriends.add(widget.friends);
+            watchlistSingleton.addedFriends.add(widget.friends);
             isAdded = true;
             clicked = true;
             setState(() {
@@ -149,7 +149,7 @@ class _showFriendsState extends State<showFriends> {
             });
           }
           else if (isAdded == true) {
-            addedFriends.addedFriends.removeWhere((element) =>
+            watchlistSingleton.addedFriends.removeWhere((element) =>
             element.username == widget.friends.username);
             isAdded = false;
             setState(() {

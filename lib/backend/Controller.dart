@@ -239,5 +239,49 @@ Future<List<FriendsDTO>> getAllRequests(String UserId) async{
     return List.empty();
   }
 }
+Future<List<FriendsDTO>> getAllFriends(String UserId) async{
+  var response = await http.get(
+      Uri.parse(
+          "${getFriendUrl()}/listAllFriends/$UserId"
+      )
+  );
+
+  if (response.statusCode == 200) {
+    List<FriendsDTO> list = List<FriendsDTO>.generate(jsonDecode(response.body).length, (int index) {
+      return FriendsDTO.fromJson(jsonDecode(response.body)[index]);
+    });
+    return list;
+  } else {
+    return List.empty();
+  }
+}
+Future<void> sendFriendRequest(senderId, requestedId ) async{
+  var response = await http.get(
+      Uri.parse(
+          "${getFriendUrl()}/sendRequest/$senderId/$requestedId"
+      )
+  );
+}
+Future<void> acceptFriendRequest(requesterId, denyId ) async{
+  var response = await http.get(
+      Uri.parse(
+          "${getFriendUrl()}/accept/$requesterId/$denyId"
+      )
+  );
+}
+Future<void> denyFriendRequest(requesterId, accepterId ) async{
+  var response = await http.get(
+      Uri.parse(
+          "${getFriendUrl()}/deny/$requesterId/$accepterId"
+      )
+  );
+}
+Future<void> deleteFriendship(UserId, FriendId ) async{
+  var response = await http.get(
+      Uri.parse(
+          "${getFriendUrl()}/delete/$UserId/$FriendId"
+      )
+  );
+}
 
 

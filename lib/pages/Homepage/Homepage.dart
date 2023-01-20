@@ -57,6 +57,7 @@ AppData appdata = AppData();
     final testprovider = Provider.of<CardProvider>(context);
 
     getAllRequests("Test2");
+    getAllFriends("Test1");
 
     return Scaffold(
       body: SafeArea(

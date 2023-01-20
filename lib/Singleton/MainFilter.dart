@@ -12,6 +12,7 @@ class MainFilter {
       mediaProviderIds: [],
       mediaTypes: ["movie", "tv"]
   );
+  bool filterSettingsChanged = false;
 
   factory MainFilter(){
     return _mainFilter;

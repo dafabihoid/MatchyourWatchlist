@@ -71,6 +71,7 @@ class _FilterTile extends State<FilterTile> {
   }
 
   void changeFilterSettings(){
+    mainFilter.filterSettingsChanged = true;
     switch(tileField){
       case(GlobalStrings.language):
         if (mainFilter.getLanguage() == tileId){

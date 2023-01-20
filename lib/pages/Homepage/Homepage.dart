@@ -72,7 +72,7 @@ AppData appdata = AppData();
                 end: Alignment.bottomLeft
               )
             ),*/
-              padding: EdgeInsets.all(25),
+              padding: EdgeInsets.only(top: 25, left: 25, right: 25, bottom: 10),
               child: Column(
                 children: [
                   Expanded(
@@ -80,6 +80,7 @@ AppData appdata = AppData();
                         ?Center(child: CircularProgressIndicator(),)
                         :buildCards(),
                   ),
+                  SizedBox(height: 5,),
                   buttonProvider.ButtonsActivated
                       ? buildButtons()
                       : SizedBox()
@@ -134,27 +135,45 @@ AppData appdata = AppData();
         context, MaterialPageRoute(builder: (context) => FilterPage(callback: resetState,)));
   }
 
-  void LikeButtonPressed() {}
+  void LikeButtonPressed() {
+    final provider = Provider.of<CardProvider>(context, listen: false);
+    provider.liked();
+  }
 
-  void DisslikeButtonPressed() {}
+  void DisslikeButtonPressed() {
+    final provider = Provider.of<CardProvider>(context, listen: false);
+    provider.disliked();
+  }
 
   Widget buildButtons() => Row(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: [
-          ElevatedButton(
-            onPressed: DisslikeButtonPressed,
-            child: Icon(
-              Icons.clear,
+          CircleAvatar(
+            radius: 30,
+            backgroundColor: Colors.red,
+            child: IconButton(
+              onPressed: DisslikeButtonPressed,
               color: Colors.red,
-              size: 30,
+              icon: Icon(
+
+                Icons.clear,
+                color: Colors.white,
+                size: 30,
+              ),
             ),
           ),
-          ElevatedButton(
-            onPressed: LikeButtonPressed,
-            child: Icon(
-              Icons.favorite,
-              color: Colors.green,
-              size: 30,
+          CircleAvatar(
+            radius: 30,
+            backgroundColor: Colors.green,
+            child: IconButton(
+              onPressed: LikeButtonPressed,
+              icon: Icon(
+                Icons.favorite,
+                color: Colors.white,
+                size: 30,
+
+
+              ),
             ),
           ),
         ],

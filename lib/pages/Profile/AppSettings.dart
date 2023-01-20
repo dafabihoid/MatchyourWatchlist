@@ -27,23 +27,31 @@ class _AppSettingsState extends State<AppSettings> {
         title: const Text("App Einstellungen"),
         //backgroundColor: kDarkPrimaryColor,
       ),
-      body: Center(
+      body: Container(
+        padding: EdgeInsets.all(15),
           child: Column(
             children: [
-              Switch.adaptive(value: themeProvider.isDarkMode,
-                  onChanged: (onChanged){
-                final provider = Provider.of<ThemeProvider>(context, listen: false);
+              Row(children: [
+                Text("Darkmode", style: TextStyle(fontSize: 20),),
+                Spacer(),
+                Switch.adaptive(value: themeProvider.isDarkMode,
+                    onChanged: (onChanged){
+                      final provider = Provider.of<ThemeProvider>(context, listen: false);
 
-                provider.toggleTheme(onChanged);
+                      provider.toggleTheme(onChanged);
 
-              }),
+                    }),
+              ],),
+              Row(children: [
+                Text("Buttons", style: TextStyle(fontSize: 20),),
+                Spacer(),
+                Switch.adaptive(value: buttonProvider.ButtonsActivated,
+                    onChanged: (onChanged){
+                      final provider = Provider.of<ButtonsProvider>(context, listen: false);
+                      provider.toggleButtons(onChanged);
 
-              Switch.adaptive(value: buttonProvider.ButtonsActivated,
-                  onChanged: (onChanged){
-                    final provider = Provider.of<ButtonsProvider>(context, listen: false);
-                    provider.toggleButtons(onChanged);
-
-                  })
+                    })
+              ],),
             ],
           )
       ),

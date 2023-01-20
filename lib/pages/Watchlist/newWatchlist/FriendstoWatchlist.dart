@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:watchlist/pages/Watchlist/newWatchlist/WatchlistFilters.dart';
-import 'package:watchlist/utils/NewWatchlistProvider.dart';
+import 'package:watchlist/Singleton/NewWatchlistProvider.dart';
 
 import '../../../class/Friends.dart';
 import '../../../utils/myThemes.dart';
@@ -39,7 +39,7 @@ class _FriendstoWatchlistState extends State<FriendstoWatchlist> {
   @override
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
-    final addedFriends = Provider.of<NewWatchlistProvider>(context);
+    WatchlistSingleton watchlistSingleton = new WatchlistSingleton();
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -117,10 +117,11 @@ class _FriendstoWatchlistState extends State<FriendstoWatchlist> {
                           ),
                         ),
                       ),
-                      onPressed: () async {
-                        for (var age in addedFriends.addedFriends) {
-                          print(age.username);
-                        }
+                      onPressed: () {
+
+                  //      for (var age in watchlistSingleton.addedFriends) {
+                  //        print(age.username);
+                //        }
                       Navigator.push(context, MaterialPageRoute(builder: (context) => WatchlistFilters()));
                       },
                       child: Text(

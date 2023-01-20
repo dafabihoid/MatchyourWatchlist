@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:watchlist/backend/Controller.dart';
 import 'package:watchlist/utils/SnackBar.dart';
@@ -67,6 +68,9 @@ class _RegisterPageState extends State<RegisterPage> {
                           ),
                         ])),
                     TextFormField(
+                      inputFormatters: [
+                        LengthLimitingTextInputFormatter(20),
+                      ],
                       // controller: _usernameController,
                       //  keyboardType: TextInputType.name,
                       decoration: InputDecoration(
@@ -127,13 +131,13 @@ class _RegisterPageState extends State<RegisterPage> {
                       ),
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                       validator: (value) =>
-                      value != null && value.length <= 6
+                      value != null && value.length < 6
                           ? "Gib mind. 6 Zeichen ein"
                           : null,
                       obscureText: isPasswordVisible,
                     ),
                     const SizedBox(
-                      height: 60,
+                      height: 20,
                     ),
                     Container(
                         width: double.infinity,
@@ -176,7 +180,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
   Future signUp() async {
     if (funkt == false) {
-      Utils.showSnackBar("Username nicht verfügbar");
+      Utils.showSnackBar("Username nicht verfügbar oder zu lang");
     }
     else {
       final isValid = formKey.currentState!.validate();

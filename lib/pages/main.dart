@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:watchlist/Singleton/AppData.dart';
 import 'package:watchlist/Singleton/BackendDataProvider.dart';
 import 'package:watchlist/pages/Login/splash.dart';
-import 'package:watchlist/utils/NewWatchlistProvider.dart';
+import 'package:watchlist/Singleton/NewWatchlistProvider.dart';
 import '../Singleton/MainFilter.dart';
 import '../utils/ButtonsProvider.dart';
 import '../utils/CardProvider.dart';
@@ -29,7 +29,7 @@ Future main() async{
           ChangeNotifierProvider(create: (_) => CardProvider()),
           ChangeNotifierProvider(create: (_) => ThemeProvider()),
           ChangeNotifierProvider(create: (_) => ButtonsProvider()),
-          ChangeNotifierProvider(create: (_) => NewWatchlistProvider()),
+
         ],
       child: MyApp(),
     )

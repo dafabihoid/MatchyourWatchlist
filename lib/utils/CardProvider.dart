@@ -37,7 +37,14 @@ class CardProvider extends ChangeNotifier {
 
   void setScreenSize(Size getscreenSize) => screenSize = getscreenSize;
 
+  void clearMediaData(){
+    movies = [];
+    mediaDTOs = new Map<int, MediaDTO>();
+    tempMovies = [];
+  }
+
   void resetCardProvider(){
+    clearMediaData();
     removeListener(() { });
   }
 

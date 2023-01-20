@@ -40,28 +40,28 @@ class _FilterTile extends State<FilterTile> {
         checkBox = const Icon(Icons.check_box_outline_blank);
         break;
       case(GlobalStrings.genreOfMovies):
-        if (mainFilter.genreMovieIds.contains(tileId)){
+        if (mainFilter.filterSettingData.genreMovieIds.contains(tileId)){
           checkBox = const Icon(Icons.check_box_outlined);
           return;
         }
         checkBox = const Icon(Icons.check_box_outline_blank);
         break;
       case(GlobalStrings.genreOfSeries):
-        if (mainFilter.genreSeriesIds.contains(tileId)){
+        if (mainFilter.filterSettingData.genreSeriesIds.contains(tileId)){
           checkBox = const Icon(Icons.check_box_outlined);
           return;
         }
         checkBox = const Icon(Icons.check_box_outline_blank);
         break;
       case(GlobalStrings.provider):
-        if (mainFilter.mediaProviderIds.contains(tileId)){
+        if (mainFilter.filterSettingData.mediaProviderIds.contains(tileId)){
           checkBox = const Icon(Icons.check_box_outlined);
           return;
         }
         checkBox = const Icon(Icons.check_box_outline_blank);
         break;
       case(GlobalStrings.mediaTyp):
-        if (mainFilter.mediaTypes.contains(tileId)){
+        if (mainFilter.filterSettingData.mediaTypes.contains(tileId)){
           checkBox = const Icon(Icons.check_box_outlined);
           return;
         }
@@ -71,6 +71,7 @@ class _FilterTile extends State<FilterTile> {
   }
 
   void changeFilterSettings(){
+    mainFilter.filterSettingsChanged = true;
     switch(tileField){
       case(GlobalStrings.language):
         if (mainFilter.getLanguage() == tileId){
@@ -86,67 +87,67 @@ class _FilterTile extends State<FilterTile> {
         widget.update(0);
         break;
       case(GlobalStrings.genreOfMovies):
-        if (mainFilter.genreMovieIds.contains(tileId)){
-          mainFilter.genreMovieIds.remove(tileId);
-          if(mainFilter.genreMovieIds.isEmpty){
+        if (mainFilter.filterSettingData.genreMovieIds.contains(tileId)){
+          mainFilter.filterSettingData.genreMovieIds.remove(tileId);
+          if(mainFilter.filterSettingData.genreMovieIds.isEmpty){
             if (tileId == 28){
-              mainFilter.genreMovieIds.add(12);
+              mainFilter.filterSettingData.genreMovieIds.add(12);
             } else {
-              mainFilter.genreMovieIds.add(28);
+              mainFilter.filterSettingData.genreMovieIds.add(28);
             }
           }
           widget.update(0);
           return;
         }
-        mainFilter.genreMovieIds.add(tileId as int);
+        mainFilter.filterSettingData.genreMovieIds.add(tileId as int);
         break;
       case(GlobalStrings.genreOfSeries):
-        if (mainFilter.genreSeriesIds.contains(tileId)){
-          mainFilter.genreSeriesIds.remove(tileId);
-          mainFilter.genreSeriesIds.remove(tileId);
-          if(mainFilter.genreSeriesIds.isEmpty){
+        if (mainFilter.filterSettingData.genreSeriesIds.contains(tileId)){
+          mainFilter.filterSettingData.genreSeriesIds.remove(tileId);
+          mainFilter.filterSettingData.genreSeriesIds.remove(tileId);
+          if(mainFilter.filterSettingData.genreSeriesIds.isEmpty){
             if (tileId == 10759){
-              mainFilter.genreSeriesIds.add(16);
+              mainFilter.filterSettingData.genreSeriesIds.add(16);
             } else {
-              mainFilter.genreSeriesIds.add(10759);
+              mainFilter.filterSettingData.genreSeriesIds.add(10759);
             }
           }
           widget.update(0);
           return;
         }
-        mainFilter.genreSeriesIds.add(tileId as int);
+        mainFilter.filterSettingData.genreSeriesIds.add(tileId as int);
         break;
       case(GlobalStrings.provider):
-        if (mainFilter.mediaProviderIds.contains(tileId)){
-          mainFilter.mediaProviderIds.remove(tileId);
-          mainFilter.mediaProviderIds.remove(tileId);
-          if(mainFilter.mediaProviderIds.isEmpty){
+        if (mainFilter.filterSettingData.mediaProviderIds.contains(tileId)){
+          mainFilter.filterSettingData.mediaProviderIds.remove(tileId);
+          mainFilter.filterSettingData.mediaProviderIds.remove(tileId);
+          if(mainFilter.filterSettingData.mediaProviderIds.isEmpty){
             if (tileId == 8){
-              mainFilter.mediaProviderIds.add(9);
+              mainFilter.filterSettingData.mediaProviderIds.add(9);
             } else {
-              mainFilter.mediaProviderIds.add(8);
+              mainFilter.filterSettingData.mediaProviderIds.add(8);
             }
           }
           widget.update(0);
           return;
         }
-        mainFilter.mediaProviderIds.add(tileId as int);
+        mainFilter.filterSettingData.mediaProviderIds.add(tileId as int);
         break;
       case(GlobalStrings.mediaTyp):
-        if (mainFilter.mediaTypes.contains(tileId)){
-          mainFilter.mediaTypes.remove(tileId);
-          mainFilter.mediaTypes.remove(tileId);
-          if(mainFilter.mediaTypes.isEmpty){
+        if (mainFilter.filterSettingData.mediaTypes.contains(tileId)){
+          mainFilter.filterSettingData.mediaTypes.remove(tileId);
+          mainFilter.filterSettingData.mediaTypes.remove(tileId);
+          if(mainFilter.filterSettingData.mediaTypes.isEmpty){
             if (tileId == "movie"){
-              mainFilter.mediaTypes.add("tv");
+              mainFilter.filterSettingData.mediaTypes.add("tv");
             } else {
-              mainFilter.mediaTypes.add("movie");
+              mainFilter.filterSettingData.mediaTypes.add("movie");
             }
           }
           widget.update(0);
           return;
         }
-        mainFilter.mediaTypes.add(tileId as String);
+        mainFilter.filterSettingData.mediaTypes.add(tileId as String);
         break;
     }
   }

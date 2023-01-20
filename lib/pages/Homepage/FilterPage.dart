@@ -1,26 +1,41 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:watchlist/Singleton/BackendDataProvider.dart';
+import 'package:provider/provider.dart';
 import 'package:watchlist/Singleton/MainFilter.dart';
 
 import '../../Widgets/FilterSettings.dart';
+import '../../utils/CardProvider.dart';
 
 
 class FilterPage extends StatefulWidget {
-  const FilterPage({Key? key}) : super(key: key);
+  final Function callback;
+  const FilterPage({Key? key, required this.callback}) : super(key: key);
 
   @override
   State<FilterPage> createState() => _FilterPageState();
 }
 
 class _FilterPageState extends State<FilterPage> {
+  MainFilter mainFilter = MainFilter();
 
   @override
   Widget build(BuildContext context) {
+    final cardProvider = Provider.of<CardProvider>(context);
     return WillPopScope(
         onWillPop: () async {
-          checkFilterSettings();
-          return true;
+          if(!checkIfFilterSettingsChanged()){
+            return true;
+          }
+          cardProvider.clearMediaData();
+          cardProvider.initializeData();
+          while(true){
+            if(cardProvider.movies.isNotEmpty){
+              await Future.delayed(const Duration(milliseconds: 200),(){});
+              widget.callback();
+              return true;
+            }
+            await Future.delayed(const Duration(milliseconds: 100),(){});
+          }
         },
         child: Scaffold(
           appBar: AppBar(
@@ -41,8 +56,8 @@ class _FilterPageState extends State<FilterPage> {
     );
   }
 
-  void checkFilterSettings(){
-
+  bool checkIfFilterSettingsChanged(){
+    return mainFilter.filterSettingsChanged;
   }
 }
 

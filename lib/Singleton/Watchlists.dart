@@ -13,4 +13,10 @@ class Watchlists {
 
   Watchlists._internal();
 
+  void resetData(){
+    mainList = Watchlist();
+    alreadyWatchedList = Watchlist();
+    customWatchlists = <Watchlist>{}.toList(growable: true);
+  }
+
 }

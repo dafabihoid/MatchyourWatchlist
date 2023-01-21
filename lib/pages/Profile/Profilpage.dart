@@ -37,6 +37,12 @@ class _ProfilPageState extends State<ProfilPage> {
   //String? AccountEmail = FirebaseAuth.instance.currentUser?.email;
   String? AccountEmail = "mail";
 
+  void resetState(){
+    setState(() {
+
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
@@ -69,7 +75,7 @@ class _ProfilPageState extends State<ProfilPage> {
                             const SizedBox(
                               height: 5,
                             ),
-                         Text(AccountEmail!,
+                         Text(appData.userData.userAccountName!,
                             style: const TextStyle(
                          //       color: kLightPrimaryColor,
                                 fontSize: 14,
@@ -118,7 +124,7 @@ class _ProfilPageState extends State<ProfilPage> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) =>modifyProfil()));
+                      builder: (context) =>modifyProfil(resetStateOfParent: resetState,)));
             }
             else if(PageID == 2){
               Navigator.push(

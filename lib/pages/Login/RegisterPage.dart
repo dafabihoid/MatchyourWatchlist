@@ -5,6 +5,8 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:watchlist/DTOs/UserDataDTO.dart';
+import 'package:watchlist/Singleton/AppData.dart';
 import 'package:watchlist/backend/Controller.dart';
 import 'package:watchlist/utils/SnackBar.dart';
 
@@ -68,6 +70,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           ),
                         ])),
                     TextFormField(
+                      controller: _usernameController,
                       inputFormatters: [
                         LengthLimitingTextInputFormatter(20),
                       ],
@@ -196,8 +199,11 @@ class _RegisterPageState extends State<RegisterPage> {
       } on FirebaseAuthException catch (e) {
         Utils.showSnackBar(e.message);
       }
+      AppData appData = AppData();
+      appData.userData = UserDataDTO(userId: FirebaseAuth.instance.currentUser!.uid, userName: _usernameController.text, userAccountName:  _usernameController.text);
+      appData.userBackendDataAvailable = true;
+
       Navigator.of(context).pop();
-      //await createNewUserWithDetails("a3", "testUserName");
     }
 
 

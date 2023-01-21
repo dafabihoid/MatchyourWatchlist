@@ -104,7 +104,14 @@ class CardProvider extends ChangeNotifier {
         }
         tempGenres = "$tempGenres, " + element.genreName;
       }
+      bool providerAlreadyExists = false;
       for (MediaProvider element in result.provider) {
+        if(providerAlreadyExists){
+          continue;
+        }
+        if(element.providerId == 9 || element.providerId == 10 || element.providerId == 119){
+          providerAlreadyExists = true;
+        }
         if (element == result.provider[0]){
           tempProviders = element.providerName;
           continue;

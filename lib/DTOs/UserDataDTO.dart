@@ -1,7 +1,7 @@
 class UserDataDTO {
-  final String userId;
+  late String userId;
   late String userName;
-  final String userAccountName;
+  late String userAccountName;
 
   UserDataDTO({
     required this.userId,

@@ -125,6 +125,7 @@ Future<List<MediaProvider>> fetchImportantProvider() async{
 }
 
 Future<void> createNewUserWithDetails(userId, userName) async{
+  print("${getBaseUrl()}/createNewUserWithDetails/$userId/$userName");
   var response = await http.get(
       Uri.parse(
           "${getBaseUrl()}/createNewUserWithDetails/$userId/$userName"

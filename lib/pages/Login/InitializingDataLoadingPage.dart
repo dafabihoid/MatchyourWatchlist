@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:watchlist/Singleton/AppData.dart';
@@ -20,6 +21,8 @@ class InitializingDataLoadingPage extends StatefulWidget {
 }
 
 class _InitializingDataLoadingPageState extends State<InitializingDataLoadingPage> {
+  AppData appData = AppData();
+  BackendDataProvider backendDataProvider = BackendDataProvider();
   bool initializingFinished = false;
   bool started = false;
 
@@ -45,13 +48,16 @@ class _InitializingDataLoadingPageState extends State<InitializingDataLoadingPag
         MainPage(),
       ),
     );
-
   }
 
-  void startInitialization(){
-    loadUserData();
-    BackendDataProvider backendDataProvider = BackendDataProvider();
-    loadFilterSettings(backendDataProvider);
+  void startInitialization() async{
+    if(appData.userBackendDataAvailable){
+      await createNewUserWithDetails(FirebaseAuth.instance.currentUser?.uid, appData.userData.userName);
+    }
+    else {
+      loadUserData();
+    }
+    loadFilterSettings();
 
     //initializeMovies(context); brauch ma nima ( is in der Homepage (loadImageData)
   }
@@ -60,7 +66,6 @@ class _InitializingDataLoadingPageState extends State<InitializingDataLoadingPag
     if (!mounted) {
       return;
     }
-    AppData appData = AppData();
     while(!appData.filterSettingsAreAvailable) {
       await Future.delayed(const Duration(milliseconds: 500),(){});
     }
@@ -78,17 +83,13 @@ class _InitializingDataLoadingPageState extends State<InitializingDataLoadingPag
   }
 
   void loadUserData() async{
-    AppData appData = AppData();
-
-    Future<UserDataDTO> futureUserDataDTO = getUserDataByUserId("a1");
+    Future<UserDataDTO> futureUserDataDTO = getUserDataByUserId(FirebaseAuth.instance.currentUser!.uid);
     await futureUserDataDTO.then((value) => appData.userData = value);
 
     appData.userBackendDataAvailable = true;
   }
 
-  void loadFilterSettings(BackendDataProvider backendDataProvider) async {
-    AppData appData = AppData();
-
+  void loadFilterSettings() async {
     while(!appData.userBackendDataAvailable || backendDataProvider.importantProviders.isEmpty || backendDataProvider.allGenresMovies.isEmpty || backendDataProvider.allGenresSeries.isEmpty){
       await Future.delayed(const Duration(milliseconds: 300),(){});
     }
@@ -133,7 +134,6 @@ class _InitializingDataLoadingPageState extends State<InitializingDataLoadingPag
     setState(() {});
   }
 
-
   int checkForListTypeAndReturnListId(String checkForListType){
     BackendDataProvider backendDataProvider = BackendDataProvider();
     for (var element in backendDataProvider.listWithMediaDTOList) {
@@ -143,8 +143,4 @@ class _InitializingDataLoadingPageState extends State<InitializingDataLoadingPag
     }
     return -1;
   }
-
-
-
-
 }

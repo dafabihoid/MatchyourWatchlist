@@ -10,7 +10,8 @@ import '../../utils/SnackBar.dart';
 
 
 class modifyProfil extends StatefulWidget {
-  const modifyProfil({Key? key}) : super(key: key);
+  final Function resetStateOfParent;
+  const modifyProfil({Key? key, required this.resetStateOfParent}) : super(key: key);
 
   @override
   State<modifyProfil> createState() => _modifyProfilState();
@@ -82,6 +83,7 @@ class _modifyProfilState extends State<modifyProfil> {
                                           {
                                             appData.userData.userName = name;
                                             updateUserNameForUser();
+                                            widget.resetStateOfParent();
                                             setState(() {});
                                           }
 

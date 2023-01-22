@@ -1,10 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:watchlist/DTOs/FriendsDTO.dart';
+import 'package:watchlist/Singleton/AppData.dart';
 import 'package:watchlist/class/Friends.dart';
+import 'package:watchlist/utils/ButtonsProvider.dart';
 import 'package:watchlist/utils/myThemes.dart';
 
 import '../../Singleton/NewWatchlistProvider.dart';
+import '../../backend/Controller.dart';
 
 class myFriends extends StatefulWidget {
   const myFriends({Key? key}) : super(key: key);
@@ -14,26 +18,14 @@ class myFriends extends StatefulWidget {
 }
 
 class _myFriendsState extends State<myFriends> {
+  AppData appData = AppData();
 
-  final Friend= [
-    Friends(
-        username: "TestUsername",
-        anzeigename: "TestAnzeigename",
-        userId: "Test",
-    ),
-    Friends(
-      username: "TestUsername1",
-      anzeigename: "TestAnzeigename1",
-      userId: "Test1",
+  void callBackSetState(){
+    setState(() {
 
-    ),
-    Friends(
-      username: "TestUsername2",
-      anzeigename: "TestAnzeigename2",
-      userId: "Test2",
+    });
+  }
 
-    ),
-  ];
 
 
 
@@ -73,9 +65,9 @@ class _myFriendsState extends State<myFriends> {
           Container(
             height: 300,
             child: ListView.builder(
-                itemCount: Friend.length,
+                itemCount: appData.Friendrequests.length,
                 itemBuilder: (context, index){
-                  return showFriends(friends: Friend[index]);
+                  return showFriendRequests(friends: appData.Friendrequests.elementAt(index),parentcallbacksetstate: callBackSetState,);
                 }
 
             ),
@@ -91,9 +83,9 @@ class _myFriendsState extends State<myFriends> {
           Container(
             height: 300,
             child: ListView.builder(
-                itemCount: Friend.length,
+                itemCount: appData.Friends.length,
                 itemBuilder: (context, index){
-                  return showFriends(friends: Friend[index]);
+                  return showFriends(friends: appData.Friends.elementAt(index), parentcallbacksetstate: callBackSetState,);
                 }
 
             ),
@@ -106,24 +98,85 @@ class _myFriendsState extends State<myFriends> {
   }
 }
 
+class showFriendRequests extends StatefulWidget {
+  final FriendsDTO friends;
+  final Function parentcallbacksetstate;
+  const showFriendRequests({Key? key, required this.friends,required this.parentcallbacksetstate}) : assert(friends != null), super(key: key);
+
+  @override
+  State<showFriendRequests> createState() => _showFriendRequestsState();
+}
+class _showFriendRequestsState extends State<showFriendRequests> {
+  _showFriendRequestsState();
+
+  bool clicked = false;
+  bool isAdded = false;
+
+  @override
+  Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
+
+
+    return InkWell(
+      child: ListTile(
+        leading: Container(
+            child: themeProvider.isDarkMode ? Image.asset(
+                "lib/assets/maxl250weiss.png", width: MediaQuery
+                .of(context)
+                .size
+                .width * 0.1) : Image.asset("lib/assets/maxl250.png",
+                width: MediaQuery
+                    .of(context)
+                    .size
+                    .width * 0.1)
+        ),
+        title: Text(widget.friends.FriendUserDisplayName),
+        subtitle: Text(widget.friends.FriendUserName),
+        trailing: Wrap(
+          children: [
+            IconButton(icon: Icon(Icons.add) , onPressed: () {
+              acceptFriendRequest(widget.friends.UserID,widget.friends.FriendID);
+              widget.friends.UpdateRequestList_add();
+              widget.parentcallbacksetstate();
+              setState(() {
+
+              });
+
+            },),
+            IconButton(icon: Icon(Icons.remove), onPressed: () {
+              denyFriendRequest(widget.friends.UserID,widget.friends.FriendID);
+              widget.friends.UpdateRequestList_deny();
+              widget.parentcallbacksetstate();
+              setState(() {
+
+              });
+            },),
+          ],
+        ),
+      ),
+    );
+  }
+}
 
 class showFriends extends StatefulWidget {
-  final Friends friends;
-  const showFriends({Key? key, required this.friends}) : assert(friends != null), super(key: key);
+  final FriendsDTO friends;
+  final Function parentcallbacksetstate;
+  const showFriends({Key? key, required this.friends, required this.parentcallbacksetstate}) : assert(friends != null), super(key: key);
 
   @override
   State<showFriends> createState() => _showFriendsState();
 }
+
 class _showFriendsState extends State<showFriends> {
   _showFriendsState();
   bool clicked = false;
   bool isAdded = false;
+
+
   @override
   Widget build(BuildContext context) {
 
     final themeProvider = Provider.of<ThemeProvider>(context);
-    WatchlistSingleton watchlistSingleton = new WatchlistSingleton();
-
 
     return InkWell(
       onTap: () {
@@ -159,26 +212,8 @@ class _showFriendsState extends State<showFriends> {
                     .size
                     .width * 0.1)
         ),
-        title: Text(widget.friends.anzeigename),
-        subtitle: Text(widget.friends.username),
-        trailing: IconButton(icon: (clicked==false) ? Icon(Icons.add) : Icon(Icons.delete), onPressed: () {
-          if (isAdded == false) {
-            watchlistSingleton.addedFriends.add(widget.friends);
-            isAdded = true;
-            clicked = true;
-            setState(() {
-
-            });
-          }
-          else if (isAdded == true) {
-            watchlistSingleton.addedFriends.removeWhere((element) =>
-            element.username == widget.friends.username);
-            isAdded = false;
-            setState(() {
-              clicked = false;
-            });
-          }
-        },),
+        title: Text(widget.friends.FriendUserDisplayName),
+        subtitle: Text(widget.friends.FriendUserName),
       ),
     );
   }
@@ -205,11 +240,11 @@ class _showFriendsState extends State<showFriends> {
                 Column(
                   children: [
                     Container(
-                      child: Text(widget.friends.anzeigename),
+                      child: Text(widget.friends.FriendUserDisplayName),
                     ),
                     Container(
                       alignment: Alignment.centerLeft,
-                      child: Text(widget.friends.username),
+                      child: Text(widget.friends.FriendUserName),
                     )
                   ],
                 ),
@@ -222,13 +257,15 @@ class _showFriendsState extends State<showFriends> {
                 .size
                 .width * 0.9,
                 child: ElevatedButton(
-                  onPressed: () {}, child: Text("Freund entfernen"),)),
-            SizedBox(width: MediaQuery
-                .of(context)
-                .size
-                .width * 0.9,
-                child: ElevatedButton(
-                  onPressed: () {}, child: Text("Freund blockieren"),)),
+                  onPressed: () {
+                    deleteFriendship(widget.friends.UserID,widget.friends.FriendID);
+                    widget.friends.UpdateFriendList();
+                    widget.parentcallbacksetstate();
+                    setState(() {
+
+                    });
+
+                  }, child: Text("Freund entfernen"),)),
             SizedBox(width: MediaQuery
                 .of(context)
                 .size

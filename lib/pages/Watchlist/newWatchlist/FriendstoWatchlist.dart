@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:watchlist/pages/Watchlist/newWatchlist/WatchlistFilters.dart';
 import 'package:watchlist/Singleton/NewWatchlistProvider.dart';
 
+import '../../../Singleton/AppData.dart';
 import '../../../class/Friends.dart';
 import '../../../utils/myThemes.dart';
 import '../../Profile/myFriends.dart';
@@ -38,6 +39,12 @@ class _FriendstoWatchlistState extends State<FriendstoWatchlist> {
 
     ),
   ];
+
+  void callBackSetState(){
+    setState(() {
+
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -76,9 +83,9 @@ class _FriendstoWatchlistState extends State<FriendstoWatchlist> {
                 Container(
                   height: 300,
                   child: ListView.builder(
-                      itemCount: Friend.length,
+                      itemCount:  AppData().Friends.length,
                       itemBuilder: (context, index){
-                        return showFriends(friends: Friend[index]);
+                        return showFriends(friends: AppData().Friends.elementAt(index),parentcallbacksetstate: callBackSetState,);
                       }
 
                   ),

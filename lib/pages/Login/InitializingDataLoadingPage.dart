@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:watchlist/DTOs/FriendsDTO.dart';
 import 'package:watchlist/Singleton/AppData.dart';
 import 'package:watchlist/Singleton/BackendDataProvider.dart';
 import 'package:watchlist/Singleton/ListCreationFilter.dart';
@@ -57,6 +58,7 @@ class _InitializingDataLoadingPageState extends State<InitializingDataLoadingPag
     else {
       loadUserData();
     }
+    loadFriends();
     loadFilterSettings();
 
     //initializeMovies(context); brauch ma nima ( is in der Homepage (loadImageData)
@@ -87,10 +89,21 @@ class _InitializingDataLoadingPageState extends State<InitializingDataLoadingPag
     await futureUserDataDTO.then((value) => appData.userData = value);
 
     appData.userBackendDataAvailable = true;
+
+  }
+  void loadFriends() async{
+
+    Future<List<FriendsDTO>> FriendRequests = appData.getAllFriendRequests();
+    await FriendRequests.then((value) => appData.Friendrequests = value);
+    Future<List<FriendsDTO>> Friends = appData.getAllFriendsList();
+    await Friends.then((value) => appData.Friends = value);
+
+    appData.friendDataAvailable = true;
+
   }
 
   void loadFilterSettings() async {
-    while(!appData.userBackendDataAvailable || backendDataProvider.importantProviders.isEmpty || backendDataProvider.allGenresMovies.isEmpty || backendDataProvider.allGenresSeries.isEmpty){
+    while(!appData.userBackendDataAvailable || backendDataProvider.importantProviders.isEmpty || backendDataProvider.allGenresMovies.isEmpty || backendDataProvider.allGenresSeries.isEmpty || !appData.friendDataAvailable){
       await Future.delayed(const Duration(milliseconds: 300),(){});
     }
 

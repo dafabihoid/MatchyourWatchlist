@@ -1,3 +1,5 @@
+import 'package:watchlist/Singleton/AppData.dart';
+
 class FriendsDTO{
   late String UserID;
   late String FriendID;
@@ -12,6 +14,26 @@ class FriendsDTO{
     required this.FriendUserName,
     required this.FriendUserDisplayName,
 });
+
+  void UpdateRequestList_add (){
+   AppData appData = AppData();
+
+   appData.Friends.add(this);
+   appData.Friendrequests.remove(this);
+
+ }
+  void UpdateRequestList_deny (){
+    AppData appData = AppData();
+
+    appData.Friendrequests.remove(this);
+
+  }
+
+ void UpdateFriendList(){
+   AppData appData = AppData();
+
+   appData.Friends.remove(this);
+ }
 
   factory FriendsDTO.fromJson(Map<String,dynamic>json){
     return FriendsDTO(

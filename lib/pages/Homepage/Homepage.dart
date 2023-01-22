@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:watchlist/DTOs/FriendsDTO.dart';
 import 'package:watchlist/Singleton/AppData.dart';
 import 'package:watchlist/utils/CardProvider.dart';
 import 'package:watchlist/pages/Profile/Profilpage.dart';
@@ -56,8 +57,8 @@ AppData appdata = AppData();
     final buttonProvider = Provider.of<ButtonsProvider>(context, listen: false);
     final testprovider = Provider.of<CardProvider>(context);
 
-    getAllRequests("Test2");
-    getAllFriends("Test1");
+    //getAllRequests("Test2");
+    //getAllFriends("Test1");
 
     return Scaffold(
       body: SafeArea(

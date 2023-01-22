@@ -1,15 +1,22 @@
 import 'package:watchlist/DTOs/UserDataDTO.dart';
 
+import '../DTOs/FriendsDTO.dart';
+import '../backend/Controller.dart';
+
 class AppData {
   static final AppData _appData = AppData._internal();
 
   bool filterSettingsAreAvailable = false;
   bool userBackendDataAvailable = false;
   bool homePageLoading = true;
+  bool friendDataAvailable = false;
   String appLanguage = "de-de";
   UserDataDTO userData = UserDataDTO(userId: "", userName: "", userAccountName: "");
   int mainListId = -1;
   int alreadyWatchedListId = -1;
+
+  List<FriendsDTO> Friendrequests = List.empty();
+  List<FriendsDTO> Friends = List.empty();
 
 
   factory AppData(){
@@ -26,6 +33,21 @@ class AppData {
     alreadyWatchedListId = -1;
   }
 
+  Future<List<FriendsDTO>> getAllFriendRequests(){
+    Future<List<FriendsDTO>> friendRequests = getAllRequests("Test2"); //userData.userId
+    friendRequests.then((result) {});
+    return friendRequests;
+  }
+  Future<List<FriendsDTO>> getAllFriendsList(){
+    Future<List<FriendsDTO>> allFriends = getAllFriends("Test1"); //userData.userId
+    allFriends.then((result) {});
+    return allFriends;
+  }
+
+
+
   AppData._internal();
+
+
 
 }

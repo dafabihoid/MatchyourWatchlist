@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 
+import '../DTOs/FriendsDTO.dart';
+import '../backend/Controller.dart';
+
 
 class ButtonsProvider extends ChangeNotifier {
   bool isLoading = false;
@@ -10,5 +13,7 @@ class ButtonsProvider extends ChangeNotifier {
     ButtonsActivated = test ? true : false;
     notifyListeners();
   }
+
+
 }
 

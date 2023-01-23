@@ -19,6 +19,13 @@ class MediaList extends StatefulWidget {
 }
 
 class _MediaListState extends State<MediaList> {
+
+  void callbackSetState(){
+    setState(() {
+
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return  Container(
@@ -27,7 +34,8 @@ class _MediaListState extends State<MediaList> {
           child: ListView.builder(
             itemCount: widget.listWithMediaDTO.mediaDTOList.length,
             itemBuilder: (context, index){
-              return MediaTile(media: widget.listWithMediaDTO.mediaDTOList[index], transferMediaList:widget.transferList.mediaDTOList, Icon1: widget.Icon1, Icon2: widget.Icon2, IconType1: widget.IconType1, IconType2: widget.IconType2, );
+              return MediaTile(media: widget.listWithMediaDTO.mediaDTOList[index], thisListWithMediaDTO
+                  : widget.listWithMediaDTO, transferMediaList:widget.transferList.mediaDTOList, Icon1: widget.Icon1, Icon2: widget.Icon2, IconType1: widget.IconType1, IconType2: widget.IconType2, parentCallbackSetState: callbackSetState   ,);
             }
           ),
         ),

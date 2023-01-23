@@ -17,7 +17,9 @@ String getBaseUrl(){
   return "http://85.255.144.134/diplo/matchyourwatchlist/tmdb";
 }
 String getFriendUrl(){
-  return "http://192.168.1.100/friends";
+  //return "http://10.0.2.2/diplo/public/friends";
+  return "http://85.255.144.134/diplo/matchyourwatchlist/friends";
+  //return "http://192.168.1.100/friends";
 }
 
 Future<MediaDTO> fetchNewMovieDTO() async{
@@ -140,6 +142,17 @@ Future<void> addMediaToWatchlist(MediaDTO mediaDTO) async{
   var response = await http.get(
       Uri.parse(
           "${getBaseUrl()}/addMediaToWatchlist/${appData.mainListId}/${jsonEncode(json)}/${appData.appLanguage}"
+      )
+  );
+}
+
+Future<void> deleteMediaFromWatchlist(int listID, MediaDTO mediaDTO) async{
+  var json = mediaDTO.toJson();
+  AppData appData = AppData();
+  print("${getBaseUrl()}/deleteMediaFromWatchlist/$listID/${jsonEncode(json)}/${appData.appLanguage}");
+  var response = await http.get(
+      Uri.parse(
+          "${getBaseUrl()}/deleteMediaFromWatchlist/$listID/${jsonEncode(json)}/${appData.appLanguage}"
       )
   );
 }

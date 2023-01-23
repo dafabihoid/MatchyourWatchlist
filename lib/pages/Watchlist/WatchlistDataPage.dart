@@ -19,6 +19,7 @@ class WatchlistDataPage extends StatelessWidget {
     transferList = setTransferListData();
   }
 
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(

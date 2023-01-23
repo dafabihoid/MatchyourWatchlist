@@ -1,18 +1,22 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:watchlist/backend/Controller.dart';
+import '../DTOs/ListWithMediaDTO.dart';
 import '../DTOs/MediaDTO.dart';
 import '../class/Genre.dart';
 import '../utils/Enum.dart';
 
 class MediaTile extends StatefulWidget {
   MediaDTO media;
+  ListWithMediaDTO thisListWithMediaDTO;
   List<MediaDTO> transferMediaList;
   Icon Icon1;
   Icon Icon2;
   IconType IconType1;
   IconType IconType2;
+  final Function parentCallbackSetState;
 
-  MediaTile({Key? key, required this.media, required this.transferMediaList, required this.Icon1, required this.IconType1, required this.Icon2, required this.IconType2}) : super(key: key);
+  MediaTile({Key? key, required this.media, required this.thisListWithMediaDTO, required this.transferMediaList, required this.Icon1, required this.IconType1, required this.Icon2, required this.IconType2, required this.parentCallbackSetState}) : super(key: key);
 
   @override
   State<MediaTile> createState() => _MediaTileState();
@@ -93,7 +97,8 @@ class _MediaTileState extends State<MediaTile> {
                           TextButton(
                             child: Text('Ja',),
                             onPressed: () {
-
+                              deleteThisMediaFromWatchlist();
+                              Navigator.pop(context);
                             },
                           ),
                         ],
@@ -117,6 +122,11 @@ class _MediaTileState extends State<MediaTile> {
         ),
       ),
     );
+  }
+  void deleteThisMediaFromWatchlist(){
+    widget.thisListWithMediaDTO.mediaDTOList.remove(widget.media);
+    deleteMediaFromWatchlist(widget.thisListWithMediaDTO.listId, widget.media);
+    widget.parentCallbackSetState();
   }
 
   void manageTransferMediaList(){

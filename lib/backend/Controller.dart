@@ -13,11 +13,11 @@ import '../class/Genre.dart';
 import '../class/MediaProvider.dart';
 
 String getBaseUrl(){
-  return "http://10.0.2.2/diplo/public/tmdb";
+  //return "http://10.0.2.2/diplo/public/tmdb";
   return "http://85.255.144.134/diplo/matchyourwatchlist/tmdb";
 }
 String getFriendUrl(){
-  return "http://10.0.2.2/diplo/public/friends";
+  //return "http://10.0.2.2/diplo/public/friends";
   return "http://85.255.144.134/diplo/matchyourwatchlist/friends";
   //return "http://192.168.1.100/friends";
 }

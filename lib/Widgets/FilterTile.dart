@@ -104,7 +104,6 @@ class _FilterTile extends State<FilterTile> {
       case(GlobalStrings.genreOfSeries):
         if (mainFilter.filterSettingData.genreSeriesIds.contains(tileId)){
           mainFilter.filterSettingData.genreSeriesIds.remove(tileId);
-          mainFilter.filterSettingData.genreSeriesIds.remove(tileId);
           if(mainFilter.filterSettingData.genreSeriesIds.isEmpty){
             if (tileId == 10759){
               mainFilter.filterSettingData.genreSeriesIds.add(16);
@@ -120,7 +119,6 @@ class _FilterTile extends State<FilterTile> {
       case(GlobalStrings.provider):
         if (mainFilter.filterSettingData.mediaProviderIds.contains(tileId)){
           mainFilter.filterSettingData.mediaProviderIds.remove(tileId);
-          mainFilter.filterSettingData.mediaProviderIds.remove(tileId);
           if(mainFilter.filterSettingData.mediaProviderIds.isEmpty){
             if (tileId == 8){
               mainFilter.filterSettingData.mediaProviderIds.add(9);
@@ -135,7 +133,6 @@ class _FilterTile extends State<FilterTile> {
         break;
       case(GlobalStrings.mediaTyp):
         if (mainFilter.filterSettingData.mediaTypes.contains(tileId)){
-          mainFilter.filterSettingData.mediaTypes.remove(tileId);
           mainFilter.filterSettingData.mediaTypes.remove(tileId);
           if(mainFilter.filterSettingData.mediaTypes.isEmpty){
             if (tileId == "movie"){

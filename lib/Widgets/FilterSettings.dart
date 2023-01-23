@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:watchlist/Singleton/MainFilter.dart';
 import 'package:watchlist/Widgets/FilterTile.dart';
 import 'package:watchlist/class/Language.dart';
+import 'package:watchlist/pages/main.dart';
 
 import '../../class/FilterData.dart';
 import '../../class/Genre.dart';
@@ -21,6 +22,7 @@ class _FilterSettingsState extends State<FilterSettings> {
   List<FilterData> data = List.empty();
   BackendDataProvider backendDataProvider = BackendDataProvider();
   MainFilter mainFilter = MainFilter();
+  bool headerClicked = false;
 
   void update(int noUse){
     setState(() {});
@@ -55,12 +57,17 @@ class _FilterSettingsState extends State<FilterSettings> {
             children: [
               const Divider(thickness: 2, indent: 15, endIndent: 20,),
               item.headerValue == GlobalStrings.language ? const SizedBox():
-              const ListTile(
+              ListTile(
                 title: Text("Alles auswählen"),
                 trailing: Icon(
-                  Icons.check_box_outline_blank_outlined,
+                  headerClicked ? Icons.check_box_outlined : Icons.check_box_outline_blank_outlined,
                   // color: Colors.black,
                 ),
+                onTap: () {
+                  headerClicked = !headerClicked;
+                  changeAllFilterSettings(item.headerValue);
+                  setState(() {});
+                },
               ),
               ListView.builder(
                   physics: const NeverScrollableScrollPhysics(),
@@ -76,6 +83,45 @@ class _FilterSettingsState extends State<FilterSettings> {
         );
       }).toList(),
     );
+  }
+
+  void changeAllFilterSettings(String headerValue){
+    switch(headerValue){
+      case(GlobalStrings.genreOfMovies):
+        if (headerClicked){
+          backendDataProvider.allGenresMovies.forEach((element) {
+            mainFilter.addGenreMovie(element.genreId);
+          });
+          return;
+        }
+        mainFilter.filterSettingData.genreMovieIds = [];
+        return;
+      case(GlobalStrings.genreOfSeries):
+        if (headerClicked){
+          backendDataProvider.allGenresSeries.forEach((element) {
+            mainFilter.addGenreSeries(element.genreId);
+          });
+          return;
+        }
+        mainFilter.filterSettingData.genreSeriesIds = [];
+        return;
+      case(GlobalStrings.provider):
+        if (headerClicked){
+          backendDataProvider.importantProviders.forEach((element) {
+            mainFilter.addMediaProvider(element.providerId);
+          });
+          return;
+        }
+        mainFilter.filterSettingData.mediaProviderIds = [];
+        return;
+      case(GlobalStrings.mediaTyp):
+        if (headerClicked){
+          mainFilter.filterSettingData.mediaTypes = ["movie", "tv"];
+          return;
+        }
+        mainFilter.filterSettingData.mediaTypes = [];
+        return;
+    }
   }
 
   List<FilterData> generateFilterDataList() {
@@ -144,9 +190,19 @@ class _FilterSettingsState extends State<FilterSettings> {
 
   List<FilterDataItem> getFilterDataItemsFromProviders(){
     List<FilterDataItem> filterDataItems = [];
+    List<String> providerNamesContained = [];
 
     List<MediaProvider> providers = backendDataProvider.importantProviders;
+    List<MediaProvider> tempProviders = [];
+
     providers.forEach((element) {
+      if(!providerNamesContained.contains(element.providerName)){
+        tempProviders.add(element);
+        providerNamesContained.add(element.providerName);
+      }
+    });
+
+    tempProviders.forEach((element) {
       filterDataItems.add(FilterDataItem(filterItemId: element.providerId, filterItemValue: element.providerName));
     });
 

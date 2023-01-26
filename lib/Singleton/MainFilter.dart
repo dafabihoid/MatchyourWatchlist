@@ -6,7 +6,7 @@ class MainFilter {
   static final MainFilter _mainFilter = MainFilter._internal();
 
   FilterSettingData filterSettingData = FilterSettingData(
-      languageId: "en",
+      languageId: "de",
       genreMovieIds: [],
       genreSeriesIds: [],
       mediaProviderIds: [],
@@ -22,7 +22,7 @@ class MainFilter {
 
   void resetData(){
     filterSettingData = FilterSettingData(
-        languageId: "en",
+        languageId: "de",
         genreMovieIds: [],
         genreSeriesIds: [],
         mediaProviderIds: [],

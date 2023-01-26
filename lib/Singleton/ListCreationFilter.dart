@@ -3,7 +3,7 @@ import 'package:watchlist/DTOs/FilterDTO.dart';
 class ListCreationFilter {
   static final ListCreationFilter _listCreationFilter = ListCreationFilter._internal();
 
-  String languageId = "en";
+  String languageId = "de";
   List<int> genreMovieIds = [];
   List<int> genreSeriesIds = [];
   List<int> mediaProviderIds = [];
@@ -14,7 +14,7 @@ class ListCreationFilter {
   }
 
   void resetData(){
-    languageId = "en";
+    languageId = "de";
     genreMovieIds = [];
     genreSeriesIds = [];
     mediaProviderIds = [];

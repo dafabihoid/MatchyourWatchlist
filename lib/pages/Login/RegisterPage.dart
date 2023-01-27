@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -182,31 +184,40 @@ class _RegisterPageState extends State<RegisterPage> {
   }
 
   Future signUp() async {
-    if (funkt == false) {
-      Utils.showSnackBar("Username nicht verfügbar oder zu lang");
-    }
-    else {
-      final isValid = formKey.currentState!.validate();
-      if (!isValid) return;
-
-      showDialog(context: context,
-          barrierDismissible: false,
-          builder: (context) => Center(child: CircularProgressIndicator()));
-      try {
-        await FirebaseAuth.instance.createUserWithEmailAndPassword(
-            email: _emailController.text.trim(),
-            password: _passwordController.text.trim());
-      } on FirebaseAuthException catch (e) {
-        Utils.showSnackBar(e.message);
-      }
-      AppData appData = AppData();
-      appData.userData = UserDataDTO(userId: FirebaseAuth.instance.currentUser!.uid, userName: _usernameController.text, userAccountName:  _usernameController.text);
-      appData.userBackendDataAvailable = true;
-
-      Navigator.of(context).pop();
+    final isValid = formKey.currentState!.validate();
+    if (!isValid) {
+      return;
     }
 
+    try {
+      Future<bool> futureUserNameAlreadyExists = userNameAlreadyExists(_usernameController.text);
+      await futureUserNameAlreadyExists.then((value) => {
+        if(value){
+          throw Exception()
+        }
+      }).catchError((error, stacktrace){
+        Utils.showSnackBar("Fehler bei der Verbindung zum Netzwerk");;
+      });
+    } catch (ex) {
+      Utils.showSnackBar("Username nicht verfügbar");
+      return;
+    }
 
+    showDialog(context: context,
+        barrierDismissible: false,
+        builder: (context) => Center(child: CircularProgressIndicator()));
+    try {
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: _emailController.text.trim(),
+          password: _passwordController.text.trim());
+    } on FirebaseAuthException catch (e) {
+      Utils.showSnackBar(e.message);
+    }
+    AppData appData = AppData();
+    appData.userData = UserDataDTO(userId: FirebaseAuth.instance.currentUser!.uid, userName: _usernameController.text, userAccountName:  _usernameController.text);
+    appData.userBackendDataAvailable = true;
+
+    Navigator.of( context).pop();
   }
 
 }

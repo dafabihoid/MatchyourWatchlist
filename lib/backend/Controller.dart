@@ -133,6 +133,7 @@ Future<void> createNewUserWithDetails(userId, userName) async{
           "${getBaseUrl()}/createNewUserWithDetails/$userId/$userName"
       )
   );
+  return;
 }
 
 Future<void> addMediaToWatchlist(MediaDTO mediaDTO) async{
@@ -168,7 +169,7 @@ Future<void> transferMediaBetweenWatchLists(ListWithMediaDTO listWithMediaDTO) a
   );
 }
 
-Future<UserDataDTO> getUserDataByUserId(String userId) async{
+Future<UserDataDTO?> getUserDataByUserId(String userId) async{
   var response = await http.get(
       Uri.parse(
           "${getBaseUrl()}/getUserDataByUserId/$userId"
@@ -178,7 +179,7 @@ Future<UserDataDTO> getUserDataByUserId(String userId) async{
   if (response.statusCode == 200) {
     return  UserDataDTO.fromJson(jsonDecode(response.body));
   } else {
-    return UserDataDTO(userId: userId, userName: "error", userAccountName: "error");
+    return null;
   }
 }
 

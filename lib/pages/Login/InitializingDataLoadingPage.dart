@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -5,6 +7,7 @@ import 'package:watchlist/DTOs/FriendsDTO.dart';
 import 'package:watchlist/Singleton/AppData.dart';
 import 'package:watchlist/Singleton/BackendDataProvider.dart';
 import 'package:watchlist/Singleton/ListCreationFilter.dart';
+import 'package:watchlist/utils/AppGeneralUtils.dart';
 import 'package:watchlist/utils/GlobalString.dart';
 
 import '../../DTOs/UserDataDTO.dart';
@@ -12,6 +15,7 @@ import '../../Singleton/MainFilter.dart';
 import '../../backend/Controller.dart';
 import '../../utils/CardProvider.dart';
 import '../mainPage.dart';
+import 'AuthPage.dart';
 
 class InitializingDataLoadingPage extends StatefulWidget {
   const InitializingDataLoadingPage({Key? key}) : super(key: key);
@@ -26,6 +30,7 @@ class _InitializingDataLoadingPageState extends State<InitializingDataLoadingPag
   BackendDataProvider backendDataProvider = BackendDataProvider();
   bool initializingFinished = false;
   bool started = false;
+  bool resetToLoginPage = false;
 
   @override
   Widget build(BuildContext context) {
@@ -37,16 +42,19 @@ class _InitializingDataLoadingPageState extends State<InitializingDataLoadingPag
     return Scaffold(
       body: Center(
         child: !initializingFinished ?
-        Column (
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            const CircularProgressIndicator(
-              valueColor: AlwaysStoppedAnimation<Color> (Colors.deepPurpleAccent),
-            )
-          ],
-        ) :
-        MainPage(),
+          resetToLoginPage ?
+          AuthPage()
+          :
+          Column (
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              const CircularProgressIndicator(
+                valueColor: AlwaysStoppedAnimation<Color> (Colors.deepPurpleAccent),
+              )
+            ],
+          ) :
+          MainPage(),
       ),
     );
   }
@@ -60,36 +68,18 @@ class _InitializingDataLoadingPageState extends State<InitializingDataLoadingPag
     }
     loadFriends();
     loadFilterSettings();
-
-    //initializeMovies(context); brauch ma nima ( is in der Homepage (loadImageData)
-  }
-
-  void initializeMovies(BuildContext context) async {
-    if (!mounted) {
-      return;
-    }
-    while(!appData.filterSettingsAreAvailable) {
-      await Future.delayed(const Duration(milliseconds: 500),(){});
-    }
-    final provider = Provider.of<CardProvider>(context, listen: false);
-    provider.initializeData();
-    provider.getMovies.forEach((element) async {
-      await Future.wait([
-        precacheImage(NetworkImage(element.cover), context),
-      ]);
-    });
-    while(provider.movies.isEmpty) {
-      await Future.delayed(const Duration(milliseconds: 500),(){});
-    }
-
   }
 
   void loadUserData() async{
-    Future<UserDataDTO> futureUserDataDTO = getUserDataByUserId(FirebaseAuth.instance.currentUser!.uid);
-    await futureUserDataDTO.then((value) => appData.userData = value);
-
-    appData.userBackendDataAvailable = true;
-
+    Future<UserDataDTO?> futureUserDataDTO = getUserDataByUserId(FirebaseAuth.instance.currentUser!.uid);
+    await futureUserDataDTO.then((value) => {
+      if(value == null){
+        AppGeneralUtils.resetAllData(),
+      } else {
+        appData.userData = value,
+        appData.userBackendDataAvailable = true
+      }}
+    );
   }
   void loadFriends() async{
 
@@ -103,10 +93,16 @@ class _InitializingDataLoadingPageState extends State<InitializingDataLoadingPag
   }
 
   void loadFilterSettings() async {
-    while(!appData.userBackendDataAvailable || backendDataProvider.importantProviders.isEmpty || backendDataProvider.allGenresMovies.isEmpty || backendDataProvider.allGenresSeries.isEmpty || !appData.friendDataAvailable){
+    int initializingStartTime = DateTime.now().millisecondsSinceEpoch;
+    while(!appData.userBackendDataAvailable || backendDataProvider.importantProviders.isEmpty || backendDataProvider.allGenresMovies.isEmpty || backendDataProvider.allGenresSeries.isEmpty){
       await Future.delayed(const Duration(milliseconds: 300),(){});
+      if(checkIfExitIsNeeded(initializingStartTime)){
+        exitToLoginWithDataReset();
+        return;
+      }
     }
 
+    loadFriends();
     backendDataProvider.loadWatchlists();
 
     MainFilter mainFilter = MainFilter();
@@ -134,8 +130,13 @@ class _InitializingDataLoadingPageState extends State<InitializingDataLoadingPag
       listCreationFilter.addMediaProvider(element.providerId);
     });
 
-    while(backendDataProvider.listWithMediaDTOList.isEmpty){
+    initializingStartTime = DateTime.now().millisecondsSinceEpoch;
+    while(backendDataProvider.listWithMediaDTOList.isEmpty || !appData.friendDataAvailable){
       await Future.delayed(const Duration(milliseconds: 200),(){});
+      if(checkIfExitIsNeeded(initializingStartTime)){
+        exitToLoginWithDataReset();
+        return;
+      }
     }
     await Future.delayed(const Duration(milliseconds: 100),(){});
 
@@ -155,5 +156,19 @@ class _InitializingDataLoadingPageState extends State<InitializingDataLoadingPag
         }
     }
     return -1;
+  }
+
+  bool checkIfExitIsNeeded(int startTime){
+    if(DateTime.now().millisecondsSinceEpoch - startTime > 30000){
+      return true;
+    }
+    return false;
+  }
+
+  void exitToLoginWithDataReset(){
+    AppGeneralUtils.resetAllData();
+    FirebaseAuth.instance.signOut();
+    resetToLoginPage = true;
+    setState(() {});
   }
 }

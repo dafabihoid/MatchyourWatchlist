@@ -18,6 +18,7 @@ import 'package:watchlist/pages/Profile/modifyProfil.dart';
 import 'package:watchlist/pages/Profile/myFriends.dart';
 import 'package:watchlist/utils/CardProvider.dart';
 
+import '../../utils/AppGeneralUtils.dart';
 import '../../utils/myThemes.dart';
 import '../../DTOs/MediaDTO.dart';
 import '../mainPage.dart';
@@ -169,7 +170,7 @@ Widget buildSignOutButton(String text, context){
             )
           ),
           onPressed: () {
-            resetAllData();
+            AppGeneralUtils.resetAllData();
             cardProvider.resetCardProvider();
             FirebaseAuth.instance.signOut();
           },
@@ -185,17 +186,6 @@ Widget buildSignOutButton(String text, context){
     );
 }
 
-void resetAllData(){
-  AppData appData = AppData();
-  appData.resetData();
-  BackendDataProvider backendDataProvider = BackendDataProvider();
-  backendDataProvider.clearData();
-  ListCreationFilter listCreationFilter = ListCreationFilter();
-  listCreationFilter.resetData();
-  MainFilter mainFilter = MainFilter();
-  mainFilter.resetData();
-  Watchlists watchlists = Watchlists();
-  watchlists.resetData();
-}
+
 
 

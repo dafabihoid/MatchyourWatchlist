@@ -28,6 +28,12 @@ class FriendsDTO{
     appData.Friendrequests.remove(this);
 
   }
+  void UpdateRequestList_callback (){
+    AppData appData = AppData();
+
+    appData.Sentrequests.remove(this);
+
+  }
 
  void UpdateFriendList(){
    AppData appData = AppData();

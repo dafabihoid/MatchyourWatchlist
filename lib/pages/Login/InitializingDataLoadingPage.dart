@@ -87,6 +87,8 @@ class _InitializingDataLoadingPageState extends State<InitializingDataLoadingPag
     await FriendRequests.then((value) => appData.Friendrequests = value);
     Future<List<FriendsDTO>> Friends = appData.getAllFriendsList();
     await Friends.then((value) => appData.Friends = value);
+    Future<List<FriendsDTO>> SentRequests = appData.getAllSentRequestsList();
+    await SentRequests.then((value) => appData.Sentrequests = value);
 
     appData.friendDataAvailable = true;
 

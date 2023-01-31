@@ -20,6 +20,14 @@ class myFriends extends StatefulWidget {
 class _myFriendsState extends State<myFriends> {
   AppData appData = AppData();
 
+  final searchController = TextEditingController();
+
+  @override
+  void dispose() {
+    // Clean up the controller when the widget is disposed.
+    searchController.dispose();
+    super.dispose();
+  }
   void callBackSetState(){
     setState(() {
 
@@ -40,58 +48,83 @@ class _myFriendsState extends State<myFriends> {
       ),
       body: Container(
         padding: EdgeInsets.all(16),
-      child:Column(
-        children: [
-          TextField(
-                //controller: SearchController,
-                decoration: InputDecoration(
-                    prefixIcon: const Icon(Icons.search),
-                    hintText: "Freunde finden",
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20),
-                        borderSide: const BorderSide(color: Colors.black)
-                    )
+      child:SingleChildScrollView(
+        child: Column(
+          children: [
+            TextField(
+                  controller: searchController,
+                  decoration: InputDecoration(
+                      prefixIcon: const Icon(Icons.search),
+                      hintText: "Freunde finden (Username eingeben)",
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(20),
+                          borderSide: const BorderSide(color: Colors.black)
+                      )
+                  ),
+                onEditingComplete:(){
+
+                },
                 ),
+            SizedBox(height: 10,),
+            Row(
+              children: [
+                Text("Ausstehende Anfragen",style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
+                Spacer()
+              ],
+            ),
+
+            Container(
+              height: appData.Friendrequests.length * 70 + 20,
+              child: ListView.builder(
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: appData.Friendrequests.length,
+                  itemBuilder: (context, index){
+                    return showFriendRequests(friends: appData.Friendrequests.elementAt(index),parentcallbacksetstate: callBackSetState,);
+                  }
 
               ),
-          SizedBox(height: 10,),
-          Row(
-            children: [
-              Text("Ausstehende Anfragen",style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
-              Spacer()
-            ],
-          ),
-
-          Container(
-            height: 300,
-            child: ListView.builder(
-                itemCount: appData.Friendrequests.length,
-                itemBuilder: (context, index){
-                  return showFriendRequests(friends: appData.Friendrequests.elementAt(index),parentcallbacksetstate: callBackSetState,);
-                }
-
             ),
-          ),
-          SizedBox(height: 10,),
-          Row(
-            children: [
-              Text("Freunde",style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
-              Spacer()
-            ],
-          ),
-
-          Container(
-            height: 300,
-            child: ListView.builder(
-                itemCount: appData.Friends.length,
-                itemBuilder: (context, index){
-                  return showFriends(friends: appData.Friends.elementAt(index), parentcallbacksetstate: callBackSetState,);
-                }
-
+            SizedBox(height: 10,),
+            Row(
+              children: [
+                Text("Freunde",style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
+                Spacer()
+              ],
             ),
-          ),
 
-        ],
+            Container(
+              height: appData.Friends.length * 70 + 20,
+              child: ListView.builder(
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: appData.Friends.length,
+                  itemBuilder: (context, index){
+                    return showFriends(friends: appData.Friends.elementAt(index), parentcallbacksetstate: callBackSetState,);
+                  }
+
+              ),
+            ),
+            SizedBox(height: 10,),
+            Row(
+              children: [
+                Text("Gesendete Anfragen",style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
+                Spacer()
+              ],
+            ),
+
+            Container(
+              height:appData.Sentrequests.length * 70 + 20,
+              child: ListView.builder(
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: appData.Sentrequests.length,
+                  itemBuilder: (context, index){
+                    return showSentFriendRequests(friends: appData.Sentrequests.elementAt(index),parentcallbacksetstate: callBackSetState,);
+                  }
+
+              ),
+            ),
+
+          ],
+        ),
       )
       )
     );
@@ -158,6 +191,56 @@ class _showFriendRequestsState extends State<showFriendRequests> {
   }
 }
 
+class showSentFriendRequests extends StatefulWidget {
+  final FriendsDTO friends;
+  final Function parentcallbacksetstate;
+  const showSentFriendRequests({Key? key, required this.friends,required this.parentcallbacksetstate}) : assert(friends != null), super(key: key);
+
+  @override
+  State<showSentFriendRequests> createState() => _showSentFriendRequestsState();
+}
+
+class _showSentFriendRequestsState extends State<showSentFriendRequests> {
+  _showSentFriendRequestsState();
+
+  @override
+  Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
+
+
+    return InkWell(
+      child: ListTile(
+        leading: Container(
+            child: themeProvider.isDarkMode ? Image.asset(
+                "lib/assets/maxl250weiss.png", width: MediaQuery
+                .of(context)
+                .size
+                .width * 0.1) : Image.asset("lib/assets/maxl250.png",
+                width: MediaQuery
+                    .of(context)
+                    .size
+                    .width * 0.1)
+        ),
+        title: Text(widget.friends.FriendUserDisplayName),
+        subtitle: Text(widget.friends.FriendUserName),
+        trailing: Wrap(
+          children: [
+            IconButton(icon: Icon(Icons.close), onPressed: () {
+              denyFriendRequest(widget.friends.FriendID,widget.friends.UserID);
+              widget.friends.UpdateRequestList_callback();
+              widget.parentcallbacksetstate();
+              setState(() {
+
+              });
+            },),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+
 class showFriends extends StatefulWidget {
   final FriendsDTO friends;
   final Function parentcallbacksetstate;
@@ -169,9 +252,6 @@ class showFriends extends StatefulWidget {
 
 class _showFriendsState extends State<showFriends> {
   _showFriendsState();
-  bool clicked = false;
-  bool isAdded = false;
-
 
   @override
   Widget build(BuildContext context) {
@@ -179,7 +259,7 @@ class _showFriendsState extends State<showFriends> {
     final themeProvider = Provider.of<ThemeProvider>(context);
 
     return InkWell(
-      onTap: () {
+      onLongPress: () {
         showModalBottomSheet(
             context: context,
             isScrollControlled: true,
@@ -262,7 +342,7 @@ class _showFriendsState extends State<showFriends> {
                     widget.friends.UpdateFriendList();
                     widget.parentcallbacksetstate();
                     setState(() {
-
+                      Navigator.pop(context);
                     });
 
                   }, child: Text("Freund entfernen"),)),

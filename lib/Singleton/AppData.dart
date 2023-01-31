@@ -17,6 +17,7 @@ class AppData {
 
   List<FriendsDTO> Friendrequests = List.empty();
   List<FriendsDTO> Friends = List.empty();
+  List<FriendsDTO> Sentrequests = List.empty();
 
 
   factory AppData(){
@@ -43,7 +44,11 @@ class AppData {
     allFriends.then((result) {});
     return allFriends;
   }
-
+  Future<List<FriendsDTO>> getAllSentRequestsList(){
+    Future<List<FriendsDTO>> sentRequests = getAllSentRequests("Test1"); //userData.userId
+    sentRequests.then((result) {});
+    return sentRequests;
+  }
 
 
   AppData._internal();

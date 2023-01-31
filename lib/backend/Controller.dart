@@ -18,8 +18,8 @@ String getBaseUrl(){
 }
 String getFriendUrl(){
   //return "http://10.0.2.2/diplo/public/friends";
-  return "http://85.255.144.134/diplo/matchyourwatchlist/friends";
-  //return "http://192.168.1.100/friends";
+  //return "http://85.255.144.134/diplo/matchyourwatchlist/friends";
+  return "http://192.168.1.100/friends";
 }
 
 Future<MediaDTO> fetchNewMovieDTO() async{
@@ -254,6 +254,23 @@ Future<List<FriendsDTO>> getAllRequests(String UserId) async{
     return List.empty();
   }
 }
+Future<List<FriendsDTO>> getAllSentRequests(String UserId) async{
+  var response = await http.get(
+      Uri.parse(
+          "${getFriendUrl()}/listAllSentRequests/$UserId"
+      )
+  );
+  if (response.statusCode == 200) {
+    List<FriendsDTO> list = List<FriendsDTO>.generate(jsonDecode(response.body).length, (int index) {
+      return FriendsDTO.fromJson(jsonDecode(response.body)[index]);
+    });
+    return list;
+  } else {
+    return List.empty();
+  }
+}
+
+
 Future<List<FriendsDTO>> getAllFriends(String UserId) async{
   var response = await http.get(
       Uri.parse(

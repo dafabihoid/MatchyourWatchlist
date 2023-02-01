@@ -18,27 +18,27 @@ class FriendsDTO{
   void UpdateRequestList_add (){
    AppData appData = AppData();
 
-   appData.Friends.add(this);
-   appData.Friendrequests.remove(this);
+   appData.friendsList.add(this);
+   appData.friendrequests.remove(this);
 
  }
   void UpdateRequestList_deny (){
     AppData appData = AppData();
 
-    appData.Friendrequests.remove(this);
+    appData.friendrequests.remove(this);
 
   }
   void UpdateRequestList_callback (){
     AppData appData = AppData();
 
-    appData.Sentrequests.remove(this);
+    appData.sentRequests.remove(this);
 
   }
 
  void UpdateFriendList(){
    AppData appData = AppData();
 
-   appData.Friends.remove(this);
+   appData.friendsList.remove(this);
  }
 
   factory FriendsDTO.fromJson(Map<String,dynamic>json){

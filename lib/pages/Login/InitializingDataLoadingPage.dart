@@ -84,15 +84,16 @@ class _InitializingDataLoadingPageState extends State<InitializingDataLoadingPag
   void loadFriends() async{
 
     Future<List<FriendsDTO>> FriendRequests = appData.getAllFriendRequests();
-    await FriendRequests.then((value) => appData.Friendrequests = value);
+    await FriendRequests.then((value) => appData.friendrequests = value);
     Future<List<FriendsDTO>> Friends = appData.getAllFriendsList();
-    await Friends.then((value) => appData.Friends = value);
+    await Friends.then((value) => appData.friendsList = value);
     Future<List<FriendsDTO>> SentRequests = appData.getAllSentRequestsList();
-    await SentRequests.then((value) => appData.Sentrequests = value);
+    await SentRequests.then((value) => appData.sentRequests = value);
 
     appData.friendDataAvailable = true;
-
   }
+
+
 
   void loadFilterSettings() async {
     int initializingStartTime = DateTime.now().millisecondsSinceEpoch;

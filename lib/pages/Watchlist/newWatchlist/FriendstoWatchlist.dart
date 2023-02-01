@@ -83,9 +83,9 @@ class _FriendstoWatchlistState extends State<FriendstoWatchlist> {
                 Container(
                   height: 300,
                   child: ListView.builder(
-                      itemCount:  AppData().Friends.length,
+                      itemCount:  AppData().friendsList.length,
                       itemBuilder: (context, index){
-                        return showFriends(friends: AppData().Friends.elementAt(index),parentcallbacksetstate: callBackSetState,);
+                        return showFriends(friends: AppData().friendsList.elementAt(index),parentcallbacksetstate: callBackSetState,);
                       }
 
                   ),

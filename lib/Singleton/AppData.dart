@@ -15,9 +15,10 @@ class AppData {
   int mainListId = -1;
   int alreadyWatchedListId = -1;
 
-  List<FriendsDTO> Friendrequests = List.empty();
-  List<FriendsDTO> Friends = List.empty();
-  List<FriendsDTO> Sentrequests = List.empty();
+  List<FriendsDTO> friendrequests = List.empty();
+  List<FriendsDTO> friendsList = List.empty();
+  List<FriendsDTO> sentRequests = List.empty();
+  List<UserDataDTO> findUserList = List.empty();
 
 
   factory AppData(){
@@ -46,6 +47,11 @@ class AppData {
   }
   Future<List<FriendsDTO>> getAllSentRequestsList(){
     Future<List<FriendsDTO>> sentRequests = getAllSentRequests("Test1"); //userData.userId
+    sentRequests.then((result) {});
+    return sentRequests;
+  }
+  Future<List<UserDataDTO>> finduseronDemand(){
+    Future<List<UserDataDTO>> sentRequests = findUser_noFriendship("Test12",'TestUser'); //userData.userId
     sentRequests.then((result) {});
     return sentRequests;
   }

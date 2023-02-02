@@ -61,8 +61,7 @@ class _SearchPageState extends State<SearchPage> {
                 height: 0,
               ),
               SizedBox(
-                height: 580,
-                width: 620,
+                height: MediaQuery.of(context).size.height * 0.7,
                 child: getWidgetBySearchStatus(context),
               ),
           ],

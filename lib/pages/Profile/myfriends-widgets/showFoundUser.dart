@@ -19,6 +19,7 @@ class showFoundUser extends StatefulWidget {
   State<showFoundUser> createState() => _showFoundUserState();
 }
 class _showFoundUserState extends State<showFoundUser> {
+  AppData appData = AppData();
   _showFoundUserState();
 
 
@@ -45,29 +46,26 @@ class _showFoundUserState extends State<showFoundUser> {
         subtitle: Text(widget.founduser.userName),
         trailing: Wrap(
           children: [
-            IconButton(icon: Icon(Icons.add) , onPressed: () {
-              /*sendFriendRequest(widget.founduser.,widget.founduser.FriendID);
-              widget.founduser.UpdateRequestList_add();
+            IconButton(icon: Icon(Icons.person_add) , onPressed: () {
+
+              sendFriendRequest(appData.userData.userId,widget.founduser.userId);
+
+              FriendsDTO(UserID: appData.userData.userId,
+                         FriendID: widget.founduser.userId,
+                         Status: "pending",
+                         FriendUserName: widget.founduser.userName,
+                         FriendUserDisplayName: widget.founduser.userAccountName).UpdateSentRequestList();
+
+              appData.findUserList.remove(widget.founduser);
+
               widget.parentcallbacksetstate();
 
-              */
               setState(() {
 
               });
 
             },),
-            IconButton(icon: Icon(Icons.remove), onPressed: () {
-              /*
-              denyFriendRequest(widget.founduser.UserID,widget.founduser.FriendID);
-              widget.founduser.UpdateRequestList_deny();
-              widget.parentcallbacksetstate();
-
-               */
-              setState(() {
-
-              });
-            },),
-          ],
+            ],
         ),
       ),
     );

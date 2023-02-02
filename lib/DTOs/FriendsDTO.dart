@@ -41,6 +41,12 @@ class FriendsDTO{
    appData.friendsList.remove(this);
  }
 
+ void UpdateSentRequestList( ){
+   AppData appData = AppData();
+
+   appData.sentRequests.add(this);
+ }
+
   factory FriendsDTO.fromJson(Map<String,dynamic>json){
     return FriendsDTO(
         UserID: json['UserId'],

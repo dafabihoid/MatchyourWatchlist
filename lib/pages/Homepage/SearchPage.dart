@@ -63,8 +63,7 @@ class _SearchPageState extends State<SearchPage> {
               SizedBox(
                 height: 580,
                 width: 620,
-                child:
-                  SearchResults(listWithMediaDTO: searchResults, listWithMediaDTOWhichWillBeAdded: addedMedia),
+                child: getWidgetBySearchStatus(context),
               ),
           ],
         )
@@ -101,5 +100,20 @@ class _SearchPageState extends State<SearchPage> {
       }
       setState(() {});
     });
+  }
+
+  Widget getWidgetBySearchStatus(BuildContext context){
+    switch(searchStatus){
+      case SearchStatus.mediaFound:
+        return SearchResults(listWithMediaDTO: searchResults, listWithMediaDTOWhichWillBeAdded: addedMedia);
+      case SearchStatus.searching:
+        return const CircularProgressIndicator();
+      case SearchStatus.notSearching:
+        return const SizedBox();
+      case SearchStatus.nothingFound:
+        return const SizedBox(
+          child: Text("Nichts gefunden"),
+        );
+    }
   }
 }

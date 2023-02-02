@@ -18,8 +18,8 @@ String getBaseUrl(){
 }
 String getFriendUrl(){
   //return "http://10.0.2.2/diplo/public/friends";
-  //return "http://85.255.144.134/diplo/matchyourwatchlist/friends";
-  return "http://192.168.1.100/friends";
+  return "http://85.255.144.134/diplo/matchyourwatchlist/friends";
+  //return "http://192.168.1.100/friends";
 }
 
 Future<MediaDTO> fetchNewMovieDTO() async{

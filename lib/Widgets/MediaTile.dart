@@ -66,6 +66,8 @@ class _MediaTileState extends State<MediaTile> {
 
                 }
                 break;
+                case IconType.remove:
+                  break;
               }
 
             },),
@@ -76,7 +78,11 @@ class _MediaTileState extends State<MediaTile> {
                 }
                 break;
                 case IconType.add: {
-
+                  manageTransferMediaList();
+                  setState(() {
+                    widget.Icon2 = Icon(Icons.check);
+                    widget.IconType2 = IconType.remove;
+                  });
                 }
                 break;
                 case IconType.delete: {
@@ -113,6 +119,14 @@ class _MediaTileState extends State<MediaTile> {
                 break;
                 case IconType.nichts: {
 
+                }
+                break;
+                case IconType.remove: {
+                  manageTransferMediaList();
+                  setState(() {
+                    widget.Icon2 = Icon(Icons.add);
+                    widget.IconType2 = IconType.add;
+                  });
                 }
                 break;
               }

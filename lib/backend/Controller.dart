@@ -18,8 +18,8 @@ String getBaseUrl(){
 }
 String getFriendUrl(){
   //return "http://10.0.2.2/diplo/public/friends";
-  //return "http://85.255.144.134/diplo/matchyourwatchlist/friends";
-  return "http://192.168.1.100/friends";
+  return "http://85.255.144.134/diplo/matchyourwatchlist/friends";
+  //return "http://192.168.1.100/friends";
 }
 
 Future<MediaDTO> fetchNewMovieDTO() async{
@@ -134,6 +134,25 @@ Future<void> createNewUserWithDetails(userId, userName) async{
       )
   );
   return;
+}
+
+Future<List<MediaDTO>> searchForMediaByTextAndReturnMediaDTOList(String searchText) async{
+  var response = await http.get(
+      Uri.parse(
+          "${getBaseUrl()}/searchForMediaByTextAndReturnMediaDTOList/$searchText"
+      )
+  );
+
+  if (response.statusCode == 200) {
+    if(jsonDecode(response.body) == "no_media_found_for_text_search"){
+      return List.empty();
+    }
+    return List<MediaDTO>.generate(jsonDecode(response.body).length, (int index) {
+      return MediaDTO.fromJson(jsonDecode(response.body)[index]);
+    });
+  } else {
+    return List.empty();
+  }
 }
 
 Future<void> addMediaToWatchlist(MediaDTO mediaDTO) async{

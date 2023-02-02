@@ -1,0 +1,1 @@
+enum SearchStatus {notSearching, searching, nothingFound, mediaFound}

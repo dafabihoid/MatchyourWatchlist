@@ -1,1 +1,1 @@
-enum IconType {add, bereitsgsehen, nochnichtgesehen, delete, nichts}
+enum IconType {add, remove, bereitsgsehen, nochnichtgesehen, delete, nichts}

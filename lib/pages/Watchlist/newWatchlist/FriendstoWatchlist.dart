@@ -83,9 +83,9 @@ class _FriendstoWatchlistState extends State<FriendstoWatchlist> {
                 Container(
                   height: 300,
                   child: ListView.builder(
-                      itemCount:  AppData().friendsList.length,
+                      itemCount:  Friend.length,
                       itemBuilder: (context, index){
-                        return showFriends(friends: AppData().friendsList.elementAt(index),parentcallbacksetstate: callBackSetState,);
+                        return showFriendsFabi(friends: Friend[index]);
                       }
 
                   ),
@@ -149,6 +149,140 @@ class _FriendstoWatchlistState extends State<FriendstoWatchlist> {
                 SizedBox(height: 10,)
               ],
             )
+        )
+    );
+  }
+}
+
+class showFriendsFabi extends StatefulWidget {
+  final Friends friends;
+  const showFriendsFabi({Key? key, required this.friends}) : assert(friends != null), super(key: key);
+
+  @override
+  _showFriendsFabiState createState() => _showFriendsFabiState();
+}
+class _showFriendsFabiState extends State<showFriendsFabi> {
+
+  bool clicked = false;
+  bool isAdded = false;
+  @override
+  Widget build(BuildContext context) {
+
+    final themeProvider = Provider.of<ThemeProvider>(context);
+    WatchlistSingleton watchlistSingleton = new WatchlistSingleton();
+
+
+    return InkWell(
+      onTap: () {
+        showModalBottomSheet(
+            context: context,
+            isScrollControlled: true,
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.vertical(
+                    top: Radius.circular(30)
+                )
+            ),
+            builder: (BuildContext context) {
+              return DraggableScrollableSheet(
+                expand: false,
+                initialChildSize: 0.32,
+
+                builder: (context, scrollController) =>
+                    ModalBottomSheet_Friends(context),
+
+              );
+            }
+        );
+      },
+      child: ListTile(
+        leading: Container(
+            child: themeProvider.isDarkMode ? Image.asset(
+                "lib/assets/maxl250weiss.png", width: MediaQuery
+                .of(context)
+                .size
+                .width * 0.1) : Image.asset("lib/assets/maxl250.png",
+                width: MediaQuery
+                    .of(context)
+                    .size
+                    .width * 0.1)
+        ),
+        title: Text(widget.friends.anzeigename),
+        subtitle: Text(widget.friends.username),
+        trailing: IconButton(icon: (clicked==false) ? Icon(Icons.add) : Icon(Icons.delete), onPressed: () {
+          if (isAdded == false) {
+            watchlistSingleton.addedFriends.add(widget.friends);
+            isAdded = true;
+            clicked = true;
+            setState(() {
+
+            });
+          }
+          else if (isAdded == true) {
+            watchlistSingleton.addedFriends.removeWhere((element) =>
+            element.username == widget.friends.username);
+            isAdded = false;
+            setState(() {
+              clicked = false;
+            });
+          }
+        },),
+      ),
+    );
+  }
+
+  Widget ModalBottomSheet_Friends(context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
+    return Container(
+        child: Column(
+          children: [
+            SizedBox(height: 10,),
+            Row(
+              children: [
+                Spacer(),
+                themeProvider.isDarkMode ? Image.asset(
+                    "lib/assets/maxl250weiss.png", width: MediaQuery
+                    .of(context)
+                    .size
+                    .width * 0.1) : Image.asset("lib/assets/maxl250.png",
+                    width: MediaQuery
+                        .of(context)
+                        .size
+                        .width * 0.1),
+                SizedBox(width: 5,),
+                Column(
+                  children: [
+                    Container(
+                      child: Text(widget.friends.anzeigename),
+                    ),
+                    Container(
+                      alignment: Alignment.centerLeft,
+                      child: Text(widget.friends.username),
+                    )
+                  ],
+                ),
+                Spacer()
+              ],
+            ),
+            SizedBox(height: 10,),
+            SizedBox(width: MediaQuery
+                .of(context)
+                .size
+                .width * 0.9,
+                child: ElevatedButton(
+                  onPressed: () {}, child: Text("Freund entfernen"),)),
+            SizedBox(width: MediaQuery
+                .of(context)
+                .size
+                .width * 0.9,
+                child: ElevatedButton(
+                  onPressed: () {}, child: Text("Freund blockieren"),)),
+            SizedBox(width: MediaQuery
+                .of(context)
+                .size
+                .width * 0.9, child: ElevatedButton(onPressed: () {
+              Navigator.pop(context);
+            }, child: Text("Abbrechen"),)),
+          ],
         )
     );
   }

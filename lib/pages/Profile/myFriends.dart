@@ -280,7 +280,7 @@ class _showFriendsState extends State<showFriends> {
                     widget.friends.UpdateFriendList();
                     widget.parentcallbacksetstate();
                     setState(() {
-                      Navigator.pop(context);
+
                     });
 
                   }, child: Text("Freund entfernen"),)),

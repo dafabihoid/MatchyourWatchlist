@@ -196,10 +196,12 @@ class _RegisterPageState extends State<RegisterPage> {
           throw Exception()
         }
       }).catchError((error, stacktrace){
-        Utils.showSnackBar("Fehler bei der Verbindung zum Netzwerk");;
+        Utils.showSnackBar("Fehler bei der Verbindung zum Netzwerk");
+        Navigator.of( context).pop();
       });
     } catch (ex) {
       Utils.showSnackBar("Username nicht verfügbar");
+      Navigator.of( context).pop();
       return;
     }
 
@@ -212,6 +214,8 @@ class _RegisterPageState extends State<RegisterPage> {
           password: _passwordController.text.trim());
     } on FirebaseAuthException catch (e) {
       Utils.showSnackBar(e.message);
+      Navigator.of( context).pop();
+
     }
     AppData appData = AppData();
     appData.userData = UserDataDTO(userId: FirebaseAuth.instance.currentUser!.uid, userName: _usernameController.text, userAccountName:  _usernameController.text);

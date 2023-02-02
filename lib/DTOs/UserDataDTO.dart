@@ -17,6 +17,14 @@ class UserDataDTO {
     );
   }
 
+  factory UserDataDTO.fromJsonUser(Map<String, dynamic> json){
+    return UserDataDTO(
+        userId: json['UserId'],
+        userName: json['UserName'],
+        userAccountName: json['UserAccountName']
+    );
+  }
+
   Map<String, dynamic> toJson() => {
     'userId': userId,
     'userName': userName,

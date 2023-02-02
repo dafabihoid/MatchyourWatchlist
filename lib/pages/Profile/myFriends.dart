@@ -35,9 +35,14 @@ class _myFriendsState extends State<myFriends> {
     });
   }
   void findUserOnDemand() async{
-    Future<List<UserDataDTO>> userToBeFound = appData.finduseronDemand();
+    Future<List<UserDataDTO>> userToBeFound = appData.finduseronDemand(searchController.text);
     await userToBeFound.then((value) => appData.findUserList = value);
+
+    setState(() {
+
+    });
   }
+
 
 
 
@@ -60,8 +65,20 @@ class _myFriendsState extends State<myFriends> {
             TextField(
                   controller: searchController,
                   decoration: InputDecoration(
+                      hintText: "(Beispiel: BenutzerName123)",
                       prefixIcon: const Icon(Icons.search),
-                      hintText: "Username zum hinzufügen eingeben (Beispiel: TestUser1)",
+
+                      suffixIcon: searchController.text.isEmpty
+                          ? null
+                          : InkWell(
+                            onTap: () {
+                              searchController.clear();
+                              searching=false;
+                              setState(() {
+
+                              });},
+                            child: Icon(Icons.clear),
+                          ),
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(20),
                           borderSide: const BorderSide(color: Colors.black)
@@ -89,12 +106,12 @@ class _myFriendsState extends State<myFriends> {
 
                  ),
                  Container(
-                   height: appData.friendrequests.length * 70 + 20,
+                   height: appData.findUserList.length * 70 + 20,
                    child: ListView.builder(
                        physics: const NeverScrollableScrollPhysics(),
-                       itemCount: appData.friendrequests.length,
+                       itemCount: appData.findUserList.length,
                        itemBuilder: (context, index){
-                         return showFriendRequests(friends: appData.friendrequests.elementAt(index),parentcallbacksetstate: callBackSetState,);
+                         return showFoundUser(founduser: appData.findUserList.elementAt(index),parentcallbacksetstate: callBackSetState,);
                        }
 
                    ),

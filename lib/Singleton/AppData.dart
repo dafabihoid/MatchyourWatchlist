@@ -1,3 +1,4 @@
+import 'package:flutter/src/services/text_input.dart';
 import 'package:watchlist/DTOs/UserDataDTO.dart';
 
 import '../DTOs/FriendsDTO.dart';
@@ -36,22 +37,22 @@ class AppData {
   }
 
   Future<List<FriendsDTO>> getAllFriendRequests(){
-    Future<List<FriendsDTO>> friendRequests = getAllRequests("Test2"); //userData.userId
+    Future<List<FriendsDTO>> friendRequests = getAllRequests(userData.userId); //userData.userId
     friendRequests.then((result) {});
     return friendRequests;
   }
   Future<List<FriendsDTO>> getAllFriendsList(){
-    Future<List<FriendsDTO>> allFriends = getAllFriends("Test1"); //userData.userId
+    Future<List<FriendsDTO>> allFriends = getAllFriends(userData.userId); //userData.userId
     allFriends.then((result) {});
     return allFriends;
   }
   Future<List<FriendsDTO>> getAllSentRequestsList(){
-    Future<List<FriendsDTO>> sentRequests = getAllSentRequests("Test1"); //userData.userId
+    Future<List<FriendsDTO>> sentRequests = getAllSentRequests(userData.userId); //userData.userId
     sentRequests.then((result) {});
     return sentRequests;
   }
-  Future<List<UserDataDTO>> finduseronDemand(){
-    Future<List<UserDataDTO>> sentRequests = findUser_noFriendship("Test12",'TestUser'); //userData.userId
+  Future<List<UserDataDTO>> finduseronDemand(value){
+    Future<List<UserDataDTO>> sentRequests = findUser_noFriendship(userData.userId, value); //userData.userId
     sentRequests.then((result) {});
     return sentRequests;
   }

@@ -334,6 +334,7 @@ Future<void> deleteFriendship(UserId, FriendId ) async{
       )
   );
 }
+
 Future<List<UserDataDTO>>  findUser_noFriendship(UserId, UserName ) async{
   var response = await http.get(
       Uri.parse(
@@ -342,7 +343,7 @@ Future<List<UserDataDTO>>  findUser_noFriendship(UserId, UserName ) async{
   );
   if (response.statusCode == 200) {
     List<UserDataDTO> list = List<UserDataDTO>.generate(jsonDecode(response.body).length, (int index) {
-      return UserDataDTO.fromJson(jsonDecode(response.body)[index]);
+      return UserDataDTO.fromJsonUser(jsonDecode(response.body)[index]);
     });
     return list;
   } else {

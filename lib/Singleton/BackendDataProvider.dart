@@ -32,6 +32,17 @@ class BackendDataProvider {
     loadImportantProviders();
   }
 
+  Future<void> reloadWatchlists() async{
+    listWithMediaDTOList = [];
+    Future<List<ListWithMediaDTO>> futureListWithMediaDTO = fetchAllWatchlistsForUser();
+    futureListWithMediaDTO.then((result) {
+      for (ListWithMediaDTO listWithMediaDTO in result) {
+        listWithMediaDTOList.add(listWithMediaDTO);
+      }
+    });
+    return;
+  }
+
   Future<bool> loadWatchlists() async{
     Future<List<ListWithMediaDTO>> futureListWithMediaDTO = fetchAllWatchlistsForUser();
     futureListWithMediaDTO.then((result) {

@@ -3,21 +3,24 @@ import 'package:http/http.dart' as http;
 import 'package:watchlist/DTOs/FilterDTO.dart';
 import 'package:watchlist/DTOs/UserDataDTO.dart';
 import 'package:watchlist/Singleton/AppData.dart';
+import 'package:watchlist/Singleton/BackendDataProvider.dart';
+import 'package:watchlist/Singleton/ListCreationFilter.dart';
 import 'package:watchlist/Singleton/MainFilter.dart';
 import 'package:watchlist/class/Language.dart';
 
 import '../DTOs/FriendsDTO.dart';
 import '../DTOs/ListWithMediaDTO.dart';
 import '../DTOs/MediaDTO.dart';
+import '../Singleton/WatchlistSingleton.dart';
 import '../class/Genre.dart';
 import '../class/MediaProvider.dart';
 
 String getBaseUrl(){
-  //return "http://10.0.2.2/diplo/public/tmdb";
+  return "http://10.0.2.2/diplo/public/tmdb";
   return "http://85.255.144.134/diplo/matchyourwatchlist/tmdb";
 }
 String getFriendUrl(){
-  //return "http://10.0.2.2/diplo/public/friends";
+  return "http://10.0.2.2/diplo/public/friends";
   return "http://85.255.144.134/diplo/matchyourwatchlist/friends";
   //return "http://192.168.1.100/friends";
 }
@@ -44,6 +47,27 @@ Future<MediaDTO> fetchNewMovieDTO() async{
     return MediaDTO.fromJson(jsonDecode(response.body));
   } else {
     return fetchNewMovieDTO();
+  }
+}
+
+Future<void> createNewWatchlistForUser() async{
+  AppData appData = AppData();
+  var jsonFilter = ListCreationFilter().toFilterDTO().toJson();
+  var jsonFriendIds = WatchlistSingleton().friendIdsToJson();
+  print("${getBaseUrl()}/createNewWatchlistForUser/${appData.userData.userId}/${jsonEncode(jsonFriendIds)}/${jsonEncode(jsonFilter)}");
+  var response = await http.get(
+      Uri.parse(
+          "${getBaseUrl()}/createNewWatchlistForUser/${appData.userData.userId}/${jsonEncode(jsonFriendIds)}/${jsonEncode(jsonFilter)}"
+      )
+  );
+
+  WatchlistSingleton().addedFriends.clear();
+
+  if (response.statusCode == 200) {
+    await BackendDataProvider().reloadWatchlists();
+    return;
+  } else {
+    return;
   }
 }
 

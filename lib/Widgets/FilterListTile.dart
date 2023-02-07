@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:watchlist/Singleton/ListCreationFilter.dart';
+import 'package:watchlist/Singleton/ListCreationFilter.dart';
+import 'package:watchlist/Singleton/MainFilter.dart';
+import 'package:watchlist/pages/main.dart';
 import 'package:watchlist/utils/GlobalString.dart';
 
 class FilterListTile extends StatefulWidget {
@@ -39,28 +42,28 @@ class _FilterListTile extends State<FilterListTile> {
         checkBox = const Icon(Icons.check_box_outline_blank);
         break;
       case(GlobalStrings.genreOfMovies):
-        if (listCreationFilter.genreMovieIds.contains(tileId)){
+        if (listCreationFilter.filterSettingData.genreMovieIds.contains(tileId)){
           checkBox = const Icon(Icons.check_box_outlined);
           return;
         }
         checkBox = const Icon(Icons.check_box_outline_blank);
         break;
       case(GlobalStrings.genreOfSeries):
-        if (listCreationFilter.genreSeriesIds.contains(tileId)){
+        if (listCreationFilter.filterSettingData.genreSeriesIds.contains(tileId)){
           checkBox = const Icon(Icons.check_box_outlined);
           return;
         }
         checkBox = const Icon(Icons.check_box_outline_blank);
         break;
       case(GlobalStrings.provider):
-        if (listCreationFilter.mediaProviderIds.contains(tileId)){
+        if (listCreationFilter.filterSettingData.mediaProviderIds.contains(tileId)){
           checkBox = const Icon(Icons.check_box_outlined);
           return;
         }
         checkBox = const Icon(Icons.check_box_outline_blank);
         break;
       case(GlobalStrings.mediaTyp):
-        if (listCreationFilter.mediaTypes.contains(tileId)){
+        if (listCreationFilter.filterSettingData.mediaTypes.contains(tileId)){
           checkBox = const Icon(Icons.check_box_outlined);
           return;
         }
@@ -70,6 +73,7 @@ class _FilterListTile extends State<FilterListTile> {
   }
 
   void changeFilterSettings(){
+    listCreationFilter.filterSettingsChanged = true;
     switch(tileField){
       case(GlobalStrings.language):
         if (listCreationFilter.getLanguage() == tileId){
@@ -85,67 +89,64 @@ class _FilterListTile extends State<FilterListTile> {
         widget.update(0);
         break;
       case(GlobalStrings.genreOfMovies):
-        if (listCreationFilter.genreMovieIds.contains(tileId)){
-          listCreationFilter.genreMovieIds.remove(tileId);
-          if(listCreationFilter.genreMovieIds.isEmpty){
+        if (listCreationFilter.filterSettingData.genreMovieIds.contains(tileId)){
+          listCreationFilter.filterSettingData.genreMovieIds.remove(tileId);
+          if(listCreationFilter.filterSettingData.genreMovieIds.isEmpty){
             if (tileId == 28){
-              listCreationFilter.genreMovieIds.add(12);
+              listCreationFilter.filterSettingData.genreMovieIds.add(12);
             } else {
-              listCreationFilter.genreMovieIds.add(28);
+              listCreationFilter.filterSettingData.genreMovieIds.add(28);
             }
           }
           widget.update(0);
           return;
         }
-        listCreationFilter.genreMovieIds.add(tileId as int);
+        listCreationFilter.filterSettingData.genreMovieIds.add(tileId as int);
         break;
       case(GlobalStrings.genreOfSeries):
-        if (listCreationFilter.genreSeriesIds.contains(tileId)){
-          listCreationFilter.genreSeriesIds.remove(tileId);
-          listCreationFilter.genreSeriesIds.remove(tileId);
-          if(listCreationFilter.genreSeriesIds.isEmpty){
+        if (listCreationFilter.filterSettingData.genreSeriesIds.contains(tileId)){
+          listCreationFilter.filterSettingData.genreSeriesIds.remove(tileId);
+          if(listCreationFilter.filterSettingData.genreSeriesIds.isEmpty){
             if (tileId == 10759){
-              listCreationFilter.genreSeriesIds.add(16);
+              listCreationFilter.filterSettingData.genreSeriesIds.add(16);
             } else {
-              listCreationFilter.genreSeriesIds.add(10759);
+              listCreationFilter.filterSettingData.genreSeriesIds.add(10759);
             }
           }
           widget.update(0);
           return;
         }
-        listCreationFilter.genreSeriesIds.add(tileId as int);
+        listCreationFilter.filterSettingData.genreSeriesIds.add(tileId as int);
         break;
       case(GlobalStrings.provider):
-        if (listCreationFilter.mediaProviderIds.contains(tileId)){
-          listCreationFilter.mediaProviderIds.remove(tileId);
-          listCreationFilter.mediaProviderIds.remove(tileId);
-          if(listCreationFilter.mediaProviderIds.isEmpty){
+        if (listCreationFilter.filterSettingData.mediaProviderIds.contains(tileId)){
+          listCreationFilter.filterSettingData.mediaProviderIds.remove(tileId);
+          if(listCreationFilter.filterSettingData.mediaProviderIds.isEmpty){
             if (tileId == 8){
-              listCreationFilter.mediaProviderIds.add(9);
+              listCreationFilter.filterSettingData.mediaProviderIds.add(9);
             } else {
-              listCreationFilter.mediaProviderIds.add(8);
+              listCreationFilter.filterSettingData.mediaProviderIds.add(8);
             }
           }
           widget.update(0);
           return;
         }
-        listCreationFilter.mediaProviderIds.add(tileId as int);
+        listCreationFilter.filterSettingData.mediaProviderIds.add(tileId as int);
         break;
       case(GlobalStrings.mediaTyp):
-        if (listCreationFilter.mediaTypes.contains(tileId)){
-          listCreationFilter.mediaTypes.remove(tileId);
-          listCreationFilter.mediaTypes.remove(tileId);
-          if(listCreationFilter.mediaTypes.isEmpty){
+        if (listCreationFilter.filterSettingData.mediaTypes.contains(tileId)){
+          listCreationFilter.filterSettingData.mediaTypes.remove(tileId);
+          if(listCreationFilter.filterSettingData.mediaTypes.isEmpty){
             if (tileId == "movie"){
-              listCreationFilter.mediaTypes.add("tv");
+              listCreationFilter.filterSettingData.mediaTypes.add("tv");
             } else {
-              listCreationFilter.mediaTypes.add("movie");
+              listCreationFilter.filterSettingData.mediaTypes.add("movie");
             }
           }
           widget.update(0);
           return;
         }
-        listCreationFilter.mediaTypes.add(tileId as String);
+        listCreationFilter.filterSettingData.mediaTypes.add(tileId as String);
         break;
     }
   }

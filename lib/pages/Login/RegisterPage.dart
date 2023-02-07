@@ -197,11 +197,9 @@ class _RegisterPageState extends State<RegisterPage> {
         }
       }).catchError((error, stacktrace){
         Utils.showSnackBar("Fehler bei der Verbindung zum Netzwerk");
-        Navigator.of( context).pop();
       });
     } catch (ex) {
       Utils.showSnackBar("Username nicht verfügbar");
-      Navigator.of( context).pop();
       return;
     }
 

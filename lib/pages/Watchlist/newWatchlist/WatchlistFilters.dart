@@ -4,7 +4,8 @@ import 'package:provider/provider.dart';
 import 'package:watchlist/Widgets/FilterList.dart';
 import 'package:watchlist/pages/mainPage.dart';
 
-import '../../../Singleton/NewWatchlistProvider.dart';
+import '../../../Singleton/WatchlistSingleton.dart';
+import '../../../backend/Controller.dart';
 import '../../../utils/myThemes.dart';
 import '../WatchlistPage.dart';
 
@@ -78,9 +79,12 @@ class _WatchlistFiltersState extends State<WatchlistFilters> {
                           ),
                           onPressed: () {
                             for (var age in watchlistSingleton.addedFriends) {
-                              print(age.username);
+                              print(age.FriendUserName);
                             }
-                            watchlistSingleton.addedFriends.clear();
+                            Future<void> futureCreateNewWatchlists = createNewWatchlistForUser();
+                            futureCreateNewWatchlists.then((value) => {
+
+                            });
                             Navigator.push(context, MaterialPageRoute(builder: (context) => MainPage()));
                           },
                           child: Text(
@@ -90,7 +94,6 @@ class _WatchlistFiltersState extends State<WatchlistFilters> {
                               fontSize: 20,
                             ),
                           ),
-
                         ),
                       ],
                     ),

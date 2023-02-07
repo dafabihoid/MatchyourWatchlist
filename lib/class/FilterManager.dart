@@ -8,7 +8,7 @@ class FilterManager{
   static List<String> getGenreMovieNamesByGenreMovieIds(){
     List<String> nameList = [];
     backendDataProvider.allGenresMovies.forEach((element) {
-      if(listCreationFilter.genreMovieIds.contains(element.genreId)){
+      if(listCreationFilter.filterSettingData.genreMovieIds.contains(element.genreId)){
         nameList.add(element.genreName);
       }
     });
@@ -18,7 +18,7 @@ class FilterManager{
   static List<String> getGenreSeriesNamesByGenreSeriesIds(){
     List<String> nameList = [];
     backendDataProvider.allGenresSeries.forEach((element) {
-      if(listCreationFilter.genreSeriesIds.contains(element.genreId)){
+      if(listCreationFilter.filterSettingData.genreSeriesIds.contains(element.genreId)){
         nameList.add(element.genreName);
       }
     });
@@ -28,7 +28,7 @@ class FilterManager{
   static List<String> getMediaProviderNamesByMediaProviderIds(){
     List<String> nameList = [];
     backendDataProvider.importantProviders.forEach((element) {
-      if(listCreationFilter.genreSeriesIds.contains(element.providerId)){
+      if(listCreationFilter.filterSettingData.genreSeriesIds.contains(element.providerId)){
         nameList.add(element.providerName);
       }
     });
@@ -38,7 +38,7 @@ class FilterManager{
   static List<String> getLanguageNamesByLanguageIds(){
     List<String> nameList = [];
     backendDataProvider.allLanguages.forEach((element) {
-      if(listCreationFilter.languageId == element.languageId){
+      if(listCreationFilter.filterSettingData.languageId == element.languageId){
         nameList.add(element.language);
       }
     });
@@ -46,7 +46,7 @@ class FilterManager{
   }
 
   static List<String> getMediaTypeNamesByMediaTypeIds(){
-    return listCreationFilter.mediaTypes;
+    return listCreationFilter.filterSettingData.mediaTypes;
   }
 
 }

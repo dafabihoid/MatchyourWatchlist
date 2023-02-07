@@ -1,8 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:watchlist/DTOs/FriendsDTO.dart';
 import 'package:watchlist/pages/Watchlist/newWatchlist/WatchlistFilters.dart';
-import 'package:watchlist/Singleton/NewWatchlistProvider.dart';
+import 'package:watchlist/Singleton/WatchlistSingleton.dart';
 
 import '../../../Singleton/AppData.dart';
 import '../../../class/Friends.dart';
@@ -17,34 +18,7 @@ class FriendstoWatchlist extends StatefulWidget {
 }
 
 class _FriendstoWatchlistState extends State<FriendstoWatchlist> {
-
-
-
-  final Friend= [
-    Friends(
-      username: "TestUsername",
-      anzeigename: "TestAnzeigename",
-      userId: "Test",
-    ),
-    Friends(
-      username: "TestUsername1",
-      anzeigename: "TestAnzeigename1",
-      userId: "Test1",
-
-    ),
-    Friends(
-      username: "TestUsername2",
-      anzeigename: "TestAnzeigename2",
-      userId: "Test2",
-
-    ),
-  ];
-
-  void callBackSetState(){
-    setState(() {
-
-    });
-  }
+  AppData appData = AppData();
 
   @override
   Widget build(BuildContext context) {
@@ -83,9 +57,9 @@ class _FriendstoWatchlistState extends State<FriendstoWatchlist> {
                 Container(
                   height: 300,
                   child: ListView.builder(
-                      itemCount:  Friend.length,
+                      itemCount:  appData.friendsList.length,
                       itemBuilder: (context, index){
-                        return showFriendsFabi(friends: Friend[index]);
+                        return showFriendsFabi(friends: appData.friendsList[index]);
                       }
 
                   ),
@@ -155,7 +129,7 @@ class _FriendstoWatchlistState extends State<FriendstoWatchlist> {
 }
 
 class showFriendsFabi extends StatefulWidget {
-  final Friends friends;
+  final FriendsDTO friends;
   const showFriendsFabi({Key? key, required this.friends}) : assert(friends != null), super(key: key);
 
   @override
@@ -206,8 +180,8 @@ class _showFriendsFabiState extends State<showFriendsFabi> {
                     .size
                     .width * 0.1)
         ),
-        title: Text(widget.friends.anzeigename),
-        subtitle: Text(widget.friends.username),
+        title: Text(widget.friends.FriendUserDisplayName),
+        subtitle: Text(widget.friends.FriendUserName),
         trailing: IconButton(icon: (clicked==false) ? Icon(Icons.add) : Icon(Icons.delete), onPressed: () {
           if (isAdded == false) {
             watchlistSingleton.addedFriends.add(widget.friends);
@@ -219,7 +193,7 @@ class _showFriendsFabiState extends State<showFriendsFabi> {
           }
           else if (isAdded == true) {
             watchlistSingleton.addedFriends.removeWhere((element) =>
-            element.username == widget.friends.username);
+            element.FriendUserName == widget.friends.FriendUserName);
             isAdded = false;
             setState(() {
               clicked = false;
@@ -252,11 +226,11 @@ class _showFriendsFabiState extends State<showFriendsFabi> {
                 Column(
                   children: [
                     Container(
-                      child: Text(widget.friends.anzeigename),
+                      child: Text(widget.friends.FriendUserDisplayName),
                     ),
                     Container(
                       alignment: Alignment.centerLeft,
-                      child: Text(widget.friends.username),
+                      child: Text(widget.friends.FriendUserName),
                     )
                   ],
                 ),

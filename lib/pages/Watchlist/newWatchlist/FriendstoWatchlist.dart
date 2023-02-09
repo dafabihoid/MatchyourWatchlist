@@ -6,12 +6,15 @@ import 'package:watchlist/pages/Watchlist/newWatchlist/WatchlistFilters.dart';
 import 'package:watchlist/Singleton/WatchlistSingleton.dart';
 
 import '../../../Singleton/AppData.dart';
+import '../../../backend/Controller.dart';
 import '../../../class/Friends.dart';
 import '../../../utils/myThemes.dart';
 import '../../Profile/myFriends.dart';
+import '../../mainPage.dart';
 
 class FriendstoWatchlist extends StatefulWidget {
-  const FriendstoWatchlist({Key? key}) : super(key: key);
+  Function setStateCallbackToParent;
+  FriendstoWatchlist({Key? key, required this.setStateCallbackToParent}) : super(key: key);
 
   @override
   State<FriendstoWatchlist> createState() => _FriendstoWatchlistState();
@@ -102,14 +105,15 @@ class _FriendstoWatchlistState extends State<FriendstoWatchlist> {
                         ),
                       ),
                       onPressed: () {
-
-                  //      for (var age in watchlistSingleton.addedFriends) {
-                  //        print(age.username);
-                //        }
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => WatchlistFilters()));
+                        Future<void> futureCreateNewWatchlists = createNewWatchlistForUser();
+                        futureCreateNewWatchlists.then((value) => {
+                          widget.setStateCallbackToParent(),
+                          Navigator.pop(context)
+                        });
+                      //Navigator.push(context, MaterialPageRoute(builder: (context) => WatchlistFilters()));
                       },
                       child: Text(
-                        "Weiter",
+                        "Erstellen",
                         style: TextStyle(
                           color: themeProvider.isDarkMode ?Colors.white : Colors.black,
                           fontSize: 20,

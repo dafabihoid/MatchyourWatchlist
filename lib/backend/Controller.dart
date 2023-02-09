@@ -16,11 +16,11 @@ import '../class/Genre.dart';
 import '../class/MediaProvider.dart';
 
 String getBaseUrl(){
-  return "http://10.0.2.2/diplo/public/tmdb";
+  //return "http://10.0.2.2/diplo/public/tmdb";
   return "http://85.255.144.134/diplo/matchyourwatchlist/tmdb";
 }
 String getFriendUrl(){
-  return "http://10.0.2.2/diplo/public/friends";
+  //return "http://10.0.2.2/diplo/public/friends";
   return "http://85.255.144.134/diplo/matchyourwatchlist/friends";
   //return "http://192.168.1.100/friends";
 }
@@ -54,7 +54,6 @@ Future<void> createNewWatchlistForUser() async{
   AppData appData = AppData();
   var jsonFilter = ListCreationFilter().toFilterDTO().toJson();
   var jsonFriendIds = WatchlistSingleton().friendIdsToJson();
-  print("${getBaseUrl()}/createNewWatchlistForUser/${appData.userData.userId}/${jsonEncode(jsonFriendIds)}/${jsonEncode(jsonFilter)}");
   var response = await http.get(
       Uri.parse(
           "${getBaseUrl()}/createNewWatchlistForUser/${appData.userData.userId}/${jsonEncode(jsonFriendIds)}/${jsonEncode(jsonFilter)}"
@@ -65,6 +64,23 @@ Future<void> createNewWatchlistForUser() async{
 
   if (response.statusCode == 200) {
     await BackendDataProvider().reloadWatchlists();
+    return;
+  } else {
+    return;
+  }
+}
+
+Future<void> deleteWatchlistForUser(watchlistId) async{
+  AppData appData = AppData();
+  print("${getBaseUrl()}/deleteWatchlistForUser/${appData.userData.userId}/$watchlistId");
+  var response = await http.get(
+      Uri.parse(
+          "${getBaseUrl()}/deleteWatchlistForUser/${appData.userData.userId}/$watchlistId"
+      )
+  );
+
+  if (response.statusCode == 200) {
+    BackendDataProvider().reloadWatchlists();
     return;
   } else {
     return;

@@ -34,6 +34,11 @@ class AppData {
     userData = UserDataDTO(userId: "", userName: "", userAccountName: "");
     mainListId = -1;
     alreadyWatchedListId = -1;
+
+    friendrequests = List.empty();
+    friendsList = List.empty();
+    sentRequests = List.empty();
+    findUserList = List.empty();
   }
 
   Future<List<FriendsDTO>> getAllFriendRequests(){

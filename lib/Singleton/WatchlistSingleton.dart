@@ -3,6 +3,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:watchlist/DTOs/FriendsDTO.dart';
 
 import '../class/Friends.dart';
+import 'AppData.dart';
 
 class WatchlistSingleton {
   static final WatchlistSingleton watchlistSingleton = WatchlistSingleton._internal();
@@ -13,6 +14,10 @@ class WatchlistSingleton {
     return watchlistSingleton;
   }
 
+  void resetData(){
+    addedFriends = List.empty(growable: true);
+  }
+
   Map<String, dynamic> friendIdsToJson() => {
     'friendsForNewWatchlist': getFriendIdsFromList(),
   };
@@ -20,8 +25,14 @@ class WatchlistSingleton {
   List<String> getFriendIdsFromList(){
     List<String> friendIds = [];
     for (var element in addedFriends) {
-      friendIds.add(element.UserID);
+      if(!friendIds.contains(element.UserID)){
+        friendIds.add(element.UserID);
+      }
+      if(!friendIds.contains(element.FriendID)){
+        friendIds.add(element.FriendID);
+      }
     }
+    friendIds.remove(AppData().userData.userId);
     return friendIds;
   }
 

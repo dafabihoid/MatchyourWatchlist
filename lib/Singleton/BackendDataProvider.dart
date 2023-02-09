@@ -34,12 +34,18 @@ class BackendDataProvider {
 
   Future<void> reloadWatchlists() async{
     listWithMediaDTOList = [];
+    bool finished = false;
     Future<List<ListWithMediaDTO>> futureListWithMediaDTO = fetchAllWatchlistsForUser();
     futureListWithMediaDTO.then((result) {
       for (ListWithMediaDTO listWithMediaDTO in result) {
         listWithMediaDTOList.add(listWithMediaDTO);
       }
+      finished = true;
     });
+    while(!finished){
+      await Future.delayed(const Duration(milliseconds: 200),(){});
+    }
+    await Future.delayed(const Duration(milliseconds: 100),(){});
     return;
   }
 

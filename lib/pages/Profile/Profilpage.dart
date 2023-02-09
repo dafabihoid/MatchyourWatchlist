@@ -21,6 +21,7 @@ import 'package:watchlist/utils/CardProvider.dart';
 import '../../utils/AppGeneralUtils.dart';
 import '../../utils/myThemes.dart';
 import '../../DTOs/MediaDTO.dart';
+import '../Login/AuthPage.dart';
 import '../mainPage.dart';
 
 
@@ -84,11 +85,7 @@ class _ProfilPageState extends State<ProfilPage> {
                         const SizedBox(
                           height: 30,
                         ),
-
-
-
                       ])),
-
                   buildSettings("Profil bearbeiten",1),
                   SizedBox(height: 15,),
                   buildSettings("Meine Freunde",2),
@@ -96,10 +93,6 @@ class _ProfilPageState extends State<ProfilPage> {
                   buildSettings("App Einstellungen",3),
                   SizedBox(height: 15,),
                   buildSignOutButton("Abmelden",context),
-
-
-
-
                 ],
               ),
             ));
@@ -157,7 +150,6 @@ Widget buildSignOutButton(String text, context){
     final themeProvider = Provider.of<ThemeProvider>(context);
     final cardProvider = Provider.of<CardProvider>(context);
     return Container(
-
         width: double.infinity,
         child: ElevatedButton(
           style: ButtonStyle(

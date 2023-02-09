@@ -37,7 +37,7 @@ class MediaDTO {
 
     return MediaDTO(
       mediaId: json['mediaId'],
-      description: json['description'],
+      description: getDescription(json['description']),
       title: json['title'],
       posterPath: getPosterPath(json['posterPath']),
       genres: genreList,
@@ -49,6 +49,10 @@ class MediaDTO {
 
   String output(){
     return "movieId: $mediaId title: $title poster: $posterPath raiting: $rating description: $description genre " + genres.toString();
+  }
+
+  static String getDescription(String description){
+    return description.replaceAll("?", ".");
   }
 
   static String getPosterPath(String posterPath) {

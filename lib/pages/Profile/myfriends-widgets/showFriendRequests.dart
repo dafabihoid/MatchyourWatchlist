@@ -45,9 +45,10 @@ class _showFriendRequestsState extends State<showFriendRequests> {
           children: [
             IconButton(icon: Icon(Icons.add) , onPressed: () {
               acceptFriendRequest(widget.friends.UserID,widget.friends.FriendID);
-              widget.synchornize();
               //widget.friends.UpdateRequestList_add();
+              widget.synchornize();
               widget.parentcallbacksetstate();
+
               setState(() {
 
               });
@@ -56,7 +57,7 @@ class _showFriendRequestsState extends State<showFriendRequests> {
             IconButton(icon: Icon(Icons.remove), onPressed: () {
               denyFriendRequest(widget.friends.UserID,widget.friends.FriendID);
               widget.synchornize();
-              widget.friends.UpdateRequestList_deny();
+              //widget.friends.UpdateRequestList_deny();
               widget.parentcallbacksetstate();
               setState(() {
 

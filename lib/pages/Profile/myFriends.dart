@@ -81,13 +81,13 @@ class _myFriendsState extends State<myFriends> {
                   decoration: InputDecoration(
                       hintText: "(Beispiel: BenutzerName123)",
                       prefixIcon: const Icon(Icons.search),
-
                       suffixIcon: searchController.text.isEmpty
                           ? null
                           : InkWell(
                             onTap: () {
                               searchController.clear();
                               searching=false;
+                              synchronizeLists();
                               setState(() {
 
                               });},

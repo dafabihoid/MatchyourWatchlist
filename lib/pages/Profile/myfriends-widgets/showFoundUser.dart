@@ -58,7 +58,7 @@ class _showFoundUserState extends State<showFoundUser> {
                          FriendUserDisplayName: widget.founduser.userAccountName).UpdateSentRequestList();
               widget.synchornize();
               appData.findUserList.remove(widget.founduser);
-
+              widget.synchornize();
               widget.parentcallbacksetstate();
 
               setState(() {

@@ -9,7 +9,8 @@ import '../../../utils/myThemes.dart';
 class showSentFriendRequests extends StatefulWidget {
   final FriendsDTO friends;
   final Function parentcallbacksetstate;
-  const showSentFriendRequests({Key? key, required this.friends,required this.parentcallbacksetstate}) : assert(friends != null), super(key: key);
+  final Function synchornize;
+  const showSentFriendRequests({Key? key, required this.friends,required this.parentcallbacksetstate, required this.synchornize}) : assert(friends != null), super(key: key);
 
   @override
   State<showSentFriendRequests> createState() => _showSentFriendRequestsState();
@@ -41,7 +42,8 @@ class _showSentFriendRequestsState extends State<showSentFriendRequests> {
         trailing: Wrap(
           children: [
             IconButton(icon: Icon(Icons.close), onPressed: () {
-              denyFriendRequest(widget.friends.FriendID,widget.friends.UserID);
+              denyFriendRequest(widget.friends.UserID,widget.friends.FriendID);
+              widget.synchornize();
               widget.friends.UpdateRequestList_callback();
               widget.parentcallbacksetstate();
               setState(() {

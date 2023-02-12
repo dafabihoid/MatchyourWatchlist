@@ -42,7 +42,21 @@ class _myFriendsState extends State<myFriends> {
 
     });
   }
+  Future<void> synchronizeLists() async {
 
+    appData.friendrequests.clear();
+    appData.friendsList.clear();
+    appData.sentRequests.clear();
+
+    Future<List<FriendsDTO>> tempList = appData.getAllFriendRequests();
+    await tempList.then((value) => appData.friendrequests = value);
+    tempList = appData.getAllFriendsList();
+    await tempList.then((value) => appData.friendsList = value);
+    tempList = appData.getAllSentRequestsList();
+    await tempList.then((value) => appData.sentRequests = value);
+
+    callBackSetState();
+  }
 
 
 
@@ -91,7 +105,6 @@ class _myFriendsState extends State<myFriends> {
                     setState(() {
 
                     });
-                  //Navigator.push(context, MaterialPageRoute(builder: (context) => FindUser()));
                 }
                 ),
 
@@ -111,7 +124,7 @@ class _myFriendsState extends State<myFriends> {
                        physics: const NeverScrollableScrollPhysics(),
                        itemCount: appData.findUserList.length,
                        itemBuilder: (context, index){
-                         return showFoundUser(founduser: appData.findUserList.elementAt(index),parentcallbacksetstate: callBackSetState,);
+                         return showFoundUser(founduser: appData.findUserList.elementAt(index),parentcallbacksetstate: callBackSetState,synchornize: synchronizeLists);
                        }
 
                    ),
@@ -135,7 +148,7 @@ class _myFriendsState extends State<myFriends> {
                   physics: const NeverScrollableScrollPhysics(),
                   itemCount: appData.friendrequests.length,
                   itemBuilder: (context, index){
-                    return showFriendRequests(friends: appData.friendrequests.elementAt(index),parentcallbacksetstate: callBackSetState,);
+                    return showFriendRequests(friends: appData.friendrequests.elementAt(index),parentcallbacksetstate: callBackSetState,synchornize: synchronizeLists);
                   }
 
               ),
@@ -154,7 +167,7 @@ class _myFriendsState extends State<myFriends> {
                   physics: const NeverScrollableScrollPhysics(),
                   itemCount: appData.friendsList.length,
                   itemBuilder: (context, index){
-                    return showFriends(friends: appData.friendsList.elementAt(index), parentcallbacksetstate: callBackSetState,);
+                    return showFriends(friends: appData.friendsList.elementAt(index), parentcallbacksetstate: callBackSetState,synchornize: synchronizeLists);
                   }
 
               ),
@@ -173,7 +186,7 @@ class _myFriendsState extends State<myFriends> {
                   physics: const NeverScrollableScrollPhysics(),
                   itemCount: appData.sentRequests.length,
                   itemBuilder: (context, index){
-                    return showSentFriendRequests(friends: appData.sentRequests.elementAt(index),parentcallbacksetstate: callBackSetState,);
+                    return showSentFriendRequests(friends: appData.sentRequests.elementAt(index),parentcallbacksetstate: callBackSetState,synchornize: synchronizeLists);
                   }
 
               ),
@@ -196,7 +209,8 @@ class _myFriendsState extends State<myFriends> {
 class showFriends extends StatefulWidget {
   final FriendsDTO friends;
   final Function parentcallbacksetstate;
-  const showFriends({Key? key, required this.friends, required this.parentcallbacksetstate}) : assert(friends != null), super(key: key);
+  final Function synchornize;
+  const showFriends({Key? key, required this.friends, required this.parentcallbacksetstate, required this.synchornize}) : assert(friends != null), super(key: key);
 
   @override
   State<showFriends> createState() => _showFriendsState();
@@ -294,6 +308,7 @@ class _showFriendsState extends State<showFriends> {
                 child: ElevatedButton(
                   onPressed: () {
                     deleteFriendship(widget.friends.UserID,widget.friends.FriendID);
+                    widget.synchornize();
                     widget.friends.UpdateFriendList();
                     widget.parentcallbacksetstate();
                     setState(() {
@@ -312,3 +327,5 @@ class _showFriendsState extends State<showFriends> {
     );
   }
 }
+
+

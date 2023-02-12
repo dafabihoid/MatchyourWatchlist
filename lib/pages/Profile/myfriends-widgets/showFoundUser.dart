@@ -11,7 +11,8 @@ import '../../../utils/myThemes.dart';
 class showFoundUser extends StatefulWidget {
   final UserDataDTO founduser;
   final Function parentcallbacksetstate;
-  const showFoundUser({Key? key, required this.founduser,required this.parentcallbacksetstate}) : assert(founduser != null), super(key: key);
+  final Function synchornize;
+  const showFoundUser({Key? key, required this.founduser,required this.parentcallbacksetstate, required this.synchornize}) : assert(founduser != null), super(key: key);
 
 
 
@@ -55,7 +56,7 @@ class _showFoundUserState extends State<showFoundUser> {
                          Status: "pending",
                          FriendUserName: widget.founduser.userName,
                          FriendUserDisplayName: widget.founduser.userAccountName).UpdateSentRequestList();
-
+              widget.synchornize();
               appData.findUserList.remove(widget.founduser);
 
               widget.parentcallbacksetstate();

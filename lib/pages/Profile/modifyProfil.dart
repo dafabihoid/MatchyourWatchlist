@@ -60,7 +60,7 @@ class _modifyProfilState extends State<modifyProfil> {
                   Text("Anzeigename: ",
                       style: TextStyle(
                         //color: kLightPrimaryColor,
-                          fontSize: 20,
+                          fontSize: 22,
                           fontWeight: FontWeight.bold)),
                 ],),
                           Row(
@@ -68,7 +68,7 @@ class _modifyProfilState extends State<modifyProfil> {
                                   Text(appData.userData.userName,
                                       style: TextStyle(
                                           //color: kLightPrimaryColor,
-                                          fontSize: 18,
+                                          fontSize: 22,
                                           fontWeight: FontWeight.bold)),
                                   IconButton(
                                       onPressed: () async{
@@ -97,7 +97,7 @@ class _modifyProfilState extends State<modifyProfil> {
                   "Dieser Name wird primär angezeigt in der Freundesliste",
                   style: TextStyle(
                       color: Colors.grey.withOpacity(0.5), ////DARKTHEME !!!!
-                      fontSize: 16
+                      fontSize: 18
                   ),
                 ),
                 SizedBox(height: 30,),
@@ -105,7 +105,7 @@ class _modifyProfilState extends State<modifyProfil> {
                   Text("Benutzername: ",
                       style: TextStyle(
                         //     color: kLightPrimaryColor,
-                          fontSize: 20,
+                          fontSize: 22,
                           fontWeight: FontWeight.bold)),
                 ],),
                 Row(
@@ -114,7 +114,7 @@ class _modifyProfilState extends State<modifyProfil> {
                     Text(appData.userData.userAccountName,
                         style: TextStyle(
                       //      color: kLightPrimaryColor,
-                            fontSize: 20,
+                            fontSize: 22,
                             fontWeight: FontWeight.bold)),
                     IconButton(onPressed: (){}, icon: Icon(Icons.edit, color: Colors.red.withOpacity(0),), enableFeedback: false,)
                     //SizedBox(width: MediaQuery.of(context).size.width*0.11,)
@@ -124,7 +124,7 @@ class _modifyProfilState extends State<modifyProfil> {
                   "Dieser Name ist dein Nutzername und der Name über den du gefunden werden kannst",
                   style: TextStyle(
                       color: Colors.grey.withOpacity(0.5),
-                      fontSize: 16
+                      fontSize: 18
                   ),
                 )
               ],

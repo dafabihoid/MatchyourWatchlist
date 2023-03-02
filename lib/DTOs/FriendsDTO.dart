@@ -52,8 +52,8 @@ class FriendsDTO{
         UserID: json['UserId'],
         FriendID: json['FriendId'],
         Status: json['Status'],
-        FriendUserName: json['UserName'],
-        FriendUserDisplayName: json['UserAccountName']
+        FriendUserName: json['UserAccountName'],
+        FriendUserDisplayName: json['UserName']
     );
   }
 

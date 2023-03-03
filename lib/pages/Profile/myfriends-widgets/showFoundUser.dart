@@ -43,8 +43,8 @@ class _showFoundUserState extends State<showFoundUser> {
                     .size
                     .width * 0.1)
         ),
-        title: Text(widget.founduser.userAccountName),
-        subtitle: Text(widget.founduser.userName),
+        title: Text(widget.founduser.userName),
+        subtitle: Text(widget.founduser.userAccountName),
         trailing: Wrap(
           children: [
             IconButton(icon: Icon(Icons.person_add) , onPressed: () {

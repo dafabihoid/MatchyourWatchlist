@@ -28,6 +28,7 @@ class _FriendstoWatchlistState extends State<FriendstoWatchlist> {
     final themeProvider = Provider.of<ThemeProvider>(context);
     WatchlistSingleton watchlistSingleton = new WatchlistSingleton();
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         centerTitle: true,
         title: const Text(""),

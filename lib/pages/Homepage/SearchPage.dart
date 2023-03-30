@@ -26,6 +26,7 @@ class _SearchPageState extends State<SearchPage> {
   Widget build(BuildContext context) {
     return WillPopScope(
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         appBar: AppBar(
           centerTitle: true,
         //  backgroundColor: Colors.black12,
@@ -106,7 +107,7 @@ class _SearchPageState extends State<SearchPage> {
       case SearchStatus.mediaFound:
         return SearchResults(listWithMediaDTO: searchResults, listWithMediaDTOWhichWillBeAdded: addedMedia);
       case SearchStatus.searching:
-        return const CircularProgressIndicator();
+        return Center(child:CircularProgressIndicator());
       case SearchStatus.notSearching:
         return const SizedBox();
       case SearchStatus.nothingFound:

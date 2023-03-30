@@ -57,7 +57,7 @@ class MediaDTO {
 
   static String getPosterPath(String posterPath) {
     if (posterPath == "default") {
-      return "https://www.oefb.at/bewerbe/oefb2/person/images/1278650591628556536_d41215fae579bb7bc764-1,0-600x315-600x315.png";
+      return "https://media.comicbook.com/files/img/default-movie.png";
     }
     return "https://image.tmdb.org/t/p/w500" + posterPath;
   }
